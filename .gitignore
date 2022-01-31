@@ -4,6 +4,10 @@
 .expo/*
 web-build/
 
+# Build outputs
+.dist
+.build
+
 # Logs
 logs
 *.log
