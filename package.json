@@ -12,6 +12,10 @@
     "lint": "eslint ./src --ext=.ts,.tsx,.js,.jsx",
     "lint:fix": "eslint ./src --ext=.ts,.tsx,.js,.jsx --fix"
   },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
   "dependencies": {
     "expo": "~44.0.0",
     "expo-status-bar": "~1.2.0",
