@@ -1,0 +1,62 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "react-native/react-native": true
+  },
+  "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:@typescript-eslint/recommended"],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2021,
+    "sourceType": "module"
+  },
+  "plugins": ["react", "react-native", "react-hooks", "@typescript-eslint"],
+  "rules": {
+    "arrow-parens": ["error", "as-needed"],
+    "arrow-spacing": "error",
+    "block-spacing": ["error", "always"],
+    "brace-style": ["error", "1tbs"],
+    "comma-dangle": ["error", "always-multiline"],
+    "comma-spacing": "error",
+    "eol-last": ["error", "always"],
+    "func-call-spacing": "error",
+    "function-paren-newline": ["error", "multiline"],
+    "indent": ["error", 2, { "SwitchCase": 1 }],
+    "key-spacing": "error",
+    "keyword-spacing": "error",
+    "linebreak-style": ["error", "unix"],
+    "lines-between-class-members": ["error", "always", { "exceptAfterSingleLine": true }],
+    "max-len": ["error", 120],
+    "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 0 }],
+    "no-shadow": "off",
+    "no-trailing-spaces": "error",
+    "no-unused-expressions": "off",
+    "no-unused-vars": "off",
+    "no-use-before-define": "off",
+    "no-var": "error",
+    "object-curly-newline": ["error", { "multiline": true }],
+    "object-curly-spacing": ["error", "always"],
+    "prefer-arrow-callback": "error",
+    "prefer-const": "error",
+    "quotes": ["error", "single"],
+    "space-in-parens": "error",
+    "space-infix-ops": "error",
+    "spaced-comment": ["error", "always"],
+    "semi": ["error", "always"],
+    "@typescript-eslint/no-shadow": "error",
+    "@typescript-eslint/no-unused-expressions": "error",
+    "@typescript-eslint/no-unused-vars": "error",
+    "@typescript-eslint/no-use-before-define": "off",
+    "react-hooks/exhaustive-deps": "error",
+    "react-hooks/rules-of-hooks": "error",
+    "react-native/no-unused-styles": "error",
+    "react-native/split-platform-components": "error",
+    "react-native/no-inline-styles": "error",
+    "react-native/no-color-literals": "error",
+    "react-native/no-raw-text": "error",
+    "react-native/no-single-element-style-arrays": "error"
+  }
+}
