@@ -9,8 +9,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "lint": "eslint . --ext=.ts,.tsx,.js,.jsx",
-    "lint:fix": "eslint . --ext=.ts,.tsx,.js,.jsx --fix"
+    "lint": "eslint ./src --ext=.ts,.tsx,.js,.jsx",
+    "lint:fix": "eslint ./src --ext=.ts,.tsx,.js,.jsx --fix"
   },
   "dependencies": {
     "expo": "~44.0.0",
