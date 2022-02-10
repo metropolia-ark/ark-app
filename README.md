@@ -1,7 +1,5 @@
 # insert-name-here
 
-# Delete me
-
 ## Prerequisites
 
 - Node (>= 16.0.0) and npm (>= 8.0.0) can be installed from [here](https://nodejs.org/en/)
