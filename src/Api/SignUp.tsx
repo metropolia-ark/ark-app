@@ -1,6 +1,14 @@
 import axios from 'axios';
 
-const baseUrl = process.env.REACT_APP_BASE_URL;
-const signUp = (username: string, password: string, email: string) => {
-  axios.post(baseUrl + '/users', { username, password, email });
+const baseUrl = 'https://media.mw.metropolia.fi/wbma';
+export const signUp = (username: string, password: string, email: string, full_name?: string) => {
+  console.log(username, password, email, baseUrl);
+  axios.post(baseUrl + '/users', { username, password, email, full_name })
+    .then(response => {
+      console.log('response', response.data);
+    })
+    .catch(error => {
+      console.log('error', error);
+    });
+
 };
