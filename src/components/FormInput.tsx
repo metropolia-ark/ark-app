@@ -1,4 +1,5 @@
 import React from 'react';
+import { StyleSheet } from 'react-native';
 import { Input, InputProps, Text } from '@ui-kitten/components';
 import { useFormikContext } from 'formik';
 
@@ -24,8 +25,11 @@ const FormInput = ({ name, ...props }: FormInputProps) => {
       status={showError ? 'danger' : props.status}
       caption={showError ? () => <Text category="c1" status="danger">{formik.errors[name]}</Text> : props.caption}
       disabled={formik.isSubmitting || props.disabled}
+      autoCapitalize="none"
+      style={[styles.input, props.style]}
     />
   );
 };
+const styles = StyleSheet.create({ input: { marginVertical: 12 } });
 
 export default FormInput;

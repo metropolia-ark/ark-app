@@ -1,4 +1,5 @@
 import React from 'react';
+import { StyleSheet } from 'react-native';
 import { Button, ButtonProps, Spinner } from '@ui-kitten/components';
 import { useFormikContext } from 'formik';
 
@@ -19,10 +20,13 @@ const FormButton = ({ children, ...props }: FormButtonProps) => {
       disabled={formik.isSubmitting || props.disabled}
       onPress={formik.submitForm || props.onPress}
       accessoryLeft={formik.isSubmitting ? () => <Spinner size="tiny" /> : props.accessoryLeft}
+      style={[styles.button, props.style]}
     >
       {children}
     </Button>
   );
 };
+
+const styles = StyleSheet.create({ button: { marginVertical: 12 } });
 
 export default FormButton;
