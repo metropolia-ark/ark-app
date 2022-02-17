@@ -1,10 +1,9 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Button, ButtonProps, Spinner } from '@ui-kitten/components';
-import { useFormikContext } from 'formik';
+import { FormikValues, useFormikContext } from 'formik';
 
-type FormValues = Record<string, never>;
-
+// Prop types for the FormButton component.
 interface FormButtonProps extends ButtonProps {
   children: string;
 }
@@ -13,7 +12,7 @@ interface FormButtonProps extends ButtonProps {
 // the form and display the loading status. Note: the component requires the
 // Formik context to be in scope, so it only works within a Form component.
 const FormButton = ({ children, ...props }: FormButtonProps) => {
-  const formik = useFormikContext<FormValues>();
+  const formik = useFormikContext<FormikValues>();
   return (
     <Button
       {...props}
