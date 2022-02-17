@@ -1,2 +1,3 @@
-export { default as FormButton } from './FormButton';
-export { default as FormInput } from './FormInput';
+export * from './Form';
+export * from './FormButton';
+export * from './FormInput';

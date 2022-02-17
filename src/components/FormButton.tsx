@@ -11,7 +11,7 @@ interface FormButtonProps extends ButtonProps {
 
 // Button component that hooks into Formik's context to automatically submit
 // the form and display the loading status. Note: the component requires the
-// Formik context to be in scope, so it only works within a Formik component.
+// Formik context to be in scope, so it only works within a Form component.
 const FormButton = ({ children, ...props }: FormButtonProps) => {
   const formik = useFormikContext<FormValues>();
   return (
@@ -29,4 +29,4 @@ const FormButton = ({ children, ...props }: FormButtonProps) => {
 
 const styles = StyleSheet.create({ button: { marginVertical: 12 } });
 
-export default FormButton;
+export { FormButton };

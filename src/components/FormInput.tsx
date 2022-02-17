@@ -12,7 +12,7 @@ interface FormInputProps extends InputProps {
 
 // Input component that hooks into Formik's context to automatically update
 // the form data and display error messages. Note: the component requires the
-// Formik context to be available, so it only works within a Formik component.
+// Formik context to be available, so it only works within a Form component.
 const FormInput = ({ name, ...props }: FormInputProps) => {
   const formik = useFormikContext<FormValues>();
   const showError = formik.touched[name] && formik.errors[name];
@@ -30,6 +30,7 @@ const FormInput = ({ name, ...props }: FormInputProps) => {
     />
   );
 };
+
 const styles = StyleSheet.create({ input: { marginVertical: 12 } });
 
-export default FormInput;
+export { FormInput };
