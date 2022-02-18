@@ -29,7 +29,7 @@ const TabScreens = () => (
 );
 
 const Navigator = () => {
-  const isAuthenticated = false;
+  const isAuthenticated = true;
   return (
     <NavigationContainer>
       {isAuthenticated ? (
