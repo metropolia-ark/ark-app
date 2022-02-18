@@ -1,6 +1,6 @@
 import React from 'react';
 import {  ScrollView, StyleSheet,  View } from 'react-native';
-import { Button, Text } from '@ui-kitten/components';
+import { Button } from '@ui-kitten/components';
 import { useNavigation } from '@react-navigation/native';
 import { Navigation } from '../types';
 import * as yup from 'yup';
