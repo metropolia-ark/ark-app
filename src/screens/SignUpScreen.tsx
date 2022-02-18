@@ -41,8 +41,8 @@ const SignUpScreen = () => {
 
   // Sign up form submit handler
   const signUpOnSubmit = async (values: FormValues, actions: FormActions<FormValues>) => {
+    // check the username if it exists it will not continue
     await axios.get(baseUrl + `/users/username/${values.username}`).then(response => {
-      console.log(response.data);
       if (response.data.available === true){
         signUp(values.username, values.password, values.email, values.full_name);
         navigate('SignIn');
@@ -55,7 +55,6 @@ const SignUpScreen = () => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.content}>
-
         <Form initialValues={signUpInitialValues} schema={signUpSchema} onSubmit={signUpOnSubmit}>
           <FormInput name="username" label="Username"/>
           <FormInput name="full_name" label="Full name"/>
