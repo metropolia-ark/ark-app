@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, StyleSheet, TextInput, View } from 'react-native';
+import {  StyleSheet, TextInput, View } from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { Navigation } from '../types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -53,9 +53,9 @@ const SignInScreen = () => {
         <FormInput name="username" label="Your login"  />
         <FormInput name="password" label="Your password" secureTextEntry />
         <FormButton>Submit</FormButton>
+        <Text>Dont have account yet?</Text>
+        <FormButton onPress={() => navigate('SignUp')}>Sign up</FormButton>
       </Form>
-      <Text>Dont have account yet?</Text>
-      <Button title="Sign up" onPress={() => navigate('SignUp')} />
     </View>
   );
 };
@@ -66,7 +66,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  form: { height: 20, width: 200, margin: 10, borderWidth: 1, justifyContent: 'center' },
 });
 
 export default SignInScreen;
