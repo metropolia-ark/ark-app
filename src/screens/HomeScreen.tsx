@@ -1,10 +1,11 @@
 import React from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, View  } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Navigation } from '../types';
 
 const HomeScreen = () => {
   const { navigate } = useNavigation<Navigation.Home>();
+
   return (
     <View style={styles.container}>
       <Text>Home</Text>

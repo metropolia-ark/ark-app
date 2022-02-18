@@ -29,7 +29,7 @@ const TabScreens = () => (
 );
 
 const Navigator = () => {
-  const isAuthenticated = true;
+  const isAuthenticated = false;
   return (
     <NavigationContainer>
       {isAuthenticated ? (
@@ -41,8 +41,8 @@ const Navigator = () => {
         </AuthenticatedStack.Navigator>
       ) : (
         <UnauthenticatedStack.Navigator>
-          <UnauthenticatedStack.Screen name="SignIn" component={SignInScreen} />
-          <UnauthenticatedStack.Screen name="SignUp" component={SignUpScreen} />
+          <UnauthenticatedStack.Screen name="SignIn" component={SignInScreen} options={{ headerTitle: 'Sign in' }}/>
+          <UnauthenticatedStack.Screen name="SignUp" component={SignUpScreen} options={{ headerTitle: 'Sign up' }} />
         </UnauthenticatedStack.Navigator>
       )}
     </NavigationContainer>
