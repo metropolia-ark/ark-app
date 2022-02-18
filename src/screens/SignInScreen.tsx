@@ -3,11 +3,11 @@ import {  StyleSheet, TextInput, View } from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { Navigation } from '../types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { signIn } from '../api/SignIn';
 import { Text } from '@ui-kitten/components';
 import { Form, FormButton, FormInput } from '../components';
 import * as yup from 'yup';
 import axios from 'axios';
+import { signIn } from '../Api/SignIn';
 
 interface FormValues {
   username: string;
