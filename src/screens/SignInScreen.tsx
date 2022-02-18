@@ -3,6 +3,7 @@ import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { Navigation } from '../types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { signIn } from '../api/SignIn';
 
 const SignInScreen = () => {
 
@@ -14,10 +15,11 @@ const SignInScreen = () => {
     }
   };
 
-  const loggedIn = async () => {
+  const loggedIn = async (username: string, password: string) => {
     console.log('Submit button pressed');
-    await AsyncStorage.setItem('userToken', '');
+    //await AsyncStorage.setItem('userToken', '');
     // isAuthenticated = true;
+    signIn(username, password);
   };
 
   useEffect(() => {
@@ -43,9 +45,10 @@ const SignInScreen = () => {
         style={styles.form}
         placeholder="Password"
         secureTextEntry={true}
-        onChangeText={value => setState({ ...state, username: value })}
+        onChangeText={value => setState({ ...state, password: value })}
       />
-      <Button title="Submit" onPress={loggedIn}/>
+      <Button title="Submit" onPress={() =>  loggedIn(state.username, state.password)}
+      />
       <Text>Dont have account yet?</Text>
       <Button title="Sign up" onPress={() => navigate('SignUp')} />
     </View>
