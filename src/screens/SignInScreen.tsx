@@ -3,7 +3,7 @@ import {  StyleSheet, TextInput, View } from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { Navigation } from '../types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Text } from '@ui-kitten/components';
+import { Text, Button } from '@ui-kitten/components';
 import { Form, FormButton, FormInput } from '../components';
 import * as yup from 'yup';
 import axios from 'axios';
@@ -48,13 +48,13 @@ const SignInScreen = () => {
   const { navigate } = useNavigation<Navigation.SignIn>();
   return (
     <View style={styles.container}>
-      <Text>Sign in</Text>
+      <Text style={styles.text}>Sign in</Text>
       <Form initialValues={signInInitialValues} schema={signInSchema} onSubmit={loggedIn}>
         <FormInput name="username" label="Your login"  />
         <FormInput name="password" label="Your password" secureTextEntry />
         <FormButton>Submit</FormButton>
-        <Text>Dont have account yet?</Text>
-        <FormButton onPress={() => navigate('SignUp')}>Sign up</FormButton>
+        <Text style={styles.text}>Dont have account yet?</Text>
+        <Button onPress={() => navigate('SignUp')}>Sign up</Button>
       </Form>
     </View>
   );
@@ -63,8 +63,12 @@ const SignInScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: 50,
+    margin: 10,
+  },
+  text: {
+    margin: 20,
     alignItems: 'center',
-    justifyContent: 'center',
   },
 });
 
