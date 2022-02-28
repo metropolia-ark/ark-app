@@ -13,6 +13,7 @@ import NewScreen from './NewScreen';
 import ProfileScreen from './ProfileScreen';
 import SettingsScreen from './SettingsScreen';
 import { ParamList } from '../types';
+import { useAuth } from '../hooks';
 
 const UnauthenticatedStack = createNativeStackNavigator<ParamList.Unauthenticated>();
 const AuthenticatedStack = createNativeStackNavigator<ParamList.Authenticated>();
@@ -29,10 +30,11 @@ const TabScreens = () => (
 );
 
 const Navigator = () => {
-  const isAuthenticated = true;
+  const auth = useAuth();
+  if (auth.isLoading) return null;
   return (
     <NavigationContainer>
-      {isAuthenticated ? (
+      {auth.isAuthenticated ? (
         <AuthenticatedStack.Navigator>
           <AuthenticatedStack.Screen name="Tabs" component={TabScreens} options={{ headerShown: false }} />
           <AuthenticatedStack.Screen name="User" component={UserScreen} />
@@ -41,8 +43,16 @@ const Navigator = () => {
         </AuthenticatedStack.Navigator>
       ) : (
         <UnauthenticatedStack.Navigator>
-          <UnauthenticatedStack.Screen name="SignIn" component={SignInScreen} options={{ headerTitle: 'Sign in' }}/>
-          <UnauthenticatedStack.Screen name="SignUp" component={SignUpScreen} options={{ headerTitle: 'Sign up' }} />
+          <UnauthenticatedStack.Screen
+            name="SignIn"
+            component={SignInScreen}
+            options={{ headerShown: false, headerTitle: 'Sign in' }}
+          />
+          <UnauthenticatedStack.Screen
+            name="SignUp"
+            component={SignUpScreen}
+            options={{ headerShown: false, headerTitle: 'Sign up' }}
+          />
         </UnauthenticatedStack.Navigator>
       )}
     </NavigationContainer>
