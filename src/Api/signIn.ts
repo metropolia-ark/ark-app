@@ -1,5 +1,4 @@
-import axios from 'axios';
-import { baseUrl } from '../utils/constants';
+import { Method, request } from './request';
 import { User } from '../types';
 
 interface SignInResponse {
@@ -10,5 +9,5 @@ interface SignInResponse {
 
 // Authenticate a user
 export const signIn = (username: string, password: string) => {
-  return axios.post<SignInResponse>(baseUrl + '/login', { username, password });
+  return request<SignInResponse>(Method.POST, '/login', { username, password });
 };

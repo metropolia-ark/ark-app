@@ -1,5 +1,4 @@
-import axios from 'axios';
-import { baseUrl } from '../utils/constants';
+import { Method, request } from './request';
 
 interface SignUpResponse {
   message: string;
@@ -8,5 +7,5 @@ interface SignUpResponse {
 
 // Create a new user
 export const signUp = (username: string, password: string, email: string, full_name?: string) => {
-  return axios.post<SignUpResponse>(baseUrl + '/users', { username, password, email, full_name });
+  return request<SignUpResponse>(Method.POST, '/users', { username, password, email, full_name });
 };
