@@ -6,7 +6,7 @@ import * as yup from 'yup';
 import { Form, FormActions, FormButton, FormInput } from '../components';
 import { Navigation } from '../types';
 import { useAuth } from '../hooks';
-import * as api from '../api';
+import * as api from '../apis';
 
 interface SignUpFormValues {
   username: string;
