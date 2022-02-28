@@ -1,4 +1,4 @@
-import { Method, request } from './request';
+import { Method, request } from '../utils/request';
 
 interface GetUsernameResponse {
   username: string;

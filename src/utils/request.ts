@@ -1,6 +1,6 @@
 import axios, { AxiosRequestHeaders } from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { baseUrl } from '../utils/constants';
+import { baseUrl } from './constants';
 
 // HTTP request methods
 export enum Method {
