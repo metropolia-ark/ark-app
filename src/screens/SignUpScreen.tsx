@@ -7,7 +7,7 @@ import * as yup from 'yup';
 import { Form, FormActions, FormButton, FormInput } from '../components';
 import axios from 'axios';
 import { baseUrl } from '../ultis/variables';
-import { signUp } from '../Api/SignUp';
+import { signUp } from '../api/SignUp';
 
 interface FormValues{
   username: string,
