@@ -51,7 +51,6 @@
     "@typescript-eslint/no-unused-expressions": "error",
     "@typescript-eslint/no-unused-vars": "error",
     "@typescript-eslint/no-use-before-define": "off",
-    "@typescript-eslint/type-annotation-spacing": ["error", { "before": false, "after": true }],
     "react-hooks/exhaustive-deps": "error",
     "react-hooks/rules-of-hooks": "error",
     "react-native/no-unused-styles": "off",
