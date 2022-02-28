@@ -1,8 +1,7 @@
 import React, { createContext, ReactNode, useCallback, useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
-import { baseUrl } from '../utils/constants';
 import { User } from '../types';
+import * as api from '../api';
 
 interface IAuthContext {
   user: User | null;
@@ -24,11 +23,10 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   // Validate the token persisted in AsyncStorage
   const initialize = useCallback(async () => {
     try {
+      const response = await api.getCurrentUser();
       const tokenFromStorage = await AsyncStorage.getItem('token');
-      if (!tokenFromStorage) return;
-      const headers = { 'x-access-token': tokenFromStorage };
-      const response = await axios.get<User>(baseUrl + '/users/user', { headers });
-      signin(tokenFromStorage, response.data);
+      if (!response.user || !tokenFromStorage) return signout();
+      signin(tokenFromStorage, response.user);
     } catch (error) {
       signout();
     }
