@@ -1,7 +1,7 @@
 import React, { createContext, ReactNode, useCallback, useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { User } from '../types';
-import * as api from '../apis';
+import * as api from '../api';
 
 interface IAuthContext {
   user: User | null;
