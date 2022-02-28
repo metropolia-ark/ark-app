@@ -1,8 +1,9 @@
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { Text } from '@ui-kitten/components';
+import { Button, Text } from '@ui-kitten/components';
 import * as yup from 'yup';
 import { Form, FormActions, FormButton, FormInput } from '../components';
+import { useAuth } from '../hooks';
 
 interface FormValues {
   email: string;
@@ -11,6 +12,7 @@ interface FormValues {
 }
 
 const SettingsScreen = () => {
+  const auth = useAuth();
 
   // Settings form initial values
   const settingsInitialValues: FormValues = { email: '', username: '', password: '' };
@@ -39,6 +41,7 @@ const SettingsScreen = () => {
           <FormInput name="password" label="New password" secureTextEntry />
           <FormButton>Update</FormButton>
         </Form>
+        <Button appearance='ghost' onPress={() => auth.signout()}>Sign out</Button>
       </View>
     </ScrollView>
   );
