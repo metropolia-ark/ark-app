@@ -1,7 +1,7 @@
-import { baseUrl } from '../ultis/variables';
+import { baseUrl } from '../utils/constants';
 
 // Post media
-export const postMedia =  (token: string, formData: FormData) => {
+export const postMedia =  (token: string | null, formData: FormData) => {
   const options = {
     method: 'POST',
     headers: {

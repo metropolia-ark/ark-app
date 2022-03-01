@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ScrollView, StyleSheet, View, Image, KeyboardAvoidingView } from 'react-native';
+import { ScrollView, StyleSheet, View, Image, KeyboardAvoidingView, Alert } from 'react-native';
 import { Button, Toggle } from '@ui-kitten/components';
 import { useNavigation } from '@react-navigation/native';
 import { Navigation } from '../types';
@@ -7,8 +7,10 @@ import * as yup from 'yup';
 import { Form, FormActions, FormButton, FormInput } from '../components';
 import * as ImagePicker from 'expo-image-picker';
 import { Video } from 'expo-av';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { postMedia } from '../api/PostMedia';
-import { tempToken } from '../ultis/variables';
+import { market, media } from '../utils/constants';
+import { postTag } from '../api/postTag';
 
 interface FormValues{
   title: string,
@@ -24,11 +26,13 @@ const NewScreen = () => {
     title: '',
     description: '',
   };
-
+  // setting state for image,type,checked marked and if the image is selected
   const [image, setImage] = useState('');
   const [type, setType] = useState('');
   const [checked, setChecked] = useState(false);
+  const [imageSelected, setImageSelected] = useState(false);
 
+  // image picker
   const pickImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -39,6 +43,7 @@ const NewScreen = () => {
     if (!result.cancelled) {
       setImage(result.uri as string);
       setType(result.type as string);
+      setImageSelected(true);
     }
   };
 
@@ -47,35 +52,57 @@ const NewScreen = () => {
 
   // upload form submit handler
   const uploadOnSubmit = async (values: FormValues, actions: FormActions<FormValues>) => {
+    // if the image is not selected alert
+    if (!imageSelected){
+      Alert.alert('Please, select a file');
+      return;
+    }
+
     const formData = new FormData();
     formData.append('title', values.title);
     formData.append('description', values.description);
+
     const filename  = image?.split('/').pop();
     let fileExtension = filename?.split('.').pop();
     fileExtension = fileExtension === 'jpg' ? 'jpeg' : fileExtension;
-    console.log(image);
+
     formData.append(
       'file',
       {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         uri: image,
         name: filename,
         type: type + '/' + fileExtension,
       },
     );
-    const response = await postMedia(tempToken, formData);
-    console.log(response);
-    /*     const tagResponse = await postTag(
-      { file_id: response.file_id, tag: appId },
-      token,
-    );  */
-    actions.resetForm();
-    setType('');
-    setImage('');
-    setChecked(false);
-    navigate('Home');
+    try {
+      // gets the token
+      const token = await AsyncStorage.getItem('token');
+      const response = await postMedia(token, formData);
+
+      // if the checked is false it will but the media tag
+      if (!checked){
+        const log = await postTag(response.file_id, media, token);
+        console.log(log);
+        navigate('Home');
+      } else {
+        // sets the market tag
+        const log = await postTag(response.file_id, market, token);
+        console.log(log);
+        navigate('Market');
+      }
+      actions.resetForm();
+      setType('');
+      setImage('');
+      setChecked(false);
+      setImageSelected(false);
+
+    } catch (e) {
+      console.error(e);
+    }
   };
   const onCheckedChange = (isChecked: boolean) => {
-    console.log(isChecked);
     setChecked(isChecked);
   };
 

@@ -1,3 +1,4 @@
-
 export const baseUrl = 'https://media.mw.metropolia.fi/wbma';
-export const tempToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMiwidXNlcm5hbWUiOiJTaWx2ZXIiLCJlbWFpbCI6IkpvaG5rYWkuY29ydGV6QG1ldHJvcG9saWEuZmkiLCJmdWxsX25hbWUiOiJKb2hua2FpIENvcnRleiIsImlzX2FkbWluIjpudWxsLCJ0aW1lX2NyZWF0ZWQiOiIyMDIyLTAxLTEwVDEzOjM3OjI1LjAwMFoiLCJpYXQiOjE2NDU5OTI5MDIsImV4cCI6MTY0NjA3OTMwMn0.jgM-dKAx_zL7Y5j3UisVbAzd4nG1IC8uoCB9RT_4O94';
+export const media = 'Insert-name-here-media-Tag-dasdad';
+export const market = 'Insert-name-here-market-Tag-raijgaoi';
+export const avatar = 'Insert-name-here-avatar-Tag-nmagloikbng';
