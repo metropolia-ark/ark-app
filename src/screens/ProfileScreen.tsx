@@ -5,7 +5,6 @@ import { Button } from '@ui-kitten/components';
 import { avatarPic, uploadsUrl } from '../utils/constants';
 import { useIsFocused } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as api from '../api';
 
 const ProfileScreen = () => {
@@ -43,24 +42,20 @@ const ProfileScreen = () => {
     formData.append('title', user.username);
     formData.append('description', '');
 
-    const filename  = image?.split('/').pop();
+    const imageUri = image.replace('file:/data', 'file:///data');
+    const filename  = image.split('/').pop();
     let fileExtension = filename?.split('.').pop();
     fileExtension = fileExtension === 'jpg' ? 'jpeg' : fileExtension;
 
-    formData.append(
-      'file',
-      {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        uri: image,
-        name: filename,
-        type: type + '/' + fileExtension,
-      },
-    );
+    formData.append('file', {
+      uri: imageUri,
+      name: filename,
+      type: type + '/' + fileExtension,
+    } as any);
+
     try {
       // gets the token
-      const token = await AsyncStorage.getItem('token');
-      const response = await api.postMedia(formData, token);
+      const response = await api.uploadMedia(formData);
       await api.addTagToMedia(response.file_id, avatarPic + user.user_id);
       setType('');
       setImage('');
