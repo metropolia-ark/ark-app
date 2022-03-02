@@ -5,14 +5,17 @@ import { ApplicationProvider } from '@ui-kitten/components';
 import * as eva from '@eva-design/eva';
 import Navigator from './screens/Navigator';
 import { AuthProvider } from './context/AuthContext';
+import { PostsProvider } from './context/PostsContext';
 
 const App = () => {
   return (
     <AuthProvider>
-      <ApplicationProvider {...eva} theme={eva.light}>
-        <Navigator />
-        <StatusBar style="auto" />
-      </ApplicationProvider>
+      <PostsProvider>
+        <ApplicationProvider {...eva} theme={eva.light}>
+          <Navigator />
+          <StatusBar style="auto" />
+        </ApplicationProvider>
+      </PostsProvider>
     </AuthProvider>
   );
 };
