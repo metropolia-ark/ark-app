@@ -22,7 +22,7 @@ const PostsProvider = ({ children }: { children: ReactNode }) => {
   const initialize = useCallback(async () => {
     if (!currentUser) return;
     try {
-      const response = await api.getMedias(postTag);
+      const response = await api.getMediasByTag(postTag);
       const sorted = response.sort((a, b) => new Date(a.time_added) < new Date(b.time_added) ? 1 : -1);
       for (const media of sorted) {
         const user = await api.getUser(media.user_id);

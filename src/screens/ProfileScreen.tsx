@@ -60,8 +60,8 @@ const ProfileScreen = () => {
     try {
       // gets the token
       const token = await AsyncStorage.getItem('token');
-      const response = await api.postMedia(token, formData);
-      await api.postTag(response.file_id, avatarPic + user.user_id, token);
+      const response = await api.postMedia(formData, token);
+      await api.addTagToMedia(response.file_id, avatarPic + user.user_id);
       setType('');
       setImage('');
       setImageSelected(false);
@@ -74,7 +74,7 @@ const ProfileScreen = () => {
     async () => {
       if (!user) return;
       try {
-        const avatarArray = await api.getTagAvatar(avatarPic + user.user_id);
+        const avatarArray = await api.getMediasByTag(avatarPic + user.user_id);
         if (!(avatarArray.length === 0)){
           const avatars = avatarArray.pop();
           setAvatar(uploadsUrl + avatars?.filename);

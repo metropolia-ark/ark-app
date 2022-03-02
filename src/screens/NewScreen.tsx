@@ -78,15 +78,15 @@ const NewScreen = () => {
     try {
       // gets the token
       const token = await AsyncStorage.getItem('token');
-      const response = await api.postMedia(token, formData);
+      const response = await api.postMedia(formData, token);
 
       // if the checked is false it will but the media tag
       if (!checked){
-        await api.postTag(response.file_id, media, token);
+        await api.addTagToMedia(response.file_id, media);
         navigate('Home');
       } else {
         // sets the market tag
-        await api.postTag(response.file_id, market, token);
+        await api.addTagToMedia(response.file_id, market);
         navigate('Market');
       }
       // to reset everything
