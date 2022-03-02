@@ -1,10 +1,9 @@
 import { Method, request } from '../utils/request';
 import { Rating } from '../types';
 
+// Response type definitions
 type GetRatingsResponse = Rating[];
-
 type CreateRatingResponse = { message: string; rating_id: number };
-
 type DeleteRatingResponse = { message: string };
 
 // Get a list of ratings

@@ -1,14 +1,11 @@
 import { Method, request } from '../utils/request';
 import { User } from '../types';
 
+// Response type definitions
 type GetUserResponse = User;
-
 type GetCurrentUserResponse = { message?: string; user?: User };
-
 type GetUsernameResponse = { username: string; available: boolean }
-
 type SignInResponse = { message: string; token: string; user: User };
-
 type SignUpResponse = { message: string; user_id: number };
 
 // Get a user

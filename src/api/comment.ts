@@ -1,10 +1,9 @@
 import { Method, request } from '../utils/request';
 import { Comment } from '../types';
 
+// Response type definitions
 type GetCommentsResponse = Comment[];
-
 type CreateCommentResponse = { message: string; comment_id: number };
-
 type DeleteCommentResponse = { message: string };
 
 // Get a list of comments
