@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Alert, Image, StyleSheet, Text, View } from 'react-native';
 import { useUser } from '../hooks';
-import { Avatar, Button } from '@ui-kitten/components';
+import { Button } from '@ui-kitten/components';
 import { getTagAvatar } from '../api/getTagAvatar';
 import { avatarPic, uploadsUrl } from '../utils/constants';
 import { useIsFocused } from '@react-navigation/native';
@@ -95,7 +95,7 @@ const ProfileScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Avatar  style={styles.avatar} size ="giant" source={{ uri: avatar }}/>
+      <Image  style={styles.avatar}  source={{ uri: avatar }}/>
       <Text>{user.username}</Text>
       {type === 'image' ?
         (<Image source={{ uri: image }} style={styles.image}/>) : null }
@@ -119,7 +119,15 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   button: { marginVertical: 12 },
-  avatar: { margin: 8 },
+  avatar: {
+    margin: 8,
+    height: 100,
+    width: 100,
+    overflow: 'hidden',
+    borderRadius: 60,
+    borderWidth: 3,
+    borderColor: 'black',
+  },
 });
 
 export default ProfileScreen;
