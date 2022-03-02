@@ -3,5 +3,4 @@ export interface Comment {
   file_id: number;
   user_id: number;
   comment: string;
-  time_added: string;
 }
