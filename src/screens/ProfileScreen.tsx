@@ -7,7 +7,7 @@ import { avatarPic, uploadsUrl } from '../utils/constants';
 import { useIsFocused } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { postMedia } from '../api/PostMedia';
+import { postMedia } from '../api/postMedia';
 import { postTag } from '../api/postTag';
 
 const ProfileScreen = () => {

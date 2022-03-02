@@ -8,7 +8,7 @@ import { Form, FormActions, FormButton, FormInput } from '../components';
 import * as ImagePicker from 'expo-image-picker';
 import { Video } from 'expo-av';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { postMedia } from '../api/PostMedia';
+import { postMedia } from '../api/postMedia';
 import { market, media } from '../utils/constants';
 import { postTag } from '../api/postTag';
 
