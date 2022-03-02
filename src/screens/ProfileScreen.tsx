@@ -6,7 +6,7 @@ const ProfileScreen = () => {
   const user = useUser();
   return (
     <View style={styles.container}>
-      <Text>{user.username}</Text>
+      <Text>{user?.username}</Text>
     </View>
   );
 };

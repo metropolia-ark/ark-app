@@ -8,8 +8,8 @@ const MarketScreen = () => {
   return (
     <View style={styles.container}>
       <Text>Market</Text>
-      <Button title="Go to pet 456" onPress={() => navigate('Pet', { petId: '456' })} />
-      <Button title="Go to user 789" onPress={() => navigate('User', { userId: '789' })} />
+      <Button title="Go to pet 456" onPress={() => navigate('Pet', { petId: 456 })} />
+      <Button title="Go to user 789" onPress={() => navigate('User', { userId: 789 })} />
     </View>
   );
 };

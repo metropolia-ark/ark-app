@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import Post from '../components/Post';
+import { Post } from '../components';
 import { usePosts } from '../hooks/usePosts';
 import { Navigation, Route } from '../types';
 
