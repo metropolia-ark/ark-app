@@ -12,7 +12,7 @@ interface GetAvatarResponse {
   'mime_type': string,
   'time_added': string
 }
-// Get the current users avatar
+// Get the current users avatar with tag
 export const getTagAvatar = async (avatar:string) => {
   return request<GetAvatarResponse[]>(Method.GET, `/tags/${avatar}`);
 };

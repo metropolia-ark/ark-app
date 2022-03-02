@@ -8,9 +8,8 @@ import { Form, FormActions, FormButton, FormInput } from '../components';
 import * as ImagePicker from 'expo-image-picker';
 import { Video } from 'expo-av';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { postMedia } from '../api/postMedia';
+import * as api from  '../api';
 import { market, media } from '../utils/constants';
-import { postTag } from '../api/postTag';
 
 interface FormValues{
   title: string,
@@ -79,19 +78,18 @@ const NewScreen = () => {
     try {
       // gets the token
       const token = await AsyncStorage.getItem('token');
-      const response = await postMedia(token, formData);
+      const response = await api.postMedia(token, formData);
 
       // if the checked is false it will but the media tag
       if (!checked){
-        const log = await postTag(response.file_id, media, token);
-        console.log(log);
+        await api.postTag(response.file_id, media, token);
         navigate('Home');
       } else {
         // sets the market tag
-        const log = await postTag(response.file_id, market, token);
-        console.log(log);
+        await api.postTag(response.file_id, market, token);
         navigate('Market');
       }
+      // to reset everything
       actions.resetForm();
       setType('');
       setImage('');
@@ -103,6 +101,7 @@ const NewScreen = () => {
     }
   };
   const onCheckedChange = (isChecked: boolean) => {
+    // to check what tag to put
     setChecked(isChecked);
   };
 

@@ -2,13 +2,11 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Alert, Image, StyleSheet, Text, View } from 'react-native';
 import { useUser } from '../hooks';
 import { Button } from '@ui-kitten/components';
-import { getTagAvatar } from '../api/getTagAvatar';
 import { avatarPic, uploadsUrl } from '../utils/constants';
 import { useIsFocused } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { postMedia } from '../api/postMedia';
-import { postTag } from '../api/postTag';
+import * as api from '../api';
 
 const ProfileScreen = () => {
   const user = useUser();
@@ -61,9 +59,8 @@ const ProfileScreen = () => {
     try {
       // gets the token
       const token = await AsyncStorage.getItem('token');
-      const response = await postMedia(token, formData);
-      const log = await postTag(response.file_id, avatarPic + user.user_id, token);
-      console.log(log);
+      const response = await api.postMedia(token, formData);
+      await api.postTag(response.file_id, avatarPic + user.user_id, token);
       setType('');
       setImage('');
       setImageSelected(false);
@@ -75,7 +72,7 @@ const ProfileScreen = () => {
   const fetchAvatar = useCallback(
     async () => {
       try {
-        const avatarArray = await getTagAvatar(avatarPic + user.user_id);
+        const avatarArray = await api.getTagAvatar(avatarPic + user.user_id);
         if (!(avatarArray.length === 0)){
           const avatars = avatarArray.pop();
           setAvatar(uploadsUrl + avatars?.filename);
@@ -100,7 +97,7 @@ const ProfileScreen = () => {
       {type === 'image' ?
         (<Image source={{ uri: image }} style={styles.image}/>) : null }
       <Button onPress={pickImage}>Pick an image from camera roll</Button>
-      <Button onPress={uploadProfileSubmit}>sSS</Button>
+      <Button onPress={uploadProfileSubmit}>Save</Button>
     </View>
   );
 };

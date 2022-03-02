@@ -5,7 +5,7 @@ interface TagResponse {
   tag_id: number;
 }
 
-// Create a new user
+// add a tag to a file
 export const postTag = (file_id:number, tag:string, token:string|null) => {
   return request<TagResponse>(Method.POST, '/tags', { file_id, tag }, { 'x-access-token': token as string });
 };
