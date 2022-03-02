@@ -1,25 +1,41 @@
 import React from 'react';
-import { Button, StyleSheet, Text, View  } from 'react-native';
+import { FlatList, StyleSheet, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import Post from '../components/Post';
+import { usePosts } from '../hooks/usePosts';
 import { Navigation } from '../types';
 
 const HomeScreen = () => {
   const { navigate } = useNavigation<Navigation.Home>();
+  const { isLoading, posts, rate } = usePosts();
 
+  if (isLoading) return null;
   return (
     <View style={styles.container}>
-      <Text>Home</Text>
-      <Button title="Go to post 123" onPress={() => navigate('Post', { postId: '123' })} />
-      <Button title="Go to user 789" onPress={() => navigate('User', { userId: '789' })} />
+      <FlatList
+        data={posts}
+        keyExtractor={item => item.file_id.toString()}
+        ItemSeparatorComponent={() => <View style={styles.divider} />}
+        renderItem={({ item }) => (
+          <Post
+            post={item}
+            onPressRate={() => rate(item.file_id)}
+            onPressPost={() => navigate('Post', { postId: item.file_id })}
+            onPressUser={() => navigate('User', { userId: item.user_id })}
+          />
+        )}
+      />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+  container: { flex: 1 },
+  divider: {
+    borderTopColor: '#dddddd',
+    borderTopWidth: 1,
+    borderBottomColor: '#eeeeee',
+    borderBottomWidth: 6,
   },
 });
 
