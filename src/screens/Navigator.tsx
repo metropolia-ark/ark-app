@@ -20,7 +20,7 @@ import NewScreen from './NewScreen';
 import ProfileScreen from './ProfileScreen';
 import SettingsScreen from './SettingsScreen';
 import { ParamList } from '../types';
-import { useAuth } from '../hooks';
+import { useAuth } from '../hooks/useAuth';
 
 const UnauthenticatedStack = createNativeStackNavigator<ParamList.Unauthenticated>();
 const AuthenticatedStack = createNativeStackNavigator<ParamList.Authenticated>();

@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { useUser } from '../hooks';
+import { useUser } from '../hooks/useUser';
 
 const ProfileScreen = () => {
   const user = useUser();
