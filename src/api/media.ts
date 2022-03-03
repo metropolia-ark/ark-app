@@ -2,9 +2,15 @@ import { Method, request } from '../utils/request';
 import { Media } from '../types';
 
 // Response type definitions
+type GetMediaResponse = Media;
 type GetMediasResponse = Media[];
 type AddTagToMediaResposne = { message: string; tag_id: number };
 type UploadMediaResponse = { message: string; file_id: number };
+
+// Get a media
+export const getMedia = (file_id: number) => {
+  return request<GetMediaResponse>(Method.GET, `/media/${file_id}`);
+};
 
 // Get a list of medias by tag
 export const getMediasByTag = (tag: string) => {

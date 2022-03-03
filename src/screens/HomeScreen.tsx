@@ -7,7 +7,7 @@ import { Navigation } from '../types';
 
 const HomeScreen = () => {
   const { navigate } = useNavigation<Navigation.Home>();
-  const { isLoading, posts, rate } = usePosts();
+  const { isLoading, isRefreshing, refresh, posts, rate } = usePosts();
 
   if (isLoading) return null;
   return (
@@ -16,6 +16,8 @@ const HomeScreen = () => {
         data={posts}
         keyExtractor={item => item.file_id.toString()}
         ItemSeparatorComponent={() => <View style={styles.divider} />}
+        refreshing={isRefreshing}
+        onRefresh={refresh}
         renderItem={({ item }) => (
           <Post
             post={item}

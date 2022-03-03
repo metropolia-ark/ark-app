@@ -6,7 +6,9 @@ import { useUser } from '../hooks/useUser';
 
 interface IPostsContext {
   isLoading: boolean;
+  isRefreshing: boolean;
   posts: Record<number, Post>;
+  refresh: (postId?: number) => unknown;
   rate: (postId: number) => unknown;
   comment: (postId: number, content: string) => unknown;
 }
@@ -16,31 +18,47 @@ const PostsContext = createContext<IPostsContext | undefined>(undefined);
 const PostsProvider = ({ children }: { children: ReactNode }) => {
   const currentUser = useUser();
   const [isLoading, setIsLoading] = useState(true);
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const [posts, setPosts] = useState<Record<number, Post>>([]);
 
-  // Load all posts and store them in state
-  const initialize = useCallback(async () => {
+  // Fetch all posts and store them in state
+  const fetchPosts = useCallback(async () => {
     if (!currentUser) return;
-    try {
-      const response = await api.getMediasByTag(postTag);
-      const sorted = response.sort((a, b) => new Date(a.time_added) < new Date(b.time_added) ? 1 : -1);
-      for (const media of sorted) {
-        const user = await api.getUser(media.user_id);
-        const ratings = await api.getRatings(media.file_id);
-        const comments = await api.getComments(media.file_id);
-        const hasRated = !!ratings.find(r => r.user_id === currentUser.user_id);
-        const post: Post = { ...media, user, hasRated, ratings, comments };
-        setPosts(prevState => ({ ...prevState, [post.file_id]: post }));
-      }
-    } catch (error) {
-      console.error(error);
+    const response = await api.getMediasByTag(postTag);
+    const sorted = response.sort((a, b) => new Date(a.time_added) < new Date(b.time_added) ? 1 : -1);
+    for (const media of sorted) {
+      const user = await api.getUser(media.user_id);
+      const ratings = await api.getRatings(media.file_id);
+      const comments = await api.getComments(media.file_id);
+      const hasRated = !!ratings.find(r => r.user_id === currentUser.user_id);
+      const post: Post = { ...media, user, hasRated, ratings, comments };
+      setPosts(prevState => ({ ...prevState, [post.file_id]: post }));
     }
+  }, [currentUser]);
+
+  // Fetch a single post and store it in state
+  const fetchPost = useCallback(async (postId: number) => {
+    if (!currentUser) return;
+    const media = await api.getMedia(postId);
+    const user = await api.getUser(media.user_id);
+    const ratings = await api.getRatings(media.file_id);
+    const comments = await api.getComments(media.file_id);
+    const hasRated = !!ratings.find(r => r.user_id === currentUser.user_id);
+    const post: Post = { ...media, user, hasRated, ratings, comments };
+    setPosts(prevState => ({ ...prevState, [post.file_id]: post }));
   }, [currentUser]);
 
   // Run the `initialize` function once on app launch
   useEffect(() => {
-    initialize().then(() => setIsLoading(false));
-  }, [initialize]);
+    fetchPosts().then(() => setIsLoading(false));
+  }, [fetchPosts]);
+
+  // Refresh the posts
+  const refresh = async (postId?: number) => {
+    setIsRefreshing(true);
+    await (postId ? fetchPost(postId) : fetchPosts());
+    setIsRefreshing(false);
+  };
 
   // Rate a post
   const rate = async (postId: number) => {
@@ -74,7 +92,7 @@ const PostsProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <PostsContext.Provider value={{ isLoading, posts, rate, comment }}>
+    <PostsContext.Provider value={{ isLoading, isRefreshing, posts, refresh, rate, comment }}>
       {children}
     </PostsContext.Provider>
   );

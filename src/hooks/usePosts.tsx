@@ -5,7 +5,7 @@ import { PostsContext } from '../context/PostsContext';
 export const usePosts = () => {
   const context = useContext(PostsContext);
   if (!context) throw new Error('PostsProvider was not in scope.');
-  const { isLoading, posts, rate } = context;
+  const { posts, ...rest } = context;
   const sorted = Object.values(posts).sort((a, b) => new Date(a.time_added) < new Date(b.time_added) ? 1 : -1);
-  return { isLoading, posts: sorted, rate };
+  return { ...rest, posts: sorted };
 };
