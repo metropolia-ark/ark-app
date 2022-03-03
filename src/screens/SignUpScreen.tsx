@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import * as yup from 'yup';
 import { Form, FormActions, FormButton, FormInput } from '../components';
 import { Navigation } from '../types';
-import { useAuth } from '../hooks/useAuth';
+import { useAuth } from '../hooks';
 import * as api from '../api';
 
 interface SignUpFormValues {

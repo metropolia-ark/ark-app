@@ -20,14 +20,14 @@ import NewScreen from './NewScreen';
 import ProfileScreen from './ProfileScreen';
 import SettingsScreen from './SettingsScreen';
 import { ParamList } from '../types';
-import { useAuth } from '../hooks/useAuth';
+import { useAuth } from '../hooks';
 
 const UnauthenticatedStack = createNativeStackNavigator<ParamList.Unauthenticated>();
 const AuthenticatedStack = createNativeStackNavigator<ParamList.Authenticated>();
 const BottomTab = createBottomTabNavigator<ParamList.Tabs>();
 
 const TabScreens = () => (
-  <BottomTab.Navigator screenOptions={{ tabBarShowLabel: false, tabBarActiveTintColor: '#009eff' }}>
+  <BottomTab.Navigator screenOptions={{ tabBarShowLabel: false, tabBarActiveTintColor: '#3366ff' }}>
     <BottomTab.Screen name="Home" component={HomeScreen} options={{ tabBarIcon: HomeIcon }} />
     <BottomTab.Screen name="Market" component={MarketScreen} options={{ tabBarIcon: MarketIcon }} />
     <BottomTab.Screen name="New" component={NewScreen} options={{ tabBarIcon: NewIcon }} />
