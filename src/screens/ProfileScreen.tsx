@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Alert, Image, StyleSheet, Text, View } from 'react-native';
-import { useUser } from '../hooks/useUser';
-import { Button } from '@ui-kitten/components';
-import { avatarPic, uploadsUrl } from '../utils/constants';
-import { useIsFocused } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
+import { useIsFocused } from '@react-navigation/native';
+import { Button } from '@ui-kitten/components';
+import { avatarTag, mediaUrl } from '../utils';
+import { useUser } from '../hooks';
 import * as api from '../api';
 
 const ProfileScreen = () => {
@@ -29,6 +29,7 @@ const ProfileScreen = () => {
       setImageSelected(true);
     }
   };
+
   // upload profile pic
   const uploadProfileSubmit = useCallback(async () => {
     if (!user) return;
@@ -56,7 +57,7 @@ const ProfileScreen = () => {
     try {
       // gets the token
       const response = await api.uploadMedia(formData);
-      await api.addTagToMedia(response.file_id, avatarPic + user.user_id);
+      await api.addTagToMedia(response.file_id, avatarTag + user.user_id);
       setType('');
       setImage('');
       setImageSelected(false);
@@ -69,10 +70,10 @@ const ProfileScreen = () => {
     async () => {
       if (!user) return;
       try {
-        const avatarArray = await api.getMediasByTag(avatarPic + user.user_id);
+        const avatarArray = await api.getMediasByTag(avatarTag + user.user_id);
         if (!(avatarArray.length === 0)){
           const avatars = avatarArray.pop();
-          setAvatar(uploadsUrl + avatars?.filename);
+          setAvatar(mediaUrl + avatars?.filename);
         } else {
           setAvatar('https://placedog.net/640/480?random');
         }

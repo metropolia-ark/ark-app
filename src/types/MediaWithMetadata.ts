@@ -3,9 +3,10 @@ import { User } from './User';
 import { Rating } from './Rating';
 import { Comment } from './Comment';
 
-export interface Post extends Media {
+export interface MediaWithMetadata extends Media {
+  tag: string;
   user: User;
-  hasRated: boolean;
+  avatar?: Media;
   ratings: Rating[];
   comments: Comment[];
 }

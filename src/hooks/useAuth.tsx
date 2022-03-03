@@ -1,7 +1,7 @@
 import { useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from '../context';
 
-// Get token, authentication status and helper functions
+// Get token, authentication status and auth helper functions
 export const useAuth = () => {
   const auth = useContext(AuthContext);
   if (!auth) throw new Error('AuthProvider is not in scope.');
