@@ -1,4 +1,4 @@
-import { Method, request } from '../utils/request';
+import { Method, request } from '../utils';
 import { User } from '../types';
 
 // Response type definitions
