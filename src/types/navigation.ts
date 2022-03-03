@@ -10,9 +10,9 @@ export namespace ParamList {
   };
   export type Authenticated = {
     Tabs: undefined;
-    Post: { postId: string };
-    Pet: { petId: string };
-    User: { userId: string };
+    Post: { postId: number };
+    Pet: { petId: number };
+    User: { userId: number };
   };
   export type Tabs = {
     Home: undefined;

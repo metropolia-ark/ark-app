@@ -7,7 +7,6 @@ import * as yup from 'yup';
 import { Form, FormActions, FormButton, FormInput } from '../components';
 import * as ImagePicker from 'expo-image-picker';
 import { Video } from 'expo-av';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as api from  '../api';
 import { market, media } from '../utils/constants';
 
@@ -61,32 +60,28 @@ const NewScreen = () => {
     formData.append('title', values.title);
     formData.append('description', values.description);
 
-    const filename  = image?.split('/').pop();
+    const imageUri = image.replace('file:/data', 'file:///data');
+    const filename  = image.split('/').pop();
     let fileExtension = filename?.split('.').pop();
     fileExtension = fileExtension === 'jpg' ? 'jpeg' : fileExtension;
 
-    formData.append(
-      'file',
-      {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        uri: image,
-        name: filename,
-        type: type + '/' + fileExtension,
-      },
-    );
+    formData.append('file', {
+      uri: imageUri,
+      name: filename,
+      type: type + '/' + fileExtension,
+    } as any);
+
     try {
       // gets the token
-      const token = await AsyncStorage.getItem('token');
-      const response = await api.postMedia(token, formData);
+      const response = await api.uploadMedia(formData);
 
       // if the checked is false it will but the media tag
       if (!checked){
-        await api.postTag(response.file_id, media, token);
+        await api.addTagToMedia(response.file_id, media);
         navigate('Home');
       } else {
         // sets the market tag
-        await api.postTag(response.file_id, market, token);
+        await api.addTagToMedia(response.file_id, market);
         navigate('Market');
       }
       // to reset everything
