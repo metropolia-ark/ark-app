@@ -1,29 +1,30 @@
 import React, { useState } from 'react';
 import { ScrollView, StyleSheet, View, Image, KeyboardAvoidingView, Alert } from 'react-native';
-import { Button, Toggle } from '@ui-kitten/components';
-import { useNavigation } from '@react-navigation/native';
-import { Navigation } from '../types';
-import * as yup from 'yup';
-import { Form, FormActions, FormButton, FormInput } from '../components';
 import * as ImagePicker from 'expo-image-picker';
 import { Video } from 'expo-av';
+import { useNavigation } from '@react-navigation/native';
+import { Button, Toggle } from '@ui-kitten/components';
+import * as yup from 'yup';
+import { Form, FormActions, FormButton, FormInput } from '../components';
+import { Navigation } from '../types';
 import * as api from  '../api';
-import { market, media } from '../utils/constants';
+import { petTag, postTag } from '../utils';
 
-interface FormValues{
-  title: string,
-  description: string,
+interface FormValues {
+  title: string;
+  description: string;
 }
 
 const NewScreen = () => {
   // To navigate to home when uploaded
-  const { navigate } = useNavigation<Navigation.Home>();
+  const { navigate } = useNavigation<Navigation.New>();
 
   // upload initial value
   const uploadInitialValues: FormValues = {
     title: '',
     description: '',
   };
+
   // setting state for image,type,checked marked and if the image is selected
   const [image, setImage] = useState('');
   const [type, setType] = useState('');
@@ -77,11 +78,11 @@ const NewScreen = () => {
 
       // if the checked is false it will but the media tag
       if (!checked){
-        await api.addTagToMedia(response.file_id, media);
+        await api.addTagToMedia(response.file_id, postTag);
         navigate('Home');
       } else {
         // sets the market tag
-        await api.addTagToMedia(response.file_id, market);
+        await api.addTagToMedia(response.file_id, petTag);
         navigate('Market');
       }
       // to reset everything
@@ -90,11 +91,11 @@ const NewScreen = () => {
       setImage('');
       setChecked(false);
       setImageSelected(false);
-
     } catch (e) {
       console.error(e);
     }
   };
+
   const onCheckedChange = (isChecked: boolean) => {
     // to check what tag to put
     setChecked(isChecked);
