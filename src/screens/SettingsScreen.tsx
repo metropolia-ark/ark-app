@@ -4,6 +4,7 @@ import { Button, Text } from '@ui-kitten/components';
 import * as yup from 'yup';
 import { Form, FormActions, FormButton, FormInput } from '../components';
 import { useAuth } from '../hooks';
+import { useTranslation } from 'react-i18next';
 
 interface FormValues {
   email: string;
@@ -13,15 +14,16 @@ interface FormValues {
 
 const SettingsScreen = () => {
   const auth = useAuth();
+  const { t, i18n } = useTranslation();
 
   // Settings form initial values
   const settingsInitialValues: FormValues = { email: '', username: '', password: '' };
 
   // Settings form validation schema
   const settingsSchema = yup.object().shape({
-    email: yup.string().required('The email address is required.').email('The email address is invalid.'),
-    username: yup.string().required('The username is required.'),
-    password: yup.string().required('The password is required.'),
+    email: yup.string().required(t('errorEmail')).email(t('emailInvalid')),
+    username: yup.string().required(t('errorUsername')),
+    password: yup.string().required(t('errorPassword')),
   });
 
   // Settings form submit handler
@@ -42,6 +44,8 @@ const SettingsScreen = () => {
           <FormButton>Update</FormButton>
         </Form>
         <Button appearance='ghost' onPress={() => auth.signout()}>Sign out</Button>
+        <Button onPress={() => i18n.changeLanguage('fi')}>Fi</Button>
+        <Button onPress={() => i18n.changeLanguage('en')}>En</Button>
       </View>
     </ScrollView>
   );

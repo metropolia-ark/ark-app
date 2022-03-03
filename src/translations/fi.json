@@ -16,9 +16,10 @@
   "email": "Sähköpostiosoite",
   "signIn": "Kirjaudu sisään",
   "signUp": "Rekisteröinti",
+  "signUpOtherTerm": "Rekisteröi",
   "signOut": "Kirjaudu sisään",
   "save": "Tallenna",
-  "noAccount": "Eikö sinulla ole tiliä?",
+  "noAccount": "Eikö sinulla ole tiliä vielä?",
   "fullName":"Koko nimi",
   "updateProfile": "Päivitä profiili",
   "newUsername": "Uusi käyttäjänimi",
@@ -27,9 +28,11 @@
   "errorUsernamePassword": "Käyttäjänimi tai salasana on väärin",
   "errorUsername": "Käyttäjänimi on pakollinen.",
   "errorPassword": "Salasana on pakollinen.",
+  "errorTitle": "Otsikko on pakollinen.",
   "errorConfirmPassword": "Salasanan vahvistus on pakollinen",
   "passwordMatch": "Salasanat eivät täsmää.",
   "errorEmail": "Sähköpostiosoite on pakollinen.",
   "emailInvalid":"Sähköpostiosoite on väärin.",
-  "usernameIsAlreadyUse": "Tämä käyttäjänimi on jo käytössä"
+  "usernameIsAlreadyUse": "Tämä käyttäjänimi on jo käytössä",
+  "alreadyHaveAccount": "Onko sinulla jo käyttäjä?"
 }

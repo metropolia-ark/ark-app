@@ -4,6 +4,7 @@ import en from './en.json';
 import fi from './fi.json';
 
 const resources = { en: { translation: en }, fi: { translation: fi }  };
+export const availableLanguages = Object.keys(resources);
 i18n
   .use(initReactI18next) // passes i18n down to react-i18next
   .init({

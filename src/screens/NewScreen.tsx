@@ -9,6 +9,7 @@ import { Form, FormActions, FormButton, FormInput } from '../components';
 import { Navigation } from '../types';
 import * as api from  '../api';
 import { petTag, postTag } from '../utils';
+import { useTranslation } from 'react-i18next';
 
 interface FormValues {
   title: string;
@@ -30,6 +31,7 @@ const NewScreen = () => {
   const [type, setType] = useState('');
   const [checked, setChecked] = useState(false);
   const [imageSelected, setImageSelected] = useState(false);
+  const { t } = useTranslation();
 
   // image picker
   const pickImage = async () => {
@@ -47,13 +49,13 @@ const NewScreen = () => {
   };
 
   // upload form validation schema
-  const uploadSchema = yup.object().shape({ title: yup.string().required('Please add Title') });
+  const uploadSchema = yup.object().shape({ title: yup.string().required(t('errorTitle')) });
 
   // upload form submit handler
   const uploadOnSubmit = async (values: FormValues, actions: FormActions<FormValues>) => {
     // if the image is not selected alert
     if (!imageSelected){
-      Alert.alert('Please, select a file');
+      Alert.alert(t('imageNotSelected'));
       return;
     }
 
@@ -123,14 +125,14 @@ const NewScreen = () => {
                   }}
                 />
                 ) : null }
-            <Button onPress={pickImage}>Pick an image from camera roll</Button>
-            <FormInput name="title" label="Title"/>
-            <FormInput name="description" label="Description" multiline={true} textStyle={styles.multiline}/>
+            <Button onPress={pickImage}>{t('imagePick').toString()}</Button>
+            <FormInput name="title" label={t('title')}/>
+            <FormInput name="description" label={t('description')} multiline={true} textStyle={styles.multiline}/>
             <View style={styles.layout}>
               <Toggle checked={checked} onChange={onCheckedChange}>
-                {checked ? 'Market' : 'Media'}
+                {checked ? `${t('market')}` : `${t('media')}`}
               </Toggle>
-              <FormButton>Submit</FormButton>
+              <FormButton>{t('submit')}</FormButton>
             </View>
           </Form>
         </View>
