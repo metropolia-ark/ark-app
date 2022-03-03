@@ -5,9 +5,9 @@ import { useRoute } from '@react-navigation/native';
 import { User as UserIcon } from 'phosphor-react-native';
 import { Media as IMedia, Route, User } from '../types';
 import * as api from '../api';
+import { Divider, Media } from '../components';
 import { avatarTag, mediaUrl, petTag, postTag } from '../utils';
 import { useMedia } from '../hooks';
-import { Divider, Media } from '../components';
 
 enum Tabs { Posts, Pets }
 

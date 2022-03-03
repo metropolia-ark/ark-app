@@ -3,7 +3,7 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import { Button, Text } from '@ui-kitten/components';
 import * as yup from 'yup';
 import { Form, FormActions, FormButton, FormInput } from '../components';
-import { useAuth } from '../hooks/useAuth';
+import { useAuth } from '../hooks';
 
 interface FormValues {
   email: string;
