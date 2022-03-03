@@ -42,7 +42,9 @@ const Post = ({ post, onPressPost, onPressUser }: PostProps) => {
       <View style={styles.postHeader}>
         <Pressable onPress={onPressUser}>
           <View style={styles.postAvatar}>
-            <User size={20} color="#ffffff" weight="fill" />
+            {post.avatar
+              ? <Image style={styles.postAvatarImage} source={{ uri: mediaUrl + post.avatar.filename }} />
+              : <User size={20} color="#ffffff" weight="fill" />}
           </View>
         </Pressable>
         <Pressable onPress={onPressUser}>
@@ -98,6 +100,10 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  postAvatarImage: {
+    width: 32,
+    height: 32,
   },
   postIconAvatar: {
     width: 24,
