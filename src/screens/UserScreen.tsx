@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { FlatList, Image, StyleSheet, View } from 'react-native';
-import { Tab, TabBar, Text } from '@ui-kitten/components';
+import { FlatList, Image, Pressable, StyleSheet, View } from 'react-native';
+import { Text } from '@ui-kitten/components';
 import { useRoute } from '@react-navigation/native';
 import { User as UserIcon } from 'phosphor-react-native';
 import { Media as IMedia, Route, User } from '../types';
@@ -13,9 +13,10 @@ enum Tabs { Posts, Pets }
 
 const UserScreen = () => {
   const { params } = useRoute<Route.User>();
-  const { data: posts } = useMedia(postTag);
-  const { data: pets } = useMedia(petTag);
+  const posts = useMedia(postTag);
+  const pets = useMedia(petTag);
   const [isLoading, setIsLoading] = useState(true);
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const [user, setUser] = useState<User>();
   const [avatar, setAvatar] = useState<IMedia>();
   const [tab, setTab] = useState<Tabs>(Tabs.Posts);
@@ -33,12 +34,22 @@ const UserScreen = () => {
     fetchUser().then(() => setIsLoading(false));
   }, [fetchUser]);
 
-  if (isLoading || !user) return null;
+  // Refresh user data, and posts or pets
+  const refresh = async () => {
+    setIsRefreshing(true);
+    await fetchUser();
+    await (tab === Tabs.Posts ? posts.refresh() : pets.refresh());
+    setIsRefreshing(false);
+  };
+
+  if (isLoading || posts.isLoading || pets.isLoading || !user) return null;
   return (
     <FlatList
       style={styles.container}
-      data={(tab === Tabs.Posts ? posts : pets).filter(x => x.user_id === user.user_id)}
+      data={(tab === Tabs.Posts ? posts.data : pets.data).filter(x => x.user_id === user.user_id)}
       keyExtractor={item => item.file_id.toString()}
+      refreshing={isRefreshing}
+      onRefresh={refresh}
       ListHeaderComponent={() => (
         <View style={styles.content}>
           <View style={styles.user}>
@@ -49,10 +60,16 @@ const UserScreen = () => {
             </View>
             <Text style={styles.username}>{user.username}</Text>
           </View>
-          <TabBar selectedIndex={tab} onSelect={index => setTab(index)}>
-            <Tab title="Posts" />
-            <Tab title="Pets" />
-          </TabBar>
+          <View style={styles.tabContainer}>
+            <Pressable onPress={() => setTab(Tabs.Posts)} style={styles.tabItem}>
+              <Text style={[styles.tabLabel, tab === Tabs.Posts && styles.tabLabelActive]}>Posts</Text>
+              <View style={[styles.tabIndicator, tab === Tabs.Posts && styles.tabIndicatorActive]} />
+            </Pressable>
+            <Pressable onPress={() => setTab(Tabs.Pets)} style={styles.tabItem}>
+              <Text style={[styles.tabLabel, tab === Tabs.Pets && styles.tabLabelActive]}>Pets</Text>
+              <View style={[styles.tabIndicator, tab === Tabs.Pets && styles.tabIndicatorActive]} />
+            </Pressable>
+          </View>
         </View>
       )}
       ListEmptyComponent={() => (
@@ -105,6 +122,26 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontStyle: 'italic',
   },
+  tabContainer: { flexDirection: 'row' },
+  tabItem: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  tabLabel: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#999999',
+    paddingBottom: 6,
+  },
+  tabLabelActive: { color: '#3366ff' },
+  tabIndicator: {
+    height: 4,
+    width: '100%',
+    borderRadius: 1,
+    backgroundColor: '#ffffff',
+  },
+  tabIndicatorActive: { backgroundColor: '#3366ff' },
 });
 
 export default UserScreen;
