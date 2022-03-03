@@ -27,6 +27,7 @@ export namespace ParamList {
 export namespace Navigation {
   export type SignIn = Stack<ParamList.Unauthenticated, 'SignIn'>;
   export type SignUp = Stack<ParamList.Unauthenticated, 'SignUp'>;
+  export type Media = Stack<ParamList.Authenticated>;
   export type Post = Stack<ParamList.Authenticated, 'Post'>;
   export type Pet = Stack<ParamList.Authenticated, 'Pet'>;
   export type User = Stack<ParamList.Authenticated, 'User'>;

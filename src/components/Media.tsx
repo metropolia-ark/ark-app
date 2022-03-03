@@ -3,19 +3,22 @@ import { Image, Pressable, StyleSheet, View } from 'react-native';
 import { Text } from '@ui-kitten/components';
 import { Chat, DotsThreeOutlineVertical, Heart, User } from 'phosphor-react-native';
 import { formatDistanceToNowStrict } from 'date-fns';
-import { MediaWithMetadata, Rating } from '../types';
+import { MediaWithMetadata, Navigation, Rating } from '../types';
 import { mediaUrl } from '../utils';
 import { useMedia, useUser } from '../hooks';
 import * as api from '../api';
+import { useNavigation } from '@react-navigation/native';
 
 interface MediaProps {
   media: MediaWithMetadata;
-  onPressMedia?: () => unknown;
-  onPressUser?: () => unknown;
+  post?: boolean;
+  pet?: boolean;
+  detailed?: boolean;
 }
 
-const Media = ({ media, onPressMedia, onPressUser }: MediaProps) => {
+const Media = ({ media, post, pet, detailed }: MediaProps) => {
   const currentUser = useUser();
+  const { navigate } = useNavigation<Navigation.Media>();
   const { updateData } = useMedia(media.tag);
 
   // Check if the media has been rated by the current user
@@ -35,6 +38,18 @@ const Media = ({ media, onPressMedia, onPressUser }: MediaProps) => {
       const updatedMedia: MediaWithMetadata = { ...media, ratings: [ ...media.ratings, newRating ] };
       updateData(media.file_id, updatedMedia);
     }
+  };
+
+  // Handle pressing the media
+  const onPressMedia = () => {
+    if (detailed) return;
+    if (pet) navigate('Pet', { petId: media.file_id });
+    if (post) navigate('Post', { postId: media.file_id });
+  };
+
+  // Handle pressing the user
+  const onPressUser = () => {
+    navigate('User', { userId: media.user_id });
   };
 
   return (
