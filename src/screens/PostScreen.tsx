@@ -2,14 +2,16 @@ import React from 'react';
 import { RefreshControl, ScrollView, StyleSheet, View } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { Post } from '../components';
-import { usePosts } from '../hooks/usePosts';
+import { useMedia } from '../hooks';
 import { Navigation, Route } from '../types';
+import { postTag } from '../utils';
 
 const PostScreen = () => {
   const { params } = useRoute<Route.Post>();
   const { navigate } = useNavigation<Navigation.Post>();
-  const { isLoading, isRefreshing, refresh, posts, rate } = usePosts();
-  const post = posts.find(p => p.file_id === params.postId);
+  const { isLoading, isRefreshing, refresh, data } = useMedia(postTag);
+
+  const post = data.find(p => p.file_id === params.postId);
 
   if (isLoading || !post) return null;
   return (
@@ -20,7 +22,6 @@ const PostScreen = () => {
       <View style={styles.content}>
         <Post
           post={post}
-          onPressRate={() => rate(post.file_id)}
           onPressUser={() => navigate('User', { userId: post.user_id })}
         />
       </View>

@@ -1,30 +1,48 @@
 import React from 'react';
 import { Image, Pressable, StyleSheet, View } from 'react-native';
 import { Text } from '@ui-kitten/components';
-import {
-  Chat as ChatIcon,
-  DotsThreeOutlineVertical as MoreIcon,
-  Heart as HeartIcon,
-  User as UserIcon,
-} from 'phosphor-react-native';
+import { Chat, DotsThreeOutlineVertical, Heart, User } from 'phosphor-react-native';
 import { formatDistanceToNowStrict } from 'date-fns';
-import { Post as IPost } from '../types';
-import { mediaUrl } from '../utils/constants';
+import { MediaWithMetadata, Rating } from '../types';
+import { mediaUrl } from '../utils';
+import { useMedia, useUser } from '../hooks';
+import * as api from '../api';
 
 interface PostProps {
-  post: IPost;
+  post: MediaWithMetadata;
   onPressPost?: () => unknown;
   onPressUser?: () => unknown;
-  onPressRate?: () => unknown;
 }
 
-const Post = ({ post, onPressPost, onPressUser, onPressRate }: PostProps) => {
+const Post = ({ post, onPressPost, onPressUser }: PostProps) => {
+  const currentUser = useUser();
+  const { updateData } = useMedia(post.tag);
+
+  // Check if the post has been rated by the current user
+  const hasRatedAlready = () => !!post.ratings.find(r => r.user_id === currentUser?.user_id);
+
+  // Rate the post
+  const rate = async () => {
+    if (!currentUser) return;
+    if (hasRatedAlready()) {
+      await api.deleteRating(post.file_id);
+      const newRatings: Rating[] = post.ratings.filter(r => r.user_id !== currentUser.user_id);
+      const updatedPost: MediaWithMetadata = { ...post, ratings: newRatings };
+      updateData(post.file_id, updatedPost);
+    } else {
+      const { rating_id } = await api.createRating(post.file_id, 1);
+      const newRating: Rating = { rating_id, file_id: post.file_id, user_id: currentUser.user_id, rating: 1 };
+      const updatedPost: MediaWithMetadata = { ...post, ratings: [ ...post.ratings, newRating ] };
+      updateData(post.file_id, updatedPost);
+    }
+  };
+
   return (
     <View style={styles.postContainer}>
       <View style={styles.postHeader}>
         <Pressable onPress={onPressUser}>
           <View style={styles.postAvatar}>
-            <UserIcon size={20} color="#ffffff" weight="fill" />
+            <User size={20} color="#ffffff" weight="fill" />
           </View>
         </Pressable>
         <Pressable onPress={onPressUser}>
@@ -34,7 +52,7 @@ const Post = ({ post, onPressPost, onPressUser, onPressRate }: PostProps) => {
         <Text style={styles.postTimestamp}>
           {formatDistanceToNowStrict(new Date(post.time_added), { addSuffix: true })}
         </Text>
-        <MoreIcon size={20} color="#bbbbbb" weight="fill" />
+        <DotsThreeOutlineVertical size={20} color="#bbbbbb" weight="fill" />
       </View>
       <Pressable onPress={onPressPost}>
         <View style={styles.postContent}>
@@ -43,16 +61,16 @@ const Post = ({ post, onPressPost, onPressUser, onPressRate }: PostProps) => {
         </View>
       </Pressable>
       <View style={styles.postFooter}>
-        <Pressable onPress={onPressRate} style={styles.postActionGroup}>
-          <HeartIcon
+        <Pressable onPress={rate} style={styles.postActionGroup}>
+          <Heart
             size={20}
-            color={post.hasRated ? '#ff3d71' : '#bbbbbb'}
-            weight={post.hasRated ? 'fill' : 'regular'}
+            color={hasRatedAlready() ? '#ff3d71' : '#bbbbbb'}
+            weight={hasRatedAlready() ? 'fill' : 'regular'}
           />
           <Text style={styles.postCounter}>{post.ratings.length}</Text>
         </Pressable>
         <Pressable style={styles.postActionGroup}>
-          <ChatIcon size={20} color="#bbbbbb" weight="regular" />
+          <Chat size={20} color="#bbbbbb" weight="regular" />
           <Text style={styles.postCounter}>{post.comments.length}</Text>
         </Pressable>
       </View>
