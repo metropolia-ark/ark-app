@@ -1,7 +1,7 @@
 import React from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Post } from '../components';
+import { Media } from '../components';
 import { Navigation } from '../types';
 import { useMedia } from '../hooks';
 import { postTag } from '../utils';
@@ -20,9 +20,9 @@ const HomeScreen = () => {
         refreshing={isRefreshing}
         onRefresh={refresh}
         renderItem={({ item }) => (
-          <Post
-            post={item}
-            onPressPost={() => navigate('Post', { postId: item.file_id })}
+          <Media
+            media={item}
+            onPressMedia={() => navigate('Post', { postId: item.file_id })}
             onPressUser={() => navigate('User', { userId: item.user_id })}
           />
         )}

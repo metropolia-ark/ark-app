@@ -1,7 +1,7 @@
 import React from 'react';
 import { RefreshControl, ScrollView, StyleSheet, View } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { Post } from '../components';
+import { Media } from '../components';
 import { useMedia } from '../hooks';
 import { Navigation, Route } from '../types';
 import { postTag } from '../utils';
@@ -20,8 +20,8 @@ const PostScreen = () => {
       refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={() => refresh(post.file_id)} />}
     >
       <View style={styles.content}>
-        <Post
-          post={post}
+        <Media
+          media={post}
           onPressUser={() => navigate('User', { userId: post.user_id })}
         />
       </View>
