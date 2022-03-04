@@ -2,6 +2,13 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {
+  House as HomeIcon,
+  Storefront as MarketIcon,
+  PlusCircle as NewIcon,
+  User as ProfileIcon,
+  Gear as SettingsIcon,
+} from 'phosphor-react-native';
 import SignInScreen from './SignInScreen';
 import SignUpScreen from './SignUpScreen';
 import PostScreen from './PostScreen';
@@ -20,12 +27,12 @@ const AuthenticatedStack = createNativeStackNavigator<ParamList.Authenticated>()
 const BottomTab = createBottomTabNavigator<ParamList.Tabs>();
 
 const TabScreens = () => (
-  <BottomTab.Navigator>
-    <BottomTab.Screen name="Home" component={HomeScreen} />
-    <BottomTab.Screen name="Market" component={MarketScreen} />
-    <BottomTab.Screen name="New" component={NewScreen} />
-    <BottomTab.Screen name="Profile" component={ProfileScreen} />
-    <BottomTab.Screen name="Settings" component={SettingsScreen} />
+  <BottomTab.Navigator screenOptions={{ tabBarShowLabel: false, tabBarActiveTintColor: '#3366ff' }}>
+    <BottomTab.Screen name="Home" component={HomeScreen} options={{ tabBarIcon: HomeIcon }} />
+    <BottomTab.Screen name="Market" component={MarketScreen} options={{ tabBarIcon: MarketIcon }} />
+    <BottomTab.Screen name="New" component={NewScreen} options={{ tabBarIcon: NewIcon }} />
+    <BottomTab.Screen name="Profile" component={ProfileScreen} options={{ tabBarIcon: ProfileIcon }} />
+    <BottomTab.Screen name="Settings" component={SettingsScreen} options={{ tabBarIcon: SettingsIcon }} />
   </BottomTab.Navigator>
 );
 

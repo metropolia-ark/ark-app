@@ -1,26 +1,25 @@
 import React from 'react';
-import { Button, StyleSheet, Text, View  } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { Navigation } from '../types';
+import { FlatList, StyleSheet } from 'react-native';
+import { Divider, Media } from '../components';
+import { useMedia } from '../hooks';
+import { postTag } from '../utils';
 
 const HomeScreen = () => {
-  const { navigate } = useNavigation<Navigation.Home>();
-
+  const { isLoading, isRefreshing, refresh, data } = useMedia(postTag);
+  if (isLoading) return null;
   return (
-    <View style={styles.container}>
-      <Text>Home</Text>
-      <Button title="Go to post 123" onPress={() => navigate('Post', { postId: '123' })} />
-      <Button title="Go to user 789" onPress={() => navigate('User', { userId: '789' })} />
-    </View>
+    <FlatList
+      data={data}
+      keyExtractor={item => item.file_id.toString()}
+      refreshing={isRefreshing}
+      onRefresh={refresh}
+      style={styles.container}
+      ItemSeparatorComponent={() => <Divider />}
+      renderItem={({ item }) => <Media media={item} post />}
+    />
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const styles = StyleSheet.create({ container: { flex: 1 } });
 
 export default HomeScreen;

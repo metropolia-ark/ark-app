@@ -1,25 +1,25 @@
 import React from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { Navigation } from '../types';
+import { FlatList, StyleSheet } from 'react-native';
+import { Divider, Media } from '../components';
+import { useMedia } from '../hooks';
+import { petTag } from '../utils';
 
 const MarketScreen = () => {
-  const { navigate } = useNavigation<Navigation.Market>();
+  const { isLoading, isRefreshing, refresh, data } = useMedia(petTag);
+  if (isLoading) return null;
   return (
-    <View style={styles.container}>
-      <Text>Market</Text>
-      <Button title="Go to pet 456" onPress={() => navigate('Pet', { petId: '456' })} />
-      <Button title="Go to user 789" onPress={() => navigate('User', { userId: '789' })} />
-    </View>
+    <FlatList
+      data={data}
+      keyExtractor={item => item.file_id.toString()}
+      refreshing={isRefreshing}
+      onRefresh={refresh}
+      style={styles.container}
+      ItemSeparatorComponent={() => <Divider />}
+      renderItem={({ item }) => <Media media={item} pet />}
+    />
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const styles = StyleSheet.create({ container: { flex: 1 } });
 
 export default MarketScreen;
