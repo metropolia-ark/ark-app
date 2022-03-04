@@ -6,6 +6,6 @@ interface SettingUpdate {
 }
 
 // Update user data
-export const updateUser = (username: string, password: string, email: string, full_name?: string) => {
-  return request<SettingUpdate>(Method.POST, '/users', { username, password, email, full_name });
+export const updateUser = (username: string, password: string, email: string) => {
+  return request<SettingUpdate>(Method.PUT, '/users', { username, password, email });
 };
