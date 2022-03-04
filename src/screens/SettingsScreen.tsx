@@ -1,9 +1,10 @@
 import React from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { Alert, ScrollView, StyleSheet, View } from 'react-native';
 import { Button, Text } from '@ui-kitten/components';
 import * as yup from 'yup';
 import { Form, FormActions, FormButton, FormInput } from '../components';
-import { useAuth } from '../hooks';
+import { useAuth, useUser } from '../hooks';
+import * as api from '../api';
 
 interface FormValues {
   email: string;
@@ -13,22 +14,35 @@ interface FormValues {
 
 const SettingsScreen = () => {
   const auth = useAuth();
+  const currentUser = useUser();
 
   // Settings form initial values
-  const settingsInitialValues: FormValues = { email: '', username: '', password: '' };
+  const settingsInitialValues: FormValues = { email: currentUser.email, username: currentUser.username, password: '' };
 
   // Settings form validation schema
   const settingsSchema = yup.object().shape({
-    email: yup.string().required('The email address is required.').email('The email address is invalid.'),
-    username: yup.string().required('The username is required.'),
-    password: yup.string().required('The password is required.'),
+    email: yup.string().email('The email address is invalid.'),
+    username: yup.string(),
+    password: yup.string(),
   });
 
   // Settings form submit handler
   const settingsOnSubmit = async (values: FormValues, actions: FormActions<FormValues>) => {
     console.log(values);
-    await new Promise(resolve => setTimeout(resolve, 3000));
-    actions.setFieldError('username', 'The username is in use already.');
+    try {
+      const { available } = await api.getUsername(values.username);
+      if (!available) {
+        actions.setFieldError('username', 'The username is in use already.');
+      } else {
+        await api.updateUser(values.username, values.password, values.email,);
+        Alert.alert('User data updated');
+        const { token, user } = await api.signIn(values.username, values.password);
+        auth.signin(token, user);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+
   };
 
   return (
