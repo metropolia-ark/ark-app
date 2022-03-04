@@ -1,10 +1,11 @@
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { Button, Text } from '@ui-kitten/components';
+import { Button, IndexPath, Select, SelectItem, Text } from '@ui-kitten/components';
 import * as yup from 'yup';
 import { Form, FormActions, FormButton, FormInput } from '../components';
 import { useAuth } from '../hooks';
 import { useTranslation } from 'react-i18next';
+import { availableLanguages } from '../translations/i18n';
 
 interface FormValues {
   email: string;
@@ -14,16 +15,23 @@ interface FormValues {
 
 const SettingsScreen = () => {
   const auth = useAuth();
-  const { t, i18n } = useTranslation();
+  const {
+    t,
+    i18n,
+  } = useTranslation();
 
   // Settings form initial values
-  const settingsInitialValues: FormValues = { email: '', username: '', password: '' };
+  const settingsInitialValues: FormValues = {
+    email: '',
+    username: '',
+    password: '',
+  };
 
   // Settings form validation schema
   const settingsSchema = yup.object().shape({
-    email: yup.string().required(t('errorEmail')).email(t('emailInvalid')),
-    username: yup.string().required(t('errorUsername')),
-    password: yup.string().required(t('errorPassword')),
+    email: yup.string().email(t('emailInvalid')),
+    username: yup.string(),
+    password: yup.string(),
   });
 
   // Settings form submit handler
@@ -31,6 +39,14 @@ const SettingsScreen = () => {
     console.log(values);
     await new Promise(resolve => setTimeout(resolve, 3000));
     actions.setFieldError('username', 'The username is in use already.');
+  };
+  const changeLanguage = (e: any) => {
+    const current:number = e.row;
+    if (current === 0){
+      i18n.changeLanguage('en');
+    } else if (current === 1){
+      i18n.changeLanguage('fi');
+    }
   };
 
   return (
@@ -46,6 +62,11 @@ const SettingsScreen = () => {
         <Button appearance='ghost' onPress={() => auth.signout()}>Sign out</Button>
         <Button onPress={() => i18n.changeLanguage('fi')}>Fi</Button>
         <Button onPress={() => i18n.changeLanguage('en')}>En</Button>
+        <Select value={i18n.language} onSelect={e => changeLanguage(e)}>
+          {availableLanguages.map(language => (
+            <SelectItem key={language} title={language}/>
+          ))}
+        </Select>
       </View>
     </ScrollView>
   );
