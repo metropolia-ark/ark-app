@@ -60,8 +60,6 @@ const SettingsScreen = () => {
           <FormButton>Update</FormButton>
         </Form>
         <Button appearance='ghost' onPress={() => auth.signout()}>Sign out</Button>
-        <Button onPress={() => i18n.changeLanguage('fi')}>Fi</Button>
-        <Button onPress={() => i18n.changeLanguage('en')}>En</Button>
         <Select value={i18n.language} onSelect={e => changeLanguage(e)}>
           {availableLanguages.map(language => (
             <SelectItem key={language} title={language}/>
