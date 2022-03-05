@@ -1,10 +1,12 @@
 import React from 'react';
 import { Alert, ScrollView, StyleSheet, View } from 'react-native';
-import { Button, Text } from '@ui-kitten/components';
+import { Button, Select, SelectItem, Text } from '@ui-kitten/components';
 import * as yup from 'yup';
 import { Form, FormActions, FormButton, FormInput } from '../components';
 import { useAuth, useUser } from '../hooks';
 import * as api from '../api';
+import { useTranslation } from 'react-i18next';
+import { availableLanguages } from '../translations/i18n';
 
 interface FormValues {
   email: string;
@@ -15,27 +17,27 @@ interface FormValues {
 const SettingsScreen = () => {
   const auth = useAuth();
   const currentUser = useUser();
+  const { t, i18n } = useTranslation();
 
   // Settings form initial values
   const settingsInitialValues: FormValues = { email: currentUser.email, username: currentUser.username, password: '' };
 
   // Settings form validation schema
   const settingsSchema = yup.object().shape({
-    email: yup.string().email('The email address is invalid.'),
+    email: yup.string().email(t('emailInvalid')),
     username: yup.string(),
     password: yup.string(),
   });
 
   // Settings form submit handler
   const settingsOnSubmit = async (values: FormValues, actions: FormActions<FormValues>) => {
-    console.log(values);
     try {
       const { available } = await api.getUsername(values.username);
       if (!available) {
-        actions.setFieldError('username', 'The username is in use already.');
+        actions.setFieldError('username', t('usernameIsAlreadyUse'));
       } else {
-        await api.updateUser(values.username, values.password, values.email,);
-        Alert.alert('User data updated');
+        await api.updateUser(values.username, values.password, values.email);
+        Alert.alert(t('dataUpdate'));
         const { token, user } = await api.signIn(values.username, values.password);
         auth.signin(token, user);
       }
@@ -44,18 +46,30 @@ const SettingsScreen = () => {
     }
 
   };
-
+  const changeLanguage = (index: any) => {
+    const current = index.row;
+    if (current === 0){
+      i18n.changeLanguage('en');
+    } else if (current === 1){
+      i18n.changeLanguage('fi');
+    }
+  };
   return (
     <ScrollView style={styles.container}>
       <View style={styles.content}>
-        <Text category="h6">Update profile</Text>
+        <Text category="h6">{t('updateProfile').toString()}</Text>
         <Form initialValues={settingsInitialValues} schema={settingsSchema} onSubmit={settingsOnSubmit}>
-          <FormInput name="username" label="New username" />
-          <FormInput name="email" label="New email address" />
-          <FormInput name="password" label="New password" secureTextEntry />
-          <FormButton>Update</FormButton>
+          <FormInput name="username" label={t('newUsername')} />
+          <FormInput name="email" label={t('newEmail')} />
+          <FormInput name="password" label={t('newPassword')} secureTextEntry />
+          <FormButton>{t('update')}</FormButton>
         </Form>
-        <Button appearance='ghost' onPress={() => auth.signout()}>Sign out</Button>
+        <Button appearance='ghost' onPress={() => auth.signout()}>{t('signOut').toString()}</Button>
+        <Select value={i18n.language} onSelect={index => changeLanguage(index)}>
+          {availableLanguages.map(language => (
+            <SelectItem key={language} title={language}/>
+          ))}
+        </Select>
       </View>
     </ScrollView>
   );

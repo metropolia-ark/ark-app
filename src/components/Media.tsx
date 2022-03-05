@@ -8,6 +8,7 @@ import { mediaUrl } from '../utils';
 import { useMedia, useUser } from '../hooks';
 import * as api from '../api';
 import { useNavigation } from '@react-navigation/native';
+import { Video } from 'expo-av';
 
 interface MediaProps {
   media: MediaWithMetadata;
@@ -73,7 +74,20 @@ const Media = ({ media, post, pet, detailed }: MediaProps) => {
       </View>
       <Pressable onPress={onPressMedia} style={styles.content}>
         <Text style={styles.title}>{media.title}</Text>
-        <Image style={styles.image} source={{ uri: mediaUrl + media.filename }} />
+        {media.media_type === 'image' ?
+          (<Image source={{ uri: mediaUrl + media.filename }} style={styles.image}/>) :
+          media.media_type ?
+            (<Video
+              source={{ uri: mediaUrl + media.filename }}
+              style={styles.image}
+              shouldPlay={true}
+              isLooping
+              resizeMode="contain"
+              onError={err => {
+                console.error('video', err);
+              }}
+            />
+            ) : null }
       </Pressable>
       <View style={styles.footer}>
         <Pressable onPress={rate} style={styles.actionContainer}>
