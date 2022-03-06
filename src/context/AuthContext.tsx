@@ -23,9 +23,10 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   // Validate the token persisted in AsyncStorage
   const initialize = useCallback(async () => {
     try {
-      const response = await api.getCurrentUser();
       const tokenFromStorage = await AsyncStorage.getItem('token');
-      if (!response.user || !tokenFromStorage) return signout();
+      if (!tokenFromStorage) return signout();
+      const response = await api.getCurrentUser();
+      if (!response.user) return signout();
       signin(tokenFromStorage, response.user);
     } catch (error) {
       signout();

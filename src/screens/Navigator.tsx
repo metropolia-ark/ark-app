@@ -21,6 +21,7 @@ import ProfileScreen from './ProfileScreen';
 import SettingsScreen from './SettingsScreen';
 import { ParamList } from '../types';
 import { useAuth } from '../hooks';
+import { MediaProvider } from '../context';
 
 const UnauthenticatedStack = createNativeStackNavigator<ParamList.Unauthenticated>();
 const AuthenticatedStack = createNativeStackNavigator<ParamList.Authenticated>();
@@ -42,12 +43,14 @@ const Navigator = () => {
   return (
     <NavigationContainer>
       {auth.isAuthenticated ? (
-        <AuthenticatedStack.Navigator>
-          <AuthenticatedStack.Screen name="Tabs" component={TabScreens} options={{ headerShown: false }} />
-          <AuthenticatedStack.Screen name="User" component={UserScreen} />
-          <AuthenticatedStack.Screen name="Post" component={PostScreen} />
-          <AuthenticatedStack.Screen name="Pet" component={PetScreen} />
-        </AuthenticatedStack.Navigator>
+        <MediaProvider>
+          <AuthenticatedStack.Navigator>
+            <AuthenticatedStack.Screen name="Tabs" component={TabScreens} options={{ headerShown: false }} />
+            <AuthenticatedStack.Screen name="User" component={UserScreen} />
+            <AuthenticatedStack.Screen name="Post" component={PostScreen} />
+            <AuthenticatedStack.Screen name="Pet" component={PetScreen} />
+          </AuthenticatedStack.Navigator>
+        </MediaProvider>
       ) : (
         <UnauthenticatedStack.Navigator>
           <UnauthenticatedStack.Screen
