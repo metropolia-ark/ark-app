@@ -52,6 +52,8 @@ const SettingsScreen = () => {
       i18n.changeLanguage('en');
     } else if (current === 1){
       i18n.changeLanguage('fi');
+    } else if (current === 2){
+      i18n.changeLanguage('ua');
     }
   };
   return (
