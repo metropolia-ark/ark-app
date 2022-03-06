@@ -44,18 +44,21 @@ const SettingsScreen = () => {
     } catch (error) {
       console.error(error);
     }
-
   };
-  const changeLanguage = (index: any) => {
+
+  const changeLanguage = async (index: any) => {
     const current = index.row;
-    if (current === 0){
-      i18n.changeLanguage('en');
-    } else if (current === 1){
-      i18n.changeLanguage('fi');
-    } else if (current === 2){
-      i18n.changeLanguage('ua');
+    if (current === 0) {
+      await i18n.changeLanguage('en');
+    } else if (current === 1) {
+      await i18n.changeLanguage('fi');
+    } else if (current === 2) {
+      await i18n.changeLanguage('ua');
+    } else if (current === 3) {
+      await i18n.changeLanguage('hu');
     }
   };
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.content}>

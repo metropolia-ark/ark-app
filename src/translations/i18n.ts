@@ -3,8 +3,15 @@ import { initReactI18next } from 'react-i18next';
 import en from './en.json';
 import fi from './fi.json';
 import ua from './ua.json';
+import hu from './hu.json';
 
-const resources = { en: { translation: en }, fi: { translation: fi }, ua: { translation: ua }  };
+const resources = {
+  en: { translation: en },
+  fi: { translation: fi },
+  ua: { translation: ua },
+  hu: { translation: hu },
+};
+
 export const availableLanguages = Object.keys(resources);
 i18n
   .use(initReactI18next) // passes i18n down to react-i18next
