@@ -2,6 +2,7 @@
   "home":"Home",
   "market":"Market",
   "post": "Post",
+  "posts": "Posts",
   "new": "New",
   "user": "User",
   "setting": "Settings",
@@ -38,5 +39,9 @@
   "errorEmail": "The email address is required.",
   "emailInvalid":"The email address is invalid.",
   "usernameIsAlreadyUse": "The username is in use already.",
-  "alreadyHaveAccount": "Already have an account?"
+  "alreadyHaveAccount": "Already have an account?",
+  "noPosts": "{{username}} hasn't shared any posts yet...",
+  "noPets": "{{username}} hasn't shared any pets yet...",
+  "noPostsSelf": "You haven't shared any posts yet...",
+  "noPetsSelf": "You haven't shared any pets yet..."
 }

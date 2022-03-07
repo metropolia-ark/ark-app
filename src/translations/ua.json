@@ -2,6 +2,7 @@
   "home":"Домашя",
   "market":"Маркет",
   "post": "Публікація",
+  "posts": "TODO",
   "new": "Нова",
   "user": "Користувач",
   "setting": "Налаштування",
@@ -38,5 +39,9 @@
   "errorEmail": "Введіть електронну адресу.",
   "emailInvalid":"Формат електронної пошти невірний.",
   "usernameIsAlreadyUse": "Такий логін вже використовується.",
-  "alreadyHaveAccount": "Вже є аккаунт?"
+  "alreadyHaveAccount": "Вже є аккаунт?",
+  "noPosts": "TODO",
+  "noPets": "TODO",
+  "noPostsSelf": "TODO",
+  "noPetsSelf": "TODO"
 }

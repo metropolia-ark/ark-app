@@ -1,19 +1,22 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { FlatList, Image, Pressable, StyleSheet, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { Text } from '@ui-kitten/components';
 import { useRoute } from '@react-navigation/native';
 import { User as UserIcon } from 'phosphor-react-native';
 import { Divider, Media } from '../components';
 import * as api from '../api';
-import { useMedia } from '../hooks';
+import { useMedia, useUser } from '../hooks';
 import { Route, User } from '../types';
 import { avatarTag, filter, mediaUrl, petTag, postTag } from '../utils';
 
 enum Tab { Posts, Pets }
 
 const UserScreen = () => {
-  const { params } = useRoute<Route.User>();
+  const { params } = useRoute<Route.User | Route.Profile>();
+  const { t } = useTranslation();
   const media = useMedia();
+  const currentUser = useUser();
   const [isLoading, setIsLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [tab, setTab] = useState<Tab>(Tab.Posts);
@@ -21,10 +24,11 @@ const UserScreen = () => {
 
   // Fecth user data and avatar
   const fetchUser = useCallback(async () => {
-    const response = await api.getUser(params.userId);
-    const [avatar] = await api.getMediasByTag(avatarTag + params.userId);
+    const userId = params?.userId ?? currentUser.user_id;
+    const response = await api.getUser(userId);
+    const [avatar] = await api.getMediasByTag(avatarTag + userId);
     setUser({ ...response, avatar });
-  }, [params.userId]);
+  }, [currentUser.user_id, params]);
 
   // Fetch user data once
   useEffect(() => {
@@ -62,11 +66,11 @@ const UserScreen = () => {
           </View>
           <View style={styles.tabContainer}>
             <Pressable onPress={() => setTab(Tab.Posts)} style={styles.tabItem}>
-              <Text style={[styles.tabLabel, tab === Tab.Posts && styles.tabLabelActive]}>Posts</Text>
+              <Text style={[styles.tabLabel, tab === Tab.Posts && styles.tabLabelActive]}>{t('posts')}</Text>
               <View style={[styles.tabIndicator, tab === Tab.Posts && styles.tabIndicatorActive]} />
             </Pressable>
             <Pressable onPress={() => setTab(Tab.Pets)} style={styles.tabItem}>
-              <Text style={[styles.tabLabel, tab === Tab.Pets && styles.tabLabelActive]}>Market</Text>
+              <Text style={[styles.tabLabel, tab === Tab.Pets && styles.tabLabelActive]}>{t('market')}</Text>
               <View style={[styles.tabIndicator, tab === Tab.Pets && styles.tabIndicatorActive]} />
             </Pressable>
           </View>
@@ -74,7 +78,9 @@ const UserScreen = () => {
       )}
       ListEmptyComponent={() => (
         <Text style={styles.empty}>
-          {tab === Tab.Posts ? 'This user hasn\'t shared any posts.' : 'This user hasn\'t shared any pets.'}
+          {tab === Tab.Posts
+            ? user.user_id === currentUser.user_id ? t('noPostsSelf') : t('noPosts', { username: user.username })
+            : user.user_id === currentUser.user_id ? t('noPetsSelf') : t('noPets', { username: user.username })}
         </Text>
       )}
       ItemSeparatorComponent={() => <Divider />}

@@ -12,13 +12,12 @@ import {
 } from 'phosphor-react-native';
 import SignInScreen from './SignInScreen';
 import SignUpScreen from './SignUpScreen';
+import MediaScreen from './MediaScreen';
+import UserScreen from './UserScreen';
 import HomeScreen from './HomeScreen';
 import MarketScreen from './MarketScreen';
 import NewScreen from './NewScreen';
-import ProfileScreen from './ProfileScreen';
 import SettingsScreen from './SettingsScreen';
-import MediaScreen from './MediaScreen';
-import UserScreen from './UserScreen';
 import { ParamList } from '../types';
 import { useAuth } from '../hooks';
 import { MediaProvider } from '../context';
@@ -48,7 +47,7 @@ const TabScreens = () => {
       />
       <BottomTab.Screen
         name="Profile"
-        component={ProfileScreen}
+        component={UserScreen}
         options={{ tabBarIcon: ProfileIcon, headerTitle: t('profile') }}
       />
       <BottomTab.Screen
@@ -62,42 +61,21 @@ const TabScreens = () => {
 
 const Navigator = () => {
   const auth = useAuth();
-  const { t } = useTranslation();
   if (auth.isLoading) return null;
   return (
     <NavigationContainer>
       {auth.isAuthenticated ? (
         <MediaProvider>
           <AuthenticatedStack.Navigator>
-            <AuthenticatedStack.Screen
-              name="Tabs"
-              component={TabScreens}
-              options={{ headerShown: false }}
-            />
-            <AuthenticatedStack.Screen
-              name="Media"
-              component={MediaScreen}
-              options={{ headerTitle: '' }}
-            />
-            <AuthenticatedStack.Screen
-              name="User"
-              component={UserScreen}
-              options={{ headerTitle: '' }}
-            />
+            <AuthenticatedStack.Screen name="Tabs" component={TabScreens} options={{ headerShown: false }} />
+            <AuthenticatedStack.Screen name="Media" component={MediaScreen} options={{ headerTitle: '' }} />
+            <AuthenticatedStack.Screen name="User" component={UserScreen} options={{ headerTitle: '' }} />
           </AuthenticatedStack.Navigator>
         </MediaProvider>
       ) : (
         <UnauthenticatedStack.Navigator>
-          <UnauthenticatedStack.Screen
-            name="SignIn"
-            component={SignInScreen}
-            options={{ headerShown: false, headerTitle: t('signIn') }}
-          />
-          <UnauthenticatedStack.Screen
-            name="SignUp"
-            component={SignUpScreen}
-            options={{ headerShown: false, headerTitle: t('signUp') }}
-          />
+          <UnauthenticatedStack.Screen name="SignIn" component={SignInScreen} options={{ headerShown: false }} />
+          <UnauthenticatedStack.Screen name="SignUp" component={SignUpScreen} options={{ headerShown: false }} />
         </UnauthenticatedStack.Navigator>
       )}
     </NavigationContainer>

@@ -2,6 +2,7 @@
   "home": "Főoldal",
   "market": "Piac",
   "post": "Poszt",
+  "posts": "Posztok",
   "new": "Új",
   "user": "Felhasználó",
   "setting": "Beállítások",
@@ -38,5 +39,9 @@
   "errorEmail": "Az email cím megadása szükséges",
   "emailInvalid": "Az email cím helytelen",
   "usernameIsAlreadyUse": "Ez a felhasználónév már létezik",
-  "alreadyHaveAccount": "Van már fiókod?"
+  "alreadyHaveAccount": "Van már fiókod?",
+  "noPosts": "{{username}} még nem osztott meg posztot...",
+  "noPets": "{{username}} még nem osztott meg állatot...",
+  "noPostsSelf": "Még nincs megosztott posztod...",
+  "noPetsSelf": "Még nincs megosztott állatod..."
 }

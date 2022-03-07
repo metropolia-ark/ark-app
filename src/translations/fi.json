@@ -2,6 +2,7 @@
   "home":"Kotisivu",
   "market": "Tori",
   "post": "Julkaisu",
+  "posts": "TODO",
   "new": "Uusi",
   "profile": "Profiili",
   "user": "Käyttäjä",
@@ -38,5 +39,9 @@
   "errorEmail": "Sähköpostiosoite on pakollinen.",
   "emailInvalid":"Sähköpostiosoite on väärin.",
   "usernameIsAlreadyUse": "Tämä käyttäjänimi on jo käytössä",
-  "alreadyHaveAccount": "Onko sinulla jo käyttäjä?"
+  "alreadyHaveAccount": "Onko sinulla jo käyttäjä?",
+  "noPosts": "TODO",
+  "noPets": "TODO",
+  "noPostsSelf": "TODO",
+  "noPetsSelf": "TODO"
 }
