@@ -5,20 +5,29 @@ import fi from './fi.json';
 import ua from './ua.json';
 import hu from './hu.json';
 
-const resources = {
+// Default namespace
+export const defaultNS = 'translation';
+
+// Resources
+export const resources = {
   en: { translation: en },
   fi: { translation: fi },
   ua: { translation: ua },
   hu: { translation: hu },
-};
+} as const;
 
+// Available languages
 export const availableLanguages = Object.keys(resources);
+
+// Configure react-i18next
 i18n
-  .use(initReactI18next) // passes i18n down to react-i18next
+  .use(initReactI18next)
   .init({
     compatibilityJSON: 'v3',
+    defaultNS,
     resources,
-    lng: 'en', // if you're using a language detector, do not define the lng option
+    ns: [defaultNS],
+    lng: 'en',
     fallbackLng: 'en',
     interpolation: { escapeValue: false },
   });
