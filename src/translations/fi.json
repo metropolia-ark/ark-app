@@ -21,16 +21,16 @@
   "signin": {
     "signIn": "Kirjaudu sisään",
     "noAccountYet": "Eikö sinulla ole tiliä vielä?",
-    "signUpInstead": "TODO"
+    "signUpInstead": "Rekisteröidy sen sijaan"
   },
   "signup": {
     "signUp": "Rekisteröinti",
     "alreadyHaveAccount": "Onko sinulla jo käyttäjä?",
-    "signInInstead": "TODO"
+    "signInInstead": "Kirjaudu sisään sen sijaan"
   },
   "media": {
-    "report": "TODO",
-    "delete": "TODO"
+    "report": "Raportoi",
+    "delete": "Poista"
   },
   "new": {
     "pickImage": "Valitse kuva kameran rullasta",
@@ -41,21 +41,21 @@
   "user": {
     "postsTab": "Julkaisut",
     "marketTab": "Tori",
-    "empty": "TODO"
+    "empty": "Tyhjä"
   },
   "settings": {
     "avatar": "TODO",
-    "language": "TODO",
-    "account": "TODO",
-    "security": "TODO",
+    "language": "Kieli",
+    "account": "Käyttäjä",
+    "security": "turva",
     "updateAvatar": "TODO",
-    "updateProfile": "TODO",
-    "updatePassword": "TODO",
+    "updateProfile": "Profiili päivitetty",
+    "updatePassword": "Salasana vaihdettu",
     "signOut": "Kirjaudu ulos"
   },
   "success": {
-    "profileUpdated": "TODO",
-    "passwordUpdated": "TODO"
+    "profileUpdated": "Profiilin päivitys onnistui",
+    "passwordUpdated": "Salasana päivitys onnistui"
   },
   "required": {
     "username": "Käyttäjänimi on pakollinen.",
@@ -70,7 +70,7 @@
     "usernameInUse": "Tämä käyttäjänimi on jo käytössä.",
     "emailInvalid": "Sähköpostiosoite on väärin.",
     "passwordMatch": "Salasanat eivät täsmää.",
-    "unexpectedPrimary": "TODO",
-    "unexpectedSecondary": "TODO"
+    "unexpectedPrimary": "Odottamaton virhe on tapahtunut.",
+    "unexpectedSecondary": "Yritä uudelleen myöhemmin."
   }
 }
