@@ -31,8 +31,8 @@ const SignInScreen = () => {
   // Sign in form submit handler
   const signInOnSubmit = async (values: SignInFormValues) => {
     try {
-      const { token, user } = await api.signIn(values.username, values.password);
-      auth.signin(token, user);
+      const { token } = await api.signIn(values.username, values.password);
+      await auth.signin(token);
     } catch (error) {
       console.error(error);
     }

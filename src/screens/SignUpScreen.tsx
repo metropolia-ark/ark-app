@@ -49,8 +49,8 @@ const SignUpScreen = () => {
         actions.setFieldError('username', t('usernameIsAlreadyUse'));
       } else {
         await api.signUp(values.username, values.password, values.email, values.full_name);
-        const { token, user } = await api.signIn(values.username, values.password);
-        auth.signin(token, user);
+        const { token } = await api.signIn(values.username, values.password);
+        await auth.signin(token);
       }
     } catch (error) {
       console.error(error);
