@@ -1,4 +1,4 @@
-import { resources, defaultNS } from '../translations/i18n';
+import { resources, defaultNS } from '../utils';
 
 // Type support for react-i18next
 declare module 'react-i18next' {

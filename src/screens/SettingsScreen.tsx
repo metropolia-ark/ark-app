@@ -6,7 +6,7 @@ import { Form, FormActions, FormButton, FormInput } from '../components';
 import { useAuth, useUser } from '../hooks';
 import * as api from '../api';
 import { useTranslation } from 'react-i18next';
-import { availableLanguages } from '../translations/i18n';
+import { availableLanguages } from '../utils';
 
 interface FormValues {
   email: string;
