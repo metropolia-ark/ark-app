@@ -1,23 +1,21 @@
 import React from 'react';
 import { registerRootComponent } from 'expo';
 import { StatusBar } from 'expo-status-bar';
+import Toast from 'react-native-toast-message';
 import { ApplicationProvider } from '@ui-kitten/components';
 import * as eva from '@eva-design/eva';
-import  './translations/i18n';
-import { AuthProvider, MediaProvider } from './context';
+import './utils/i18n';
+import { AuthProvider } from './context';
 import Navigator from './screens/Navigator';
 
-const App = () => {
-  return (
-    <AuthProvider>
-      <MediaProvider>
-        <ApplicationProvider {...eva} theme={eva.light}>
-          <Navigator />
-          <StatusBar style="auto" />
-        </ApplicationProvider>
-      </MediaProvider>
-    </AuthProvider>
-  );
-};
+const App = () => (
+  <AuthProvider>
+    <ApplicationProvider {...eva} theme={eva.light}>
+      <Navigator />
+      <StatusBar style="auto" />
+      <Toast />
+    </ApplicationProvider>
+  </AuthProvider>
+);
 
 registerRootComponent(App);

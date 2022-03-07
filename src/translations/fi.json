@@ -1,42 +1,76 @@
 {
-  "home":"Kotisivu",
-  "market": "Tori",
-  "post": "Julkaisu",
-  "new": "Uusi",
-  "profile": "Profiili",
-  "user": "Käyttäjä",
-  "setting": "Asetukset",
-  "imagePick": "Valitse kuva kameran rullasta",
-  "imageNotSelected": "Ole hyvä ja valitse tiedosto",
-  "submit": "Julkaise",
-  "media": "Media",
-  "title": "Otsikko",
-  "description": "Kuvaus",
-  "username": "Käyttäjänimi",
-  "password": "Salasana",
-  "confirmPassword": "Vahvista salasana",
-  "email": "Sähköpostiosoite",
-  "signIn": "Kirjaudu sisään",
-  "signUp": "Rekisteröinti",
-  "signUpOtherTerm": "Rekisteröi",
-  "signOut": "Kirjaudu ulos",
-  "save": "Tallenna",
-  "noAccount": "Eikö sinulla ole tiliä vielä?",
-  "fullName":"Koko nimi",
-  "updateProfile": "Päivitä profiili",
-  "update": "Päivitä",
-  "dataUpdate": "Käyttäjä päivitetty",
-  "newUsername": "Uusi käyttäjänimi",
-  "newPassword": "Uusi salasana",
-  "newEmail": "Uusi sähköposti",
-  "errorUsernamePassword": "Käyttäjänimi tai salasana on väärin",
-  "errorUsername": "Käyttäjänimi on pakollinen.",
-  "errorPassword": "Salasana on pakollinen.",
-  "errorTitle": "Otsikko on pakollinen.",
-  "errorConfirmPassword": "Salasanan vahvistus on pakollinen",
-  "passwordMatch": "Salasanat eivät täsmää.",
-  "errorEmail": "Sähköpostiosoite on pakollinen.",
-  "emailInvalid":"Sähköpostiosoite on väärin.",
-  "usernameIsAlreadyUse": "Tämä käyttäjänimi on jo käytössä",
-  "alreadyHaveAccount": "Onko sinulla jo käyttäjä?"
+  "tab": {
+    "home": "Kotisivu",
+    "market": "Tori",
+    "new": "Uusi",
+    "profile": "Profiili",
+    "setting": "Asetukset"
+  },
+  "field": {
+    "username": "Käyttäjänimi",
+    "email": "Sähköpostiosoite",
+    "password": "Salasana",
+    "fullname": "Koko nimi",
+    "confirm": "Vahvista salasana",
+    "newUsername": "Uusi käyttäjänimi",
+    "newEmail": "Uusi sähköposti",
+    "newPassword": "Uusi salasana",
+    "title": "Otsikko",
+    "description": "Kuvaus"
+  },
+  "signin": {
+    "signIn": "Kirjaudu sisään",
+    "noAccountYet": "Eikö sinulla ole tiliä vielä?",
+    "signUpInstead": "TODO"
+  },
+  "signup": {
+    "signUp": "Rekisteröinti",
+    "alreadyHaveAccount": "Onko sinulla jo käyttäjä?",
+    "signInInstead": "TODO"
+  },
+  "media": {
+    "report": "TODO",
+    "delete": "TODO"
+  },
+  "new": {
+    "pickImage": "Valitse kuva kameran rullasta",
+    "post": "Julkaisu",
+    "market": "Tori",
+    "upload": "Julkaise"
+  },
+  "user": {
+    "postsTab": "Julkaisut",
+    "marketTab": "Tori",
+    "empty": "TODO"
+  },
+  "settings": {
+    "avatar": "TODO",
+    "language": "TODO",
+    "account": "TODO",
+    "security": "TODO",
+    "updateAvatar": "TODO",
+    "updateProfile": "TODO",
+    "updatePassword": "TODO",
+    "signOut": "Kirjaudu ulos"
+  },
+  "success": {
+    "profileUpdated": "TODO",
+    "passwordUpdated": "TODO"
+  },
+  "required": {
+    "username": "Käyttäjänimi on pakollinen.",
+    "email": "Sähköpostiosoite on pakollinen.",
+    "password": "Salasana on pakollinen.",
+    "confirm": "Salasanan vahvistus on pakollinen.",
+    "title": "Otsikko on pakollinen.",
+    "file": "Tiedosto on pakollinen."
+  },
+  "error": {
+    "invalidCredentials": "Käyttäjänimi tai salasana on väärin.",
+    "usernameInUse": "Tämä käyttäjänimi on jo käytössä.",
+    "emailInvalid": "Sähköpostiosoite on väärin.",
+    "passwordMatch": "Salasanat eivät täsmää.",
+    "unexpectedPrimary": "TODO",
+    "unexpectedSecondary": "TODO"
+  }
 }

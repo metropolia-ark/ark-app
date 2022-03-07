@@ -1,42 +1,76 @@
 {
-  "home":"Home",
-  "market":"Market",
-  "post": "Post",
-  "new": "New",
-  "user": "User",
-  "setting": "Settings",
-  "profile": "Profile",
-  "imagePick": "Pick an image from camera roll",
-  "imageNotSelected": "Please, select a file",
-  "submit": "Post",
-  "media": "Media",
-  "title": "Title",
-  "description": "Description",
-  "username": "Username",
-  "password": "Password",
-  "confirmPassword": "Confirm Password",
-  "email": "Email",
-  "signIn": "Sign in",
-  "signUp": "Sign up",
-  "signUpOtherTerm": "Sign up",
-  "signOut": "Sign out",
-  "save": "Save",
-  "noAccount": "Dont have an account yet?",
-  "fullName":"Full name",
-  "updateProfile": "Update profile",
-  "update": "Update",
-  "dataUpdate": "User data updated",
-  "newUsername": "New username",
-  "newPassword": "New password",
-  "newEmail": "New email address",
-  "errorUsernamePassword": "Username or password invalid",
-  "errorUsername": "The username is required.",
-  "errorPassword": "The password is required.",
-  "errorTitle": "The title is required.",
-  "errorConfirmPassword": "Please confirm your password",
-  "passwordMatch": "Password must match",
-  "errorEmail": "The email address is required.",
-  "emailInvalid":"The email address is invalid.",
-  "usernameIsAlreadyUse": "The username is in use already.",
-  "alreadyHaveAccount": "Already have an account?"
+  "tab": {
+    "home": "Home",
+    "market": "Market",
+    "new": "New",
+    "profile": "Profile",
+    "setting": "Settings"
+  },
+  "field": {
+    "username": "Username",
+    "email": "Email address",
+    "password": "Password",
+    "fullname": "Full name",
+    "confirm": "Confirm password",
+    "newUsername": "New username",
+    "newEmail": "New email address",
+    "newPassword": "New password",
+    "title": "Title",
+    "description": "Description"
+  },
+  "signin": {
+    "signIn": "Sign in",
+    "noAccountYet": "Don't have an account yet?",
+    "signUpInstead": "Sign up instead"
+  },
+  "signup": {
+    "signUp": "Sign up",
+    "alreadyHaveAccount": "Already have an account?",
+    "signInInstead": "Sign in instead"
+  },
+  "media": {
+    "report": "Report",
+    "delete": "Delete"
+  },
+  "new": {
+    "pickImage": "Pick an image from camera roll",
+    "post": "Post",
+    "market": "Market",
+    "upload": "Upload"
+  },
+  "user": {
+    "postsTab": "Posts",
+    "marketTab": "Market",
+    "empty": "Nothing has been shared here yet..."
+  },
+  "settings": {
+    "avatar": "Avatar",
+    "language": "App language",
+    "account": "Account",
+    "security": "Security",
+    "updateAvatar": "Change avatar",
+    "updateProfile": "Update profile",
+    "updatePassword": "Change password",
+    "signOut": "Sign out"
+  },
+  "success": {
+    "profileUpdated": "Profile updated successfully!",
+    "passwordUpdated": "Password changed successfully!"
+  },
+  "required": {
+    "username": "The username is required.",
+    "email": "The email address is required.",
+    "password": "The password is required.",
+    "confirm": "The confirmation is required.",
+    "title": "The title is required.",
+    "file": "The file is required."
+  },
+  "error": {
+    "invalidCredentials": "The username or password is incorrect.",
+    "usernameInUse": "The username is in use already.",
+    "emailInvalid": "The email address is invalid.",
+    "passwordMatch": "The passwords must match.",
+    "unexpectedPrimary": "An unexpected error has occured.",
+    "unexpectedSecondary": "Please try again later."
+  }
 }

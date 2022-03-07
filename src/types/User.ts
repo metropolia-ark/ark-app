@@ -1,3 +1,5 @@
+import { Media } from './Media';
+
 export interface User {
   user_id: number;
   username: string;
@@ -5,4 +7,5 @@ export interface User {
   time_created: string;
   full_name: string | null;
   is_admin: boolean | null;
+  avatar?: Media;
 }

@@ -1,42 +1,76 @@
 {
-  "home": "Főoldal",
-  "market": "Piac",
-  "post": "Poszt",
-  "new": "Új",
-  "user": "Felhasználó",
-  "setting": "Beállítások",
-  "profile": "Profil",
-  "imagePick": "Válassz egy képet az eszközről",
-  "imageNotSelected": "A fájl megadása szükséges",
-  "submit": "Kész",
-  "media": "Média",
-  "title": "Cím",
-  "description": "Leírás",
-  "username": "Felhasználónév",
-  "password": "Jelszó",
-  "confirmPassword": "Jelszó megerősítése",
-  "email": "Email",
-  "signIn": "Bejelentkezés",
-  "signUp": "Regisztráció",
-  "signUpOtherTerm": "Regisztráció",
-  "signOut": "Kijelentkezés",
-  "save": "Mentés",
-  "noAccount": "Nincs még fiókod?",
-  "fullName": "Teljes név",
-  "updateProfile": "Profil frissítése",
-  "update": "Frissítés",
-  "dataUpdate": "Felhasználói adat szükséges",
-  "newUsername": "Új felhasználónév",
-  "newPassword": "Új jelszó",
-  "newEmail": "Új email cím",
-  "errorUsernamePassword": "A felhasználónév vagy jelszó téves",
-  "errorUsername": "A felhasználónév megadása szükséges",
-  "errorPassword": "A jelszó megadása szükséges",
-  "errorTitle": "A cím megadása szükséges",
-  "errorConfirmPassword": "Erősítsd meg a jelszavadat",
-  "passwordMatch": "A jelszavak nem egyeznek",
-  "errorEmail": "Az email cím megadása szükséges",
-  "emailInvalid": "Az email cím helytelen",
-  "usernameIsAlreadyUse": "Ez a felhasználónév már létezik",
-  "alreadyHaveAccount": "Van már fiókod?"
+  "tab": {
+    "home": "Kezdőlap",
+    "market": "Piac",
+    "new": "Új",
+    "profile": "Profil",
+    "setting": "Beállítások"
+  },
+  "field": {
+    "username": "Felhasználónév",
+    "email": "Email cím",
+    "password": "Jelszó",
+    "fullname": "Teljes név",
+    "confirm": "Jelszó megerősítése",
+    "newUsername": "Új felhasználónév",
+    "newEmail": "Új email cím",
+    "newPassword": "Új jelszó",
+    "title": "Cím",
+    "description": "Leírás"
+  },
+  "signin": {
+    "signIn": "Bejelentkezés",
+    "noAccountYet": "Nincs még fiókja?",
+    "signUpInstead": "Regisztráljon itt"
+  },
+  "signup": {
+    "signUp": "Regisztráció",
+    "alreadyHaveAccount": "Van már fiókja?",
+    "signInInstead": "Jelentkezzen be itt"
+  },
+  "media": {
+    "report": "Jelentés",
+    "delete": "Törlés"
+  },
+  "new": {
+    "pickImage": "Kép kiválasztása",
+    "post": "Poszt",
+    "market": "Piac",
+    "upload": "Feltöltés"
+  },
+  "user": {
+    "postsTab": "Posztok",
+    "marketTab": "Piac",
+    "empty": "Még semmi sem lett itt megosztva..."
+  },
+  "settings": {
+    "avatar": "Profilkép",
+    "language": "App nyelv",
+    "account": "Fiók",
+    "security": "Biztonság",
+    "updateAvatar": "Profilkép frissítése",
+    "updateProfile": "Profil frissítése",
+    "updatePassword": "Jelszó frissítése",
+    "signOut": "Kijelentkezés"
+  },
+  "success": {
+    "profileUpdated": "Profil sikeresen frissítve!",
+    "passwordUpdated": "Jelszó sikeresen frissítve!"
+  },
+  "required": {
+    "username": "A felhasználónév megadása kötelező.",
+    "email": "Az email cím megadása kötelező.",
+    "password": "A jelszó megadása kötelező.",
+    "confirm": "A jelszó megerősítése kötelező.",
+    "title": "A cím megadása kötelező.",
+    "file": "A fájl megadása kötelező."
+  },
+  "error": {
+    "invalidCredentials": "A felhasználónév vagy a jelszó nem megfelelő.",
+    "usernameInUse": "A felhasználónév már foglalt.",
+    "emailInvalid": "Az email cím nem megfelelő.",
+    "passwordMatch": "A jelszavaknak egyezniük kell.",
+    "unexpectedPrimary": "Egy váratlan hiba állt elő.",
+    "unexpectedSecondary": "Próbálja meg újra később."
+  }
 }

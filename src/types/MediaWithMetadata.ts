@@ -6,7 +6,6 @@ import { Comment } from './Comment';
 export interface MediaWithMetadata extends Media {
   tag: string;
   user: User;
-  avatar?: Media;
   ratings: Rating[];
   comments: Comment[];
 }

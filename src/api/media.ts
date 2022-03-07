@@ -6,7 +6,7 @@ type GetMediaResponse = Media;
 type GetMediasResponse = Media[];
 type AddTagToMediaResposne = { message: string; tag_id: number };
 type UploadMediaResponse = { message: string; file_id: number };
-type DeletePostResponse = { message: string };
+type DeleteMediaResponse = { message: string };
 
 // Get a media
 export const getMedia = (file_id: number) => {
@@ -30,5 +30,5 @@ export const uploadMedia = (data: FormData) => {
 
 // Delete a media
 export const deleteMedia = (file_id: number) => {
-  return request<DeletePostResponse>(Method.DELETE, `/media/${file_id}`);
+  return request<DeleteMediaResponse>(Method.DELETE, `/media/${file_id}`);
 };

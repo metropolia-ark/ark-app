@@ -10,8 +10,7 @@ export namespace ParamList {
   };
   export type Authenticated = {
     Tabs: undefined;
-    Post: { postId: number };
-    Pet: { petId: number };
+    Media: { mediaId: number };
     User: { userId: number };
   };
   export type Tabs = {
@@ -27,9 +26,7 @@ export namespace ParamList {
 export namespace Navigation {
   export type SignIn = Stack<ParamList.Unauthenticated, 'SignIn'>;
   export type SignUp = Stack<ParamList.Unauthenticated, 'SignUp'>;
-  export type Media = Stack<ParamList.Authenticated>;
-  export type Post = Stack<ParamList.Authenticated, 'Post'>;
-  export type Pet = Stack<ParamList.Authenticated, 'Pet'>;
+  export type Media = Stack<ParamList.Authenticated, 'Media'>;
   export type User = Stack<ParamList.Authenticated, 'User'>;
   export type Home = Composite<BottomTab<ParamList.Tabs, 'Home'>, Stack<ParamList.Authenticated, 'Tabs'>>;
   export type Market = Composite<BottomTab<ParamList.Tabs, 'Market'>, Stack<ParamList.Authenticated, 'Tabs'>>;
@@ -42,8 +39,7 @@ export namespace Navigation {
 export namespace Route {
   export type SignIn = RouteProp<ParamList.Unauthenticated, 'SignIn'>;
   export type SignUp = RouteProp<ParamList.Unauthenticated, 'SignIn'>;
-  export type Post = RouteProp<ParamList.Authenticated, 'Post'>;
-  export type Pet = RouteProp<ParamList.Authenticated, 'Pet'>;
+  export type Media = RouteProp<ParamList.Authenticated, 'Media'>;
   export type User = RouteProp<ParamList.Authenticated, 'User'>;
   export type Home = RouteProp<ParamList.Tabs, 'Home'>;
   export type Market = RouteProp<ParamList.Tabs, 'Market'>;

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { ScrollView, StyleSheet, View, Image, KeyboardAvoidingView, Alert } from 'react-native';
+import { ScrollView, StyleSheet, View, Image, KeyboardAvoidingView } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import * as ImagePicker from 'expo-image-picker';
 import { Video } from 'expo-av';
 import { useNavigation } from '@react-navigation/native';
@@ -8,32 +9,27 @@ import * as yup from 'yup';
 import { Form, FormActions, FormButton, FormInput } from '../components';
 import { Navigation } from '../types';
 import * as api from  '../api';
-import { petTag, postTag } from '../utils';
-import { useTranslation } from 'react-i18next';
+import { petTag, postTag, toast } from '../utils';
 
-interface FormValues {
+interface UploadFormValues {
   title: string;
   description: string;
 }
 
 const NewScreen = () => {
-  // To navigate to home when uploaded
   const { navigate } = useNavigation<Navigation.New>();
+  const { t } = useTranslation();
 
-  // upload initial value
-  const uploadInitialValues: FormValues = {
-    title: '',
-    description: '',
-  };
-
-  // setting state for image,type,checked marked and if the image is selected
+  // Setting state for image, type, checked marked and if the image is selected
   const [image, setImage] = useState('');
   const [type, setType] = useState('');
   const [checked, setChecked] = useState(false);
   const [imageSelected, setImageSelected] = useState(false);
-  const { t } = useTranslation();
 
-  // image picker
+  // Upload form initial value
+  const uploadInitialValues: UploadFormValues = { title: '', description: '' };
+
+  // Image picker
   const pickImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -48,14 +44,17 @@ const NewScreen = () => {
     }
   };
 
-  // upload form validation schema
-  const uploadSchema = yup.object().shape({ title: yup.string().required(t('errorTitle')) });
+  // Upload form validation schema
+  const uploadSchema = yup.object().shape({
+    title: yup.string().required(t('required.title')),
+    description: yup.string(),
+  });
 
-  // upload form submit handler
-  const uploadOnSubmit = async (values: FormValues, actions: FormActions<FormValues>) => {
-    // if the image is not selected alert
-    if (!imageSelected){
-      Alert.alert(t('imageNotSelected'));
+  // Upload form submit handler
+  const uploadOnSubmit = async (values: UploadFormValues, actions: FormActions<UploadFormValues>) => {
+    // If the image is not selected alert
+    if (!imageSelected) {
+      toast.error(t('required.file'));
       return;
     }
 
@@ -95,6 +94,7 @@ const NewScreen = () => {
       setImageSelected(false);
     } catch (e) {
       console.error(e);
+      toast.error(t('error.unexpectedPrimary'), t('error.unexpectedSecondary'));
     }
   };
 
@@ -108,7 +108,7 @@ const NewScreen = () => {
       <KeyboardAvoidingView
         style={styles.container}
         keyboardVerticalOffset={100}
-        behavior={'position'}
+        behavior="position"
       >
         <View style={styles.content}>
           <Form initialValues={uploadInitialValues} schema={uploadSchema} onSubmit={uploadOnSubmit}>
@@ -124,15 +124,15 @@ const NewScreen = () => {
                     console.error('video', err);
                   }}
                 />
-                ) : null }
-            <Button onPress={pickImage}>{t('imagePick').toString()}</Button>
-            <FormInput name="title" label={t('title')}/>
-            <FormInput name="description" label={t('description')} multiline={true} textStyle={styles.multiline}/>
+                ) : null}
+            <Button onPress={pickImage}>{t('new.pickImage')}</Button>
+            <FormInput name="title" label={t('field.title')}/>
+            <FormInput name="description" label={t('field.description')} multiline={true} textStyle={styles.multiline}/>
             <View style={styles.layout}>
               <Toggle checked={checked} onChange={onCheckedChange}>
-                {checked ? `${t('market')}` : `${t('media')}`}
+                {checked ? t('new.market') : t('new.post')}
               </Toggle>
-              <FormButton>{t('submit')}</FormButton>
+              <FormButton>{t('new.upload')}</FormButton>
             </View>
           </Form>
         </View>

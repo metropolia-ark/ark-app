@@ -7,7 +7,8 @@ type GetCurrentUserResponse = { message?: string; user?: User };
 type GetUsernameResponse = { username: string; available: boolean }
 type SignInResponse = { message: string; token: string; user: User };
 type SignUpResponse = { message: string; user_id: number };
-interface SettingUpdate {message: string; }
+type UpdateUserProfileResponse = { message: string; user_id: number };
+type UpdateUserPasswordResponse = { message: string; user_id: number };
 
 // Get a user
 export const getUser = (user_id: number) => {
@@ -34,7 +35,13 @@ export const signIn = (username: string, password: string) => {
 export const signUp = (username: string, password: string, email: string, full_name?: string) => {
   return request<SignUpResponse>(Method.POST, '/users', { username, password, email, full_name });
 };
-// Update user data
-export const updateUser = (username: string, password: string, email: string) => {
-  return request<SettingUpdate>(Method.PUT, '/users', { username, password, email });
+
+// Update user profile
+export const updateUserProfile = (username: string, email: string) => {
+  return request<UpdateUserProfileResponse>(Method.PUT, '/users', { username, email });
+};
+
+// Update user password
+export const updateUserPassword = (password: string) => {
+  return request<UpdateUserPasswordResponse>(Method.PUT, '/users', { password });
 };

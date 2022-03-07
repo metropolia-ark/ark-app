@@ -2,20 +2,24 @@ import React from 'react';
 import { FlatList, StyleSheet } from 'react-native';
 import { Divider, Media } from '../components';
 import { useMedia } from '../hooks';
-import { postTag } from '../utils';
+import { filter, postTag } from '../utils';
 
 const HomeScreen = () => {
-  const { isLoading, isRefreshing, refresh, data } = useMedia(postTag);
+  const { isLoading, isRefreshing, refresh, data } = useMedia();
+
+  // Get all media with post tag
+  const mediaList = filter(data, { tag: postTag });
+
   if (isLoading) return null;
   return (
     <FlatList
-      data={data}
+      data={mediaList}
       keyExtractor={item => item.file_id.toString()}
       refreshing={isRefreshing}
-      onRefresh={refresh}
+      onRefresh={() => refresh(postTag)}
       style={styles.container}
       ItemSeparatorComponent={() => <Divider />}
-      renderItem={({ item }) => <Media media={item} post />}
+      renderItem={({ item }) => <Media media={item} />}
     />
   );
 };

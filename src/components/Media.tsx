@@ -1,37 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Image, Pressable, StyleSheet, View } from 'react-native';
-import { MenuItem, OverflowMenu, Text, Layout, Button } from '@ui-kitten/components';
+import { useTranslation } from 'react-i18next';
+import { useNavigation } from '@react-navigation/native';
+import { MenuItem, OverflowMenu, Text } from '@ui-kitten/components';
+import { Video } from 'expo-av';
 import { Chat, DotsThreeOutlineVertical, Heart, User } from 'phosphor-react-native';
 import { formatDistanceToNowStrict } from 'date-fns';
-import { MediaWithMetadata, Navigation, Rating } from '../types';
-import { mediaUrl, Method, postTag, request } from '../utils';
-import { useMedia, useUser } from '../hooks';
 import * as api from '../api';
-import { useNavigation } from '@react-navigation/native';
-import { Video } from 'expo-av';
+import { MediaWithMetadata, Navigation, Rating } from '../types';
+import { useMedia, useUser } from '../hooks';
+import { mediaUrl } from '../utils';
 
 interface MediaProps {
   media: MediaWithMetadata;
-  post?: boolean;
-  pet?: boolean;
   detailed?: boolean;
 }
 
-const Media = ({ media, post, pet, detailed }: MediaProps) => {
-  const currentUser = useUser();
+const Media = ({ media, detailed }: MediaProps) => {
   const { navigate } = useNavigation<Navigation.Media>();
-  const { updateData } = useMedia(media.tag);
-  const { refresh } = useMedia(postTag);
-
-  const [visible, setVisible] = React.useState(false);
-  const [selectedIndex, setSelectedIndex] = React.useState(null);
+  const { t } = useTranslation();
+  const currentUser = useUser();
+  const { updateData } = useMedia();
+  const [visible, setVisible] = useState(false);
 
   // Check if the media has been rated by the current user
   const hasRatedAlready = () => !!media.ratings.find(r => r.user_id === currentUser?.user_id);
 
   // Rate the media
   const rate = async () => {
-    if (!currentUser) return;
     if (hasRatedAlready()) {
       await api.deleteRating(media.file_id);
       const newRatings: Rating[] = media.ratings.filter(r => r.user_id !== currentUser.user_id);
@@ -47,9 +43,7 @@ const Media = ({ media, post, pet, detailed }: MediaProps) => {
 
   // Handle pressing the media
   const onPressMedia = () => {
-    if (detailed) return;
-    if (pet) navigate('Pet', { petId: media.file_id });
-    if (post) navigate('Post', { postId: media.file_id });
+    if (!detailed) navigate('Media', { mediaId: media.file_id });
   };
 
   // Handle pressing the user
@@ -57,38 +51,28 @@ const Media = ({ media, post, pet, detailed }: MediaProps) => {
     navigate('User', { userId: media.user_id });
   };
 
-  // Handle pressing the overflow-button
-  const onItemSelect = (index) => {
-    setSelectedIndex(index);
-    setVisible(false);
-  };
-
   // Handle to delete posts
   const deletePost = async () => {
-    console.log('Post deleted');
     await api.deleteMedia(media.file_id);
-    refresh();
   };
 
   // Handle to show dropdown menu
   const renderToggleButton = () => (
     <Pressable
-      hitSlop={ { top: 50, bottom: 50, left: 50, right: 50 } }
-      onPress={() => setVisible(true)}>
-      <DotsThreeOutlineVertical
-        size={20}
-        color="#bbbbbb"
-        weight="fill">
-      </DotsThreeOutlineVertical>
+      hitSlop={{ top: 50, bottom: 50, left: 50, right: 50 }}
+      onPress={() => setVisible(true)}
+    >
+      <DotsThreeOutlineVertical size={20} color="#bbbbbb" weight="fill" />
     </Pressable>
   );
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Pressable onPress={onPressUser}>
           <View style={styles.avatar}>
-            {media.avatar
-              ? <Image style={styles.avatarImage} source={{ uri: mediaUrl + media.avatar.filename }} />
+            {media.user.avatar
+              ? <Image style={styles.avatarImage} source={{ uri: mediaUrl + media.user.avatar.filename }} />
               : <User size={20} color="#ffffff" weight="fill" />}
           </View>
         </Pressable>
@@ -99,36 +83,33 @@ const Media = ({ media, post, pet, detailed }: MediaProps) => {
         <Text style={styles.timestamp}>
           {formatDistanceToNowStrict(new Date(media.time_added), { addSuffix: true })}
         </Text>
-        <Pressable>
-          <OverflowMenu
-            anchor={renderToggleButton}
-            visible={visible}
-            selectedIndex={selectedIndex}
-            onSelect={onItemSelect}
-            onBackdropPress={() => setVisible(false)}>
-            <MenuItem title='Report' />
-            {media.user_id === currentUser.user_id ?
-              (<MenuItem title='Delete' onPress={deletePost}/>) :
-              (<MenuItem title='Delete' disabled={true}/>)}
-          </OverflowMenu>
-        </Pressable>
+        <OverflowMenu
+          anchor={renderToggleButton}
+          visible={visible}
+          onBackdropPress={() => setVisible(false)}
+        >
+          <MenuItem title={t('media.report')} disabled />
+          {media.user_id === currentUser.user_id
+            ? <MenuItem title={t('media.delete')} onPress={deletePost} />
+            : <MenuItem title={t('media.delete')} disabled />}
+        </OverflowMenu>
       </View>
       <Pressable onPress={onPressMedia} style={styles.content}>
         <Text style={styles.title}>{media.title}</Text>
-        {media.media_type === 'image' ?
-          (<Image source={{ uri: mediaUrl + media.filename }} style={styles.image}/>) :
-          media.media_type ?
-            (<Video
+        {media.media_type === 'image'
+          ? <Image source={{ uri: mediaUrl + media.filename }} style={styles.media} />
+          : media.media_type
+            ? <Video
               source={{ uri: mediaUrl + media.filename }}
-              style={styles.image}
-              shouldPlay={true}
-              isLooping
+              style={styles.media}
+              shouldPlay={!!detailed}
+              isLooping={!!detailed}
               resizeMode="contain"
               onError={err => {
                 console.error('video', err);
               }}
             />
-            ) : null }
+            : null}
       </Pressable>
       <View style={styles.footer}>
         <Pressable onPress={rate} style={styles.actionContainer}>
@@ -195,7 +176,7 @@ const styles = StyleSheet.create({
     paddingBottom: 8,
     paddingHorizontal: 8,
   },
-  image: {
+  media: {
     width: '100%',
     height: 300,
     resizeMode: 'contain',
