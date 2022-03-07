@@ -4,7 +4,7 @@ import { MenuItem, OverflowMenu, Text, Layout, Button } from '@ui-kitten/compone
 import { Chat, DotsThreeOutlineVertical, Heart, User } from 'phosphor-react-native';
 import { formatDistanceToNowStrict } from 'date-fns';
 import { MediaWithMetadata, Navigation, Rating } from '../types';
-import { mediaUrl, Method, request } from '../utils';
+import { mediaUrl, Method, postTag, request } from '../utils';
 import { useMedia, useUser } from '../hooks';
 import * as api from '../api';
 import { useNavigation } from '@react-navigation/native';
@@ -21,6 +21,7 @@ const Media = ({ media, post, pet, detailed }: MediaProps) => {
   const currentUser = useUser();
   const { navigate } = useNavigation<Navigation.Media>();
   const { updateData } = useMedia(media.tag);
+  const { refresh } = useMedia(postTag);
 
   const [visible, setVisible] = React.useState(false);
   const [selectedIndex, setSelectedIndex] = React.useState(null);
@@ -66,15 +67,16 @@ const Media = ({ media, post, pet, detailed }: MediaProps) => {
   const deletePost = async () => {
     console.log('Post deleted');
     await api.deleteMedia(media.file_id);
+    refresh();
   };
 
   // Handle to show dropdown menu
   const renderToggleButton = () => (
     <Pressable
-      hitSlop={ { top: 20, bottom: 20, left: 50, right: 50 } }
+      hitSlop={ { top: 50, bottom: 50, left: 50, right: 50 } }
       onPress={() => setVisible(true)}>
       <DotsThreeOutlineVertical
-        size={25}
+        size={20}
         color="#bbbbbb"
         weight="fill">
       </DotsThreeOutlineVertical>
@@ -104,8 +106,10 @@ const Media = ({ media, post, pet, detailed }: MediaProps) => {
             selectedIndex={selectedIndex}
             onSelect={onItemSelect}
             onBackdropPress={() => setVisible(false)}>
-            <MenuItem title='Delete' onPress={deletePost}/>
-            <MenuItem title='Report' disabled={true}/>
+            <MenuItem title='Report' />
+            {media.user_id === currentUser.user_id ?
+              (<MenuItem title='Delete' onPress={deletePost}/>) :
+              (<MenuItem title='Delete' disabled={true}/>)}
           </OverflowMenu>
         </Pressable>
       </View>
