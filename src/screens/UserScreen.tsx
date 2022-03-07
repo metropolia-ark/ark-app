@@ -7,7 +7,7 @@ import { Avatar, Divider, Media } from '../components';
 import * as api from '../api';
 import { useMedia, useUser } from '../hooks';
 import { Route, User } from '../types';
-import { avatarTag, filter, petTag, postTag } from '../utils';
+import { avatarTag, filter, petTag, postTag, toast } from '../utils';
 
 enum Tab { Posts, Pets }
 
@@ -23,11 +23,16 @@ const UserScreen = () => {
 
   // Fecth user data and avatar
   const fetchUser = useCallback(async () => {
-    if (!params?.userId) return setUser(currentUser);
-    const response = await api.getUser(params.userId);
-    const [avatar] = await api.getMediasByTag(avatarTag + params.userId);
-    setUser({ ...response, avatar });
-  }, [currentUser, params]);
+    try {
+      if (!params?.userId) return setUser(currentUser);
+      const response = await api.getUser(params.userId);
+      const [avatar] = await api.getMediasByTag(avatarTag + params.userId);
+      setUser({ ...response, avatar });
+    } catch (error) {
+      console.error(error);
+      toast.error(t('error.unexpectedPrimary'), t('error.unexpectedSecondary'));
+    }
+  }, [currentUser, params?.userId, t]);
 
   // Fetch user data once
   useEffect(() => {
@@ -61,23 +66,17 @@ const UserScreen = () => {
           </View>
           <View style={styles.tabContainer}>
             <Pressable onPress={() => setTab(Tab.Posts)} style={styles.tabItem}>
-              <Text style={[styles.tabLabel, tab === Tab.Posts && styles.tabLabelActive]}>{t('posts')}</Text>
+              <Text style={[styles.tabLabel, tab === Tab.Posts && styles.tabLabelActive]}>{t('user.postsTab')}</Text>
               <View style={[styles.tabIndicator, tab === Tab.Posts && styles.tabIndicatorActive]} />
             </Pressable>
             <Pressable onPress={() => setTab(Tab.Pets)} style={styles.tabItem}>
-              <Text style={[styles.tabLabel, tab === Tab.Pets && styles.tabLabelActive]}>{t('market')}</Text>
+              <Text style={[styles.tabLabel, tab === Tab.Pets && styles.tabLabelActive]}>{t('user.marketTab')}</Text>
               <View style={[styles.tabIndicator, tab === Tab.Pets && styles.tabIndicatorActive]} />
             </Pressable>
           </View>
         </View>
       )}
-      ListEmptyComponent={() => (
-        <Text style={styles.empty}>
-          {tab === Tab.Posts
-            ? user.user_id === currentUser.user_id ? t('noPostsSelf') : t('noPosts', { username: user.username })
-            : user.user_id === currentUser.user_id ? t('noPetsSelf') : t('noPets', { username: user.username })}
-        </Text>
-      )}
+      ListEmptyComponent={() => <Text style={styles.empty}>{t('user.empty')}</Text>}
       ItemSeparatorComponent={() => <Divider />}
       renderItem={({ item }) => <Media media={item} />}
     />

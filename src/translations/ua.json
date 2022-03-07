@@ -1,47 +1,72 @@
 {
-  "home":"Домашя",
-  "market":"Маркет",
-  "post": "Публікація",
-  "posts": "TODO",
-  "new": "Нова",
-  "user": "Користувач",
-  "setting": "Налаштування",
-  "profile": "Профіль",
-  "imagePick": "Виберіть фото з галереї",
-  "imageNotSelected": "Будь ласка, виберіть файл",
-  "submit": "Публікувати",
-  "media": "Медіа",
-  "title": "Заголовок",
-  "description": "Описання",
-  "username": "Користувач",
-  "password": "Пароль",
-  "confirmPassword": "Підтвердіть пароль",
-  "email": "Електронна пошта",
-  "signIn": "Вхід",
-  "signUp": "Реєстрація",
-  "signUpOtherTerm": "Зареєструватись",
-  "signOut": "Вихід",
-  "save": "Зберегти",
-  "noAccount": "Ще не зареєстровані?",
-  "fullName":"Повне ім´я",
-  "updateProfile": "Оновити профіль",
-  "update": "Оновити",
-  "dataUpdate": "Данні оновлено",
-  "newUsername": "Новий логін",
-  "newPassword": "Новий пароль",
-  "newEmail": "Нова електронна адреса",
-  "errorUsernamePassword": "Логін або пароль невірні",
-  "errorUsername": "Введіть логін.",
-  "errorPassword": "Введіть пароль.",
-  "errorTitle": "Введіть заголовок.",
-  "errorConfirmPassword": "Будь ласка, підтвердіть пароль",
-  "passwordMatch": "Пароль не співпадає",
-  "errorEmail": "Введіть електронну адресу.",
-  "emailInvalid":"Формат електронної пошти невірний.",
-  "usernameIsAlreadyUse": "Такий логін вже використовується.",
-  "alreadyHaveAccount": "Вже є аккаунт?",
-  "noPosts": "TODO",
-  "noPets": "TODO",
-  "noPostsSelf": "TODO",
-  "noPetsSelf": "TODO"
+  "tab": {
+    "home": "Домашя",
+    "market": "Маркет",
+    "new": "Нова",
+    "profile": "Профіль",
+    "setting": "Налаштування"
+  },
+  "field": {
+    "username": "Користувач",
+    "email": "Електронна пошта",
+    "password": "Пароль",
+    "fullname": "Повне ім´я",
+    "confirm": "Підтвердіть пароль",
+    "newUsername": "Новий логін",
+    "newEmail": "Нова електронна адреса",
+    "newPassword": "Новий пароль",
+    "title": "Заголовок",
+    "description": "Описання"
+  },
+  "signin": {
+    "signIn": "Вхід",
+    "noAccountYet": "Ще не зареєстровані?",
+    "signUpInstead": "TODO"
+  },
+  "signup": {
+    "signUp": "Реєстрація",
+    "alreadyHaveAccount": "Вже є аккаунт?",
+    "signInInstead": "TODO"
+  },
+  "new": {
+    "pickImage": "Виберіть фото з галереї",
+    "post": "Публікація",
+    "market": "Маркет",
+    "upload": "Публікувати"
+  },
+  "user": {
+    "postsTab": "Публікації",
+    "marketTab": "Маркет",
+    "empty": "TODO"
+  },
+  "settings": {
+    "avatar": "TODO",
+    "language": "TODO",
+    "account": "TODO",
+    "security": "TODO",
+    "updateAvatar": "TODO",
+    "updateProfile": "TODO",
+    "updatePassword": "TODO",
+    "signOut": "Вихід"
+  },
+  "success": {
+    "profileUpdated": "TODO",
+    "passwordUpdated": "TODO"
+  },
+  "required": {
+    "username": "Введіть логін.",
+    "email": "Введіть електронну адресу.",
+    "password": "Введіть пароль.",
+    "confirm": "Будь ласка, підтвердіть пароль.",
+    "title": "Введіть заголовок.",
+    "file": "TODO"
+  },
+  "error": {
+    "invalidCredentials": "Логін або пароль невірні.",
+    "usernameInUse": "Такий логін вже використовується.",
+    "emailInvalid": "Формат електронної пошти невірний.",
+    "passwordMatch": "Пароль не співпадає.",
+    "unexpectedPrimary": "TODO",
+    "unexpectedSecondary": "TODO"
+  }
 }

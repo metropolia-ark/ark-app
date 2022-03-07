@@ -30,16 +30,16 @@ const SettingsScreen = () => {
 
   // Profile form validation schema
   const profileSchema = yup.object().shape({
-    username: yup.string().required(t('requiredUsername')),
-    email: yup.string().email(t('errorEmailInvalid')).required(t('requiredEmail')),
+    username: yup.string().required(t('required.username')),
+    email: yup.string().email(t('error.emailInvalid')).required(t('required.email')),
   });
 
   // Password form validation schema
   const passwordSchema = yup.object().shape({
-    password: yup.string().required(t('requiredPassword')),
+    password: yup.string().required(t('required.password')),
     confirm: yup.string()
-      .oneOf([yup.ref('password'), null], t('errorPasswordMatch'))
-      .required(t('requiredConfirm')),
+      .oneOf([yup.ref('password'), null], t('error.passwordMatch'))
+      .required(t('required.confirm')),
   });
 
   // Pick and upload new avatar picture
@@ -61,7 +61,7 @@ const SettingsScreen = () => {
       }
     } catch (error) {
       console.error(error);
-      toast.error(t('errorUnexpectedPrimary'), t('errorUnexpectedSecondary'));
+      toast.error(t('error.unexpectedPrimary'), t('error.unexpectedSecondary'));
     }
   };
 
@@ -70,13 +70,13 @@ const SettingsScreen = () => {
     try {
       if (values.username === currentUser.username && values.email === currentUser.email) return;
       const { available } = await api.getUsername(values.username);
-      if (!available) return actions.setFieldError('username', t('errorUsernameInUse'));
+      if (!available) return actions.setFieldError('username', t('error.usernameInUse'));
       await api.updateUserProfile(values.username, values.email);
       auth.updateData({ username: values.username, email: values.email });
-      toast.success(t('successUpdateProfile'));
+      toast.success(t('success.profileUpdated'));
     } catch (error) {
       console.error(error);
-      toast.error(t('errorUnexpectedPrimary'), t('errorUnexpectedSecondary'));
+      toast.error(t('error.unexpectedPrimary'), t('error.unexpectedSecondary'));
     }
   };
 
@@ -85,10 +85,10 @@ const SettingsScreen = () => {
     try {
       await api.updateUserPassword(values.password);
       actions.resetForm();
-      toast.success(t('successUpdatePassword'));
+      toast.success(t('success.passwordUpdated'));
     } catch (error) {
       console.error(error);
-      toast.error(t('errorUnexpectedPrimary'), t('errorUnexpectedSecondary'));
+      toast.error(t('error.unexpectedPrimary'), t('error.unexpectedSecondary'));
     }
   };
 
@@ -98,7 +98,7 @@ const SettingsScreen = () => {
       await i18n.changeLanguage(Object.keys(availableLanguages)[index.row]);
     } catch (error) {
       console.error(error);
-      toast.error(t('errorUnexpectedPrimary'), t('errorUnexpectedSecondary'));
+      toast.error(t('error.unexpectedPrimary'), t('error.unexpectedSecondary'));
     }
   };
 
@@ -106,14 +106,14 @@ const SettingsScreen = () => {
     <ScrollView style={styles.container}>
       <View style={styles.content}>
         <View style={styles.section}>
-          <Text style={styles.title}>{t('settingsAvatar')}</Text>
+          <Text style={styles.title}>{t('settings.avatar')}</Text>
           <View style={styles.avatarContainer}>
             <Avatar user={currentUser} />
           </View>
-          <Button appearance="ghost" onPress={updateAvatar}>{t('updateAvatar')}</Button>
+          <Button appearance="ghost" onPress={updateAvatar}>{t('settings.updateAvatar')}</Button>
         </View>
         <View style={styles.section}>
-          <Text style={styles.title}>{t('settingsLanguage')}</Text>
+          <Text style={styles.title}>{t('settings.language')}</Text>
           <Select
             value={availableLanguages[i18n.language].title}
             onSelect={index => changeLanguage(index as IndexPath)}
@@ -125,22 +125,22 @@ const SettingsScreen = () => {
           </Select>
         </View>
         <View style={styles.section}>
-          <Text style={styles.title}>{t('settingsAccount')}</Text>
+          <Text style={styles.title}>{t('settings.account')}</Text>
           <Form initialValues={profileInitialValues} schema={profileSchema} onSubmit={updateProfile}>
-            <FormInput name="username" label={t('newUsername')} />
-            <FormInput name="email" label={t('newEmail')} />
-            <FormButton>{t('updateProfile')}</FormButton>
+            <FormInput name="username" label={t('field.newUsername')} />
+            <FormInput name="email" label={t('field.newEmail')} />
+            <FormButton>{t('settings.updateProfile')}</FormButton>
           </Form>
         </View>
         <View style={styles.section}>
-          <Text style={styles.title}>{t('settingsSecurity')}</Text>
+          <Text style={styles.title}>{t('settings.security')}</Text>
           <Form initialValues={passwordInitialValues} schema={passwordSchema} onSubmit={updatePassword}>
-            <FormInput name="password" label={t('newPassword')} secureTextEntry />
-            <FormInput name="confirm" label={t('confirmPassword')} secureTextEntry />
-            <FormButton>{t('updatePassword')}</FormButton>
+            <FormInput name="password" label={t('field.newPassword')} secureTextEntry />
+            <FormInput name="confirm" label={t('field.confirm')} secureTextEntry />
+            <FormButton>{t('settings.updatePassword')}</FormButton>
           </Form>
         </View>
-        <Button appearance="ghost" onPress={() => auth.signout()}>{t('signOut')}</Button>
+        <Button appearance="ghost" onPress={() => auth.signout()}>{t('settings.signOut')}</Button>
       </View>
     </ScrollView>
   );

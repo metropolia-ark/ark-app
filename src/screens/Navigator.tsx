@@ -33,27 +33,27 @@ const TabScreens = () => {
       <BottomTab.Screen
         name="Home"
         component={HomeScreen}
-        options={{ tabBarIcon: HomeIcon, headerTitle: t('home') }}
+        options={{ tabBarIcon: HomeIcon, headerTitle: t('tab.home') }}
       />
       <BottomTab.Screen
         name="Market"
         component={MarketScreen}
-        options={{ tabBarIcon: MarketIcon, headerTitle: t('market') }}
+        options={{ tabBarIcon: MarketIcon, headerTitle: t('tab.market') }}
       />
       <BottomTab.Screen
         name="New"
         component={NewScreen}
-        options={{ tabBarIcon: NewIcon, headerTitle: t('new') }}
+        options={{ tabBarIcon: NewIcon, headerTitle: t('tab.new') }}
       />
       <BottomTab.Screen
         name="Profile"
         component={UserScreen}
-        options={{ tabBarIcon: ProfileIcon, headerTitle: t('profile') }}
+        options={{ tabBarIcon: ProfileIcon, headerTitle: t('tab.profile') }}
       />
       <BottomTab.Screen
         name="Settings"
         component={SettingsScreen}
-        options={{ tabBarIcon: SettingsIcon, headerTitle: t('setting') }}
+        options={{ tabBarIcon: SettingsIcon, headerTitle: t('tab.setting') }}
       />
     </BottomTab.Navigator>
   );
