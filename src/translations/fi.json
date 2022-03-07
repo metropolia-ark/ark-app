@@ -44,11 +44,11 @@
     "empty": "Tyhjä"
   },
   "settings": {
-    "avatar": "TODO",
+    "avatar": "Hahmo",
     "language": "Kieli",
     "account": "Käyttäjä",
     "security": "turva",
-    "updateAvatar": "TODO",
+    "updateAvatar": "Hahmo päivitetty",
     "updateProfile": "Profiili päivitetty",
     "updatePassword": "Salasana vaihdettu",
     "signOut": "Kirjaudu ulos"
