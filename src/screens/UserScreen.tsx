@@ -1,14 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { FlatList, Image, Pressable, StyleSheet, View } from 'react-native';
+import { FlatList, Pressable, StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Text } from '@ui-kitten/components';
 import { useRoute } from '@react-navigation/native';
-import { User as UserIcon } from 'phosphor-react-native';
-import { Divider, Media } from '../components';
+import { Avatar, Divider, Media } from '../components';
 import * as api from '../api';
 import { useMedia, useUser } from '../hooks';
 import { Route, User } from '../types';
-import { avatarTag, filter, mediaUrl, petTag, postTag } from '../utils';
+import { avatarTag, filter, petTag, postTag } from '../utils';
 
 enum Tab { Posts, Pets }
 
@@ -24,11 +23,11 @@ const UserScreen = () => {
 
   // Fecth user data and avatar
   const fetchUser = useCallback(async () => {
-    const userId = params?.userId ?? currentUser.user_id;
-    const response = await api.getUser(userId);
-    const [avatar] = await api.getMediasByTag(avatarTag + userId);
+    if (!params?.userId) return setUser(currentUser);
+    const response = await api.getUser(params.userId);
+    const [avatar] = await api.getMediasByTag(avatarTag + params.userId);
     setUser({ ...response, avatar });
-  }, [currentUser.user_id, params]);
+  }, [currentUser, params]);
 
   // Fetch user data once
   useEffect(() => {
@@ -57,11 +56,7 @@ const UserScreen = () => {
       ListHeaderComponent={() => (
         <View style={styles.content}>
           <View style={styles.user}>
-            <View style={styles.avatarContainer}>
-              {user.avatar
-                ? <Image style={styles.avatarImage} source={{ uri: mediaUrl + user.avatar.filename }} />
-                : <UserIcon size={64} color="#ffffff" weight="fill" />}
-            </View>
+            <Avatar user={user} />
             <Text style={styles.username}>{user.username}</Text>
           </View>
           <View style={styles.tabContainer}>
@@ -101,22 +96,6 @@ const styles = StyleSheet.create({
   user: {
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  avatarContainer: {
-    width: 128,
-    height: 128,
-    marginVertical: 16,
-    backgroundColor: '#eeeeee',
-    borderColor: '#eeeeee',
-    borderWidth: 1,
-    borderRadius: 64,
-    overflow: 'hidden',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  avatarImage: {
-    width: 128,
-    height: 128,
   },
   username: {
     fontSize: 20,

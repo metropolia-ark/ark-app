@@ -11,6 +11,7 @@ interface IAuthContext {
   isAuthenticated: boolean;
   signin: (token: string, user: User) => void;
   signout: () => void;
+  updateData: (data: Partial<User>) => void;
 }
 
 const AuthContext = createContext<IAuthContext | undefined>(undefined);
@@ -61,8 +62,13 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     });
   };
 
+  // Update the user data
+  const updateData = (data: Partial<User>) => {
+    setUser(prevState => prevState ? ({ ...prevState, ...data }) : prevState);
+  };
+
   return (
-    <AuthContext.Provider value={{ user, token, isLoading, isAuthenticated, signin, signout }}>
+    <AuthContext.Provider value={{ user, token, isLoading, isAuthenticated, signin, signout, updateData }}>
       {children}
     </AuthContext.Provider>
   );

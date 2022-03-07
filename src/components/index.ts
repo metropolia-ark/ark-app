@@ -1,3 +1,4 @@
+export * from './Avatar';
 export * from './Divider';
 export * from './Flag';
 export * from './Form';
