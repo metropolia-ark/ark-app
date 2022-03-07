@@ -7,6 +7,7 @@ import { Form, FormButton, FormInput } from '../components';
 import { Navigation } from '../types';
 import { useAuth } from '../hooks';
 import * as api from '../api';
+import { useTranslation } from 'react-i18next';
 
 interface SignInFormValues {
   username: string;
@@ -16,14 +17,15 @@ interface SignInFormValues {
 const SignInScreen = () => {
   const auth = useAuth();
   const navigator = useNavigation<Navigation.SignIn>();
+  const { t } = useTranslation();
 
   // Sign in form initial values
   const signInInitialValues: SignInFormValues = { username: '', password: '' };
 
   // Sign in form validation schema
   const signInSchema = yup.object().shape({
-    username: yup.string().required('The username is required.'),
-    password: yup.string().required('The password is required.'),
+    username: yup.string().required(t('errorUsername')),
+    password: yup.string().required(t('errorPassword')),
   });
 
   // Sign in form submit handler
@@ -39,14 +41,14 @@ const SignInScreen = () => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.content}>
-        <Text category="h1" style={styles.text}>Sign in</Text>
+        <Text category="h1" style={styles.text}>{t('signIn').toString()}</Text>
         <Form initialValues={signInInitialValues} schema={signInSchema} onSubmit={signInOnSubmit}>
-          <FormInput name="username" label="Username" />
-          <FormInput name="password" label="Password" secureTextEntry />
-          <FormButton>Sign in</FormButton>
+          <FormInput name="username" label={t('username')} />
+          <FormInput name="password" label={t('password').toString()} secureTextEntry />
+          <FormButton>{t('signIn').toString()}</FormButton>
         </Form>
-        <Text style={styles.text}>Dont have account yet?</Text>
-        <Button appearance='ghost' onPress={() => navigator.navigate('SignUp')}>Sign up</Button>
+        <Text style={styles.text}>{t('noAccount').toString()}</Text>
+        <Button appearance='ghost' onPress={() => navigator.navigate('SignUp')}>{t('signUp').toString()}</Button>
       </View>
     </ScrollView>
   );
