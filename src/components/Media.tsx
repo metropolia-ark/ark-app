@@ -2,6 +2,7 @@ import React from 'react';
 import { Image, Pressable, StyleSheet, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Text } from '@ui-kitten/components';
+import { Video } from 'expo-av';
 import { Chat, DotsThreeOutlineVertical, Heart, User } from 'phosphor-react-native';
 import { formatDistanceToNowStrict } from 'date-fns';
 import { MediaWithMetadata, Navigation, Rating } from '../types';
@@ -69,7 +70,20 @@ const Media = ({ media, detailed }: MediaProps) => {
       </View>
       <Pressable onPress={onPressMedia} style={styles.content}>
         <Text style={styles.title}>{media.title}</Text>
-        <Image style={styles.image} source={{ uri: mediaUrl + media.filename }} />
+        {media.media_type === 'image'
+          ? <Image source={{ uri: mediaUrl + media.filename }} style={styles.image} />
+          : media.media_type
+            ? <Video
+              source={{ uri: mediaUrl + media.filename }}
+              style={styles.image}
+              shouldPlay={true}
+              isLooping
+              resizeMode="contain"
+              onError={err => {
+                console.error('video', err);
+              }}
+            />
+            : null}
       </Pressable>
       <View style={styles.footer}>
         <Pressable onPress={rate} style={styles.actionContainer}>

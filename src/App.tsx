@@ -3,6 +3,7 @@ import { registerRootComponent } from 'expo';
 import { StatusBar } from 'expo-status-bar';
 import { ApplicationProvider } from '@ui-kitten/components';
 import * as eva from '@eva-design/eva';
+import './translations/i18n';
 import { AuthProvider } from './context';
 import Navigator from './screens/Navigator';
 

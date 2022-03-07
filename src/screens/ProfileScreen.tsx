@@ -6,10 +6,12 @@ import { Button } from '@ui-kitten/components';
 import { avatarTag, mediaUrl } from '../utils';
 import { useUser } from '../hooks';
 import * as api from '../api';
+import { useTranslation } from 'react-i18next';
 
 const ProfileScreen = () => {
   const user = useUser();
   const isFocused = useIsFocused();
+  const { t } = useTranslation();
   const [avatar, setAvatar] = useState('https://placedog.net/640/480?random');
 
   const [image, setImage] = useState('');
@@ -35,7 +37,7 @@ const ProfileScreen = () => {
     if (!user) return;
     // if the image is not selected alert
     if (!imageSelected){
-      Alert.alert('Please, select a file');
+      Alert.alert(t('imageNotSelected'));
       return;
     }
 
@@ -64,7 +66,7 @@ const ProfileScreen = () => {
     } catch (e) {
       console.error(e);
     }
-  }, [image, type, imageSelected, user]);
+  }, [user, imageSelected, image, type, t]);
 
   const fetchAvatar = useCallback(
     async () => {
@@ -94,8 +96,8 @@ const ProfileScreen = () => {
       <Text>{user?.username}</Text>
       {type === 'image' ?
         (<Image source={{ uri: image }} style={styles.image}/>) : null }
-      <Button onPress={pickImage}>Pick an image from camera roll</Button>
-      <Button onPress={uploadProfileSubmit}>Save</Button>
+      <Button onPress={pickImage}>{t('imagePick').toString()}</Button>
+      <Button onPress={uploadProfileSubmit}>{t('save').toString()}</Button>
     </View>
   );
 };

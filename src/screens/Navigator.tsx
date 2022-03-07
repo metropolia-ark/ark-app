@@ -2,6 +2,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { useTranslation } from 'react-i18next';
 import {
   House as HomeIcon,
   Storefront as MarketIcon,
@@ -11,42 +12,78 @@ import {
 } from 'phosphor-react-native';
 import SignInScreen from './SignInScreen';
 import SignUpScreen from './SignUpScreen';
-import UserScreen from './UserScreen';
 import HomeScreen from './HomeScreen';
 import MarketScreen from './MarketScreen';
 import NewScreen from './NewScreen';
 import ProfileScreen from './ProfileScreen';
 import SettingsScreen from './SettingsScreen';
+import MediaScreen from './MediaScreen';
+import UserScreen from './UserScreen';
 import { ParamList } from '../types';
 import { useAuth } from '../hooks';
 import { MediaProvider } from '../context';
-import MediaScreen from './MediaScreen';
 
 const UnauthenticatedStack = createNativeStackNavigator<ParamList.Unauthenticated>();
 const AuthenticatedStack = createNativeStackNavigator<ParamList.Authenticated>();
 const BottomTab = createBottomTabNavigator<ParamList.Tabs>();
 
-const TabScreens = () => (
-  <BottomTab.Navigator screenOptions={{ tabBarShowLabel: false, tabBarActiveTintColor: '#3366ff' }}>
-    <BottomTab.Screen name="Home" component={HomeScreen} options={{ tabBarIcon: HomeIcon }} />
-    <BottomTab.Screen name="Market" component={MarketScreen} options={{ tabBarIcon: MarketIcon }} />
-    <BottomTab.Screen name="New" component={NewScreen} options={{ tabBarIcon: NewIcon }} />
-    <BottomTab.Screen name="Profile" component={ProfileScreen} options={{ tabBarIcon: ProfileIcon }} />
-    <BottomTab.Screen name="Settings" component={SettingsScreen} options={{ tabBarIcon: SettingsIcon }} />
-  </BottomTab.Navigator>
-);
+const TabScreens = () => {
+  const { t } = useTranslation();
+  return (
+    <BottomTab.Navigator screenOptions={{ tabBarShowLabel: false, tabBarActiveTintColor: '#3366ff' }}>
+      <BottomTab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{ tabBarIcon: HomeIcon, headerTitle: t('home') }}
+      />
+      <BottomTab.Screen
+        name="Market"
+        component={MarketScreen}
+        options={{ tabBarIcon: MarketIcon, headerTitle: t('market') }}
+      />
+      <BottomTab.Screen
+        name="New"
+        component={NewScreen}
+        options={{ tabBarIcon: NewIcon, headerTitle: t('new') }}
+      />
+      <BottomTab.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={{ tabBarIcon: ProfileIcon, headerTitle: t('profile') }}
+      />
+      <BottomTab.Screen
+        name="Settings"
+        component={SettingsScreen}
+        options={{ tabBarIcon: SettingsIcon, headerTitle: t('setting') }}
+      />
+    </BottomTab.Navigator>
+  );
+};
 
 const Navigator = () => {
   const auth = useAuth();
+  const { t } = useTranslation();
   if (auth.isLoading) return null;
   return (
     <NavigationContainer>
       {auth.isAuthenticated ? (
         <MediaProvider>
           <AuthenticatedStack.Navigator>
-            <AuthenticatedStack.Screen name="Tabs" component={TabScreens} options={{ headerShown: false }} />
-            <AuthenticatedStack.Screen name="Media" component={MediaScreen} options={{ headerTitle: '' }} />
-            <AuthenticatedStack.Screen name="User" component={UserScreen} options={{ headerTitle: '' }} />
+            <AuthenticatedStack.Screen
+              name="Tabs"
+              component={TabScreens}
+              options={{ headerShown: false }}
+            />
+            <AuthenticatedStack.Screen
+              name="Media"
+              component={MediaScreen}
+              options={{ headerTitle: '' }}
+            />
+            <AuthenticatedStack.Screen
+              name="User"
+              component={UserScreen}
+              options={{ headerTitle: '' }}
+            />
           </AuthenticatedStack.Navigator>
         </MediaProvider>
       ) : (
@@ -54,12 +91,12 @@ const Navigator = () => {
           <UnauthenticatedStack.Screen
             name="SignIn"
             component={SignInScreen}
-            options={{ headerShown: false, headerTitle: 'Sign in' }}
+            options={{ headerShown: false, headerTitle: t('signIn') }}
           />
           <UnauthenticatedStack.Screen
             name="SignUp"
             component={SignUpScreen}
-            options={{ headerShown: false, headerTitle: 'Sign up' }}
+            options={{ headerShown: false, headerTitle: t('signUp') }}
           />
         </UnauthenticatedStack.Navigator>
       )}

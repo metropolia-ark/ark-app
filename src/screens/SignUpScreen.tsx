@@ -7,6 +7,7 @@ import { Form, FormActions, FormButton, FormInput } from '../components';
 import { Navigation } from '../types';
 import { useAuth } from '../hooks';
 import * as api from '../api';
+import { useTranslation } from 'react-i18next';
 
 interface SignUpFormValues {
   username: string;
@@ -19,6 +20,7 @@ interface SignUpFormValues {
 const SignUpScreen = () => {
   const auth = useAuth();
   const navigator = useNavigation<Navigation.SignUp>();
+  const { t } = useTranslation();
 
   // Sign up form initial values
   const signUpInitialValues: SignUpFormValues = {
@@ -31,12 +33,12 @@ const SignUpScreen = () => {
 
   // Sign up form validation schema
   const signUpSchema = yup.object().shape({
-    email: yup.string().required('The email address is required.').email('The email address is invalid.'),
-    username: yup.string().required('The username is required.'),
-    password: yup.string().required('The password is required.'),
+    email: yup.string().required(t('errorEmail')).email(t('emailInvalid')),
+    username: yup.string().required(t('errorUsername')),
+    password: yup.string().required(t('errorPassword')),
     confirmPassword: yup.string()
-      .oneOf([yup.ref('password'), null], 'Password must match')
-      .required('Please confirm your password'),
+      .oneOf([yup.ref('password'), null], t('passwordMatch'))
+      .required(t('errorConfirmPassword')),
   });
 
   // Sign up form submit handler
@@ -44,7 +46,7 @@ const SignUpScreen = () => {
     try {
       const { available } = await api.getUsername(values.username);
       if (!available) {
-        actions.setFieldError('username', 'The username is in use already.');
+        actions.setFieldError('username', t('usernameIsAlreadyUse'));
       } else {
         await api.signUp(values.username, values.password, values.email, values.full_name);
         const { token, user } = await api.signIn(values.username, values.password);
@@ -58,17 +60,17 @@ const SignUpScreen = () => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.content}>
-        <Text category="h1" style={styles.text}>Sign up</Text>
+        <Text category="h1" style={styles.text}>{t('signUp').toString()}</Text>
         <Form initialValues={signUpInitialValues} schema={signUpSchema} onSubmit={signUpOnSubmit}>
-          <FormInput name="username" label="Username" />
-          <FormInput name="full_name" label="Full name" />
-          <FormInput name="email" label="Email" />
-          <FormInput name="password" label="Password" secureTextEntry />
-          <FormInput name="confirmPassword" label="Confirm Password" secureTextEntry />
-          <FormButton>Sign up</FormButton>
+          <FormInput name="username" label={t('username')} />
+          <FormInput name="full_name" label={t('fullName')} />
+          <FormInput name="email" label={t('email')} />
+          <FormInput name="password" label={t('password')} secureTextEntry />
+          <FormInput name="confirmPassword" label={t('confirmPassword')} secureTextEntry />
+          <FormButton>{t('signUpOtherTerm').toString()}</FormButton>
         </Form>
-        <Text style={styles.text}>Already have an account?</Text>
-        <Button appearance='ghost' onPress={() => navigator.navigate('SignIn')}>Sign in</Button>
+        <Text style={styles.text}>{t('alreadyHaveAccount').toString()}</Text>
+        <Button appearance='ghost' onPress={() => navigator.navigate('SignIn')}>{t('signIn').toString()}</Button>
       </View>
     </ScrollView>
   );
