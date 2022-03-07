@@ -17,7 +17,12 @@ export const resources = {
 } as const;
 
 // Available languages
-export const availableLanguages = Object.keys(resources);
+export const availableLanguages: Record<string, { key: string, title: string, flag: string }> = {
+  en: { key: 'en', title: 'English', flag: 'UN' },
+  fi: { key: 'fi', title: 'Suomi', flag: 'FI' },
+  ua: { key: 'ua', title: 'Українська', flag: 'UA' },
+  hu: { key: 'hu', title: 'Magyar', flag: 'HU' },
+};
 
 // Configure react-i18next
 i18n

@@ -1,12 +1,12 @@
 import React from 'react';
-import { Alert, ScrollView, StyleSheet, View } from 'react-native';
-import { Button, Select, SelectItem, Text } from '@ui-kitten/components';
+import { Alert, Image, ScrollView, StyleSheet, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
+import { Button, IndexPath, Select, SelectItem, Text } from '@ui-kitten/components';
 import * as yup from 'yup';
-import { Form, FormActions, FormButton, FormInput } from '../components';
+import { Flag, Form, FormActions, FormButton, FormInput } from '../components';
 import { useAuth, useUser } from '../hooks';
 import * as api from '../api';
-import { useTranslation } from 'react-i18next';
-import { availableLanguages } from '../utils';
+import { availableLanguages, avatarTag, mediaUrl } from '../utils';
 
 interface FormValues {
   email: string;
@@ -46,35 +46,31 @@ const SettingsScreen = () => {
     }
   };
 
-  const changeLanguage = async (index: any) => {
-    const current = index.row;
-    if (current === 0) {
-      await i18n.changeLanguage('en');
-    } else if (current === 1) {
-      await i18n.changeLanguage('fi');
-    } else if (current === 2) {
-      await i18n.changeLanguage('ua');
-    } else if (current === 3) {
-      await i18n.changeLanguage('hu');
     }
+  };
+
+  // Change the language of the app
+  const changeLanguage = async (index: IndexPath) => {
+    await i18n.changeLanguage(Object.keys(availableLanguages)[index.row]);
   };
 
   return (
     <ScrollView style={styles.container}>
       <View style={styles.content}>
-        <Text category="h6">{t('updateProfile').toString()}</Text>
+        <Text style={styles.title}>Update profile</Text>
         <Form initialValues={settingsInitialValues} schema={settingsSchema} onSubmit={settingsOnSubmit}>
           <FormInput name="username" label={t('newUsername')} />
           <FormInput name="email" label={t('newEmail')} />
           <FormInput name="password" label={t('newPassword')} secureTextEntry />
           <FormButton>{t('update')}</FormButton>
         </Form>
-        <Button appearance='ghost' onPress={() => auth.signout()}>{t('signOut').toString()}</Button>
-        <Select value={i18n.language} onSelect={index => changeLanguage(index)}>
-          {availableLanguages.map(language => (
-            <SelectItem key={language} title={language}/>
+        <Text style={styles.title}>Update language</Text>
+        <Select value={availableLanguages[i18n.language].title} onSelect={index => changeLanguage(index as IndexPath)}>
+          {Object.values(availableLanguages).map(({ key, title, flag }) => (
+            <SelectItem key={key} title={title} accessoryLeft={() => <Flag country={flag} style={styles.flag} />} />
           ))}
         </Select>
+        <Button appearance='ghost' onPress={() => auth.signout()}>{t('signOut')}</Button>
       </View>
     </ScrollView>
   );
@@ -85,6 +81,15 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     padding: 32,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'normal',
+    paddingVertical: 8,
+  },
+  flag: {
+    width: 24,
+    height: 24,
   },
 });
 
