@@ -43,5 +43,28 @@
   "noPosts": "{{username}} hasn't shared any posts yet...",
   "noPets": "{{username}} hasn't shared any pets yet...",
   "noPostsSelf": "You haven't shared any posts yet...",
-  "noPetsSelf": "You haven't shared any pets yet..."
+  "noPetsSelf": "You haven't shared any pets yet...",
+
+  "settingsAvatar": "Avatar",
+  "settingsLanguage": "App language",
+  "settingsAccount": "Account",
+  "settingsSecurity": "Security",
+
+  "updateAvatar": "Change avatar",
+  "updateProfile": "Update profile",
+  "updatePassword": "Change password",
+
+  "successUpdateProfile": "Profile updated successfully!",
+  "successUpdatePassword": "Password changed successfully!",
+
+  "requiredUsername": "The username is required.",
+  "requiredEmail": "The email address is required.",
+  "requiredPassword": "The password is required.",
+  "requiredConfirm": "Please confirm your password.",
+
+  "errorUsernameInUse": "The username is in use already.",
+  "errorEmailInvalid": "The email address is invalid.",
+  "errorPasswordMatch": "The passwords must match.",
+  "errorUnexpectedPrimary": "An unexpected error has occured.",
+  "errorUnexpectedSecondary": "Please try again later."
 }
