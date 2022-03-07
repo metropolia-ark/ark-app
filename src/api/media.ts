@@ -6,7 +6,7 @@ type GetMediaResponse = Media;
 type GetMediasResponse = Media[];
 type AddTagToMediaResposne = { message: string; tag_id: number };
 type UploadMediaResponse = { message: string; file_id: number };
-type DeleteMediaResponse = { message: string; };
+type DeleteMediaResponse = { message: string };
 
 // Get a media
 export const getMedia = (file_id: number) => {

@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Image, Pressable, StyleSheet, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
-import { Text } from '@ui-kitten/components';
+import { MenuItem, OverflowMenu, Text } from '@ui-kitten/components';
 import { Video } from 'expo-av';
 import { Chat, DotsThreeOutlineVertical, Heart, User } from 'phosphor-react-native';
 import { formatDistanceToNowStrict } from 'date-fns';
+import * as api from '../api';
 import { MediaWithMetadata, Navigation, Rating } from '../types';
 import { useMedia, useUser } from '../hooks';
-import * as api from '../api';
 import { mediaUrl } from '../utils';
 
 interface MediaProps {
@@ -16,16 +17,17 @@ interface MediaProps {
 }
 
 const Media = ({ media, detailed }: MediaProps) => {
-  const currentUser = useUser();
   const { navigate } = useNavigation<Navigation.Media>();
+  const { t } = useTranslation();
+  const currentUser = useUser();
   const { updateData } = useMedia();
+  const [visible, setVisible] = useState(false);
 
   // Check if the media has been rated by the current user
   const hasRatedAlready = () => !!media.ratings.find(r => r.user_id === currentUser?.user_id);
 
   // Rate the media
   const rate = async () => {
-    if (!currentUser) return;
     if (hasRatedAlready()) {
       await api.deleteRating(media.file_id);
       const newRatings: Rating[] = media.ratings.filter(r => r.user_id !== currentUser.user_id);
@@ -49,6 +51,21 @@ const Media = ({ media, detailed }: MediaProps) => {
     navigate('User', { userId: media.user_id });
   };
 
+  // Handle to delete posts
+  const deletePost = async () => {
+    await api.deleteMedia(media.file_id);
+  };
+
+  // Handle to show dropdown menu
+  const renderToggleButton = () => (
+    <Pressable
+      hitSlop={{ top: 50, bottom: 50, left: 50, right: 50 }}
+      onPress={() => setVisible(true)}
+    >
+      <DotsThreeOutlineVertical size={20} color="#bbbbbb" weight="fill" />
+    </Pressable>
+  );
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -66,7 +83,16 @@ const Media = ({ media, detailed }: MediaProps) => {
         <Text style={styles.timestamp}>
           {formatDistanceToNowStrict(new Date(media.time_added), { addSuffix: true })}
         </Text>
-        <DotsThreeOutlineVertical size={20} color="#bbbbbb" weight="fill" />
+        <OverflowMenu
+          anchor={renderToggleButton}
+          visible={visible}
+          onBackdropPress={() => setVisible(false)}
+        >
+          <MenuItem title={t('media.report')} disabled />
+          {media.user_id === currentUser.user_id
+            ? <MenuItem title={t('media.delete')} onPress={deletePost} />
+            : <MenuItem title={t('media.delete')} disabled />}
+        </OverflowMenu>
       </View>
       <Pressable onPress={onPressMedia} style={styles.content}>
         <Text style={styles.title}>{media.title}</Text>
@@ -168,6 +194,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#bbbbbb',
     paddingStart: 4,
+  },
+  kebab: {
+    width: 20,
+    height: 20,
   },
 });
 
