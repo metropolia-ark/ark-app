@@ -1,10 +1,10 @@
 import React from 'react';
 import { Image, Pressable, StyleSheet, View } from 'react-native';
-import { Text } from '@ui-kitten/components';
+import { MenuItem, OverflowMenu, Text, Layout, Button } from '@ui-kitten/components';
 import { Chat, DotsThreeOutlineVertical, Heart, User } from 'phosphor-react-native';
 import { formatDistanceToNowStrict } from 'date-fns';
 import { MediaWithMetadata, Navigation, Rating } from '../types';
-import { mediaUrl } from '../utils';
+import { mediaUrl, Method, postTag, request } from '../utils';
 import { useMedia, useUser } from '../hooks';
 import * as api from '../api';
 import { useNavigation } from '@react-navigation/native';
@@ -21,6 +21,10 @@ const Media = ({ media, post, pet, detailed }: MediaProps) => {
   const currentUser = useUser();
   const { navigate } = useNavigation<Navigation.Media>();
   const { updateData } = useMedia(media.tag);
+  const { refresh } = useMedia(postTag);
+
+  const [visible, setVisible] = React.useState(false);
+  const [selectedIndex, setSelectedIndex] = React.useState(null);
 
   // Check if the media has been rated by the current user
   const hasRatedAlready = () => !!media.ratings.find(r => r.user_id === currentUser?.user_id);
@@ -53,6 +57,31 @@ const Media = ({ media, post, pet, detailed }: MediaProps) => {
     navigate('User', { userId: media.user_id });
   };
 
+  // Handle pressing the overflow-button
+  const onItemSelect = (index) => {
+    setSelectedIndex(index);
+    setVisible(false);
+  };
+
+  // Handle to delete posts
+  const deletePost = async () => {
+    console.log('Post deleted');
+    await api.deleteMedia(media.file_id);
+    refresh();
+  };
+
+  // Handle to show dropdown menu
+  const renderToggleButton = () => (
+    <Pressable
+      hitSlop={ { top: 50, bottom: 50, left: 50, right: 50 } }
+      onPress={() => setVisible(true)}>
+      <DotsThreeOutlineVertical
+        size={20}
+        color="#bbbbbb"
+        weight="fill">
+      </DotsThreeOutlineVertical>
+    </Pressable>
+  );
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -70,7 +99,19 @@ const Media = ({ media, post, pet, detailed }: MediaProps) => {
         <Text style={styles.timestamp}>
           {formatDistanceToNowStrict(new Date(media.time_added), { addSuffix: true })}
         </Text>
-        <DotsThreeOutlineVertical size={20} color="#bbbbbb" weight="fill" />
+        <Pressable>
+          <OverflowMenu
+            anchor={renderToggleButton}
+            visible={visible}
+            selectedIndex={selectedIndex}
+            onSelect={onItemSelect}
+            onBackdropPress={() => setVisible(false)}>
+            <MenuItem title='Report' />
+            {media.user_id === currentUser.user_id ?
+              (<MenuItem title='Delete' onPress={deletePost}/>) :
+              (<MenuItem title='Delete' disabled={true}/>)}
+          </OverflowMenu>
+        </Pressable>
       </View>
       <Pressable onPress={onPressMedia} style={styles.content}>
         <Text style={styles.title}>{media.title}</Text>
@@ -172,6 +213,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#bbbbbb',
     paddingStart: 4,
+  },
+  kebab: {
+    width: 20,
+    height: 20,
   },
 });
 
