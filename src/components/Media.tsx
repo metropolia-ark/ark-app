@@ -62,29 +62,24 @@ const Media = ({ media, post, pet, detailed }: MediaProps) => {
     setVisible(false);
   };
 
+  // Handle to delete posts
+  const deletePost = async () => {
+    console.log('Post deleted');
+    await api.deleteMedia(media.file_id);
+  };
+
   // Handle to show dropdown menu
   const renderToggleButton = () => (
-    <Pressable onPress={() => setVisible(true)}>
-      <DotsThreeOutlineVertical size={20} color="#bbbbbb" weight="fill">
-        <OverflowMenu
-          anchor={renderToggleButton}
-          visible={visible}
-          selectedIndex={selectedIndex}
-          onSelect={onItemSelect}
-          onBackdropPress={() => setVisible(false)}>
-          <MenuItem
-            onPress={deletePost}
-            title='Delete'/>
-          <MenuItem title='Report' disabled={true}/>
-        </OverflowMenu>
+    <Pressable
+      hitSlop={ { top: 20, bottom: 20, left: 50, right: 50 } }
+      onPress={() => setVisible(true)}>
+      <DotsThreeOutlineVertical
+        size={25}
+        color="#bbbbbb"
+        weight="fill">
       </DotsThreeOutlineVertical>
     </Pressable>
   );
-
-  const deletePost = async () => {
-
-  };
-
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -109,7 +104,7 @@ const Media = ({ media, post, pet, detailed }: MediaProps) => {
             selectedIndex={selectedIndex}
             onSelect={onItemSelect}
             onBackdropPress={() => setVisible(false)}>
-            <MenuItem title='Delete'/>
+            <MenuItem title='Delete' onPress={deletePost}/>
             <MenuItem title='Report' disabled={true}/>
           </OverflowMenu>
         </Pressable>
