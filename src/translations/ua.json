@@ -28,6 +28,10 @@
     "alreadyHaveAccount": "Вже є аккаунт?",
     "signInInstead": "TODO"
   },
+  "media": {
+    "report": "TODO",
+    "delete": "TODO"
+  },
   "new": {
     "pickImage": "Виберіть фото з галереї",
     "post": "Публікація",

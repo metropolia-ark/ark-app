@@ -28,6 +28,10 @@
     "alreadyHaveAccount": "Onko sinulla jo käyttäjä?",
     "signInInstead": "TODO"
   },
+  "media": {
+    "report": "TODO",
+    "delete": "TODO"
+  },
   "new": {
     "pickImage": "Valitse kuva kameran rullasta",
     "post": "Julkaisu",

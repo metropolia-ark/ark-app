@@ -28,6 +28,10 @@
     "alreadyHaveAccount": "Van már fiókja?",
     "signInInstead": "Jelentkezzen be itt"
   },
+  "media": {
+    "report": "Jelentés",
+    "delete": "Törlés"
+  },
   "new": {
     "pickImage": "Kép kiválasztása",
     "post": "Poszt",

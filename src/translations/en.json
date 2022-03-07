@@ -28,6 +28,10 @@
     "alreadyHaveAccount": "Already have an account?",
     "signInInstead": "Sign in instead"
   },
+  "media": {
+    "report": "Report",
+    "delete": "Delete"
+  },
   "new": {
     "pickImage": "Pick an image from camera roll",
     "post": "Post",
