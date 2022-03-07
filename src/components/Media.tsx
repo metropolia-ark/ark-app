@@ -71,13 +71,13 @@ const Media = ({ media, detailed }: MediaProps) => {
       <Pressable onPress={onPressMedia} style={styles.content}>
         <Text style={styles.title}>{media.title}</Text>
         {media.media_type === 'image'
-          ? <Image source={{ uri: mediaUrl + media.filename }} style={styles.image} />
+          ? <Image source={{ uri: mediaUrl + media.filename }} style={styles.media} />
           : media.media_type
             ? <Video
               source={{ uri: mediaUrl + media.filename }}
-              style={styles.image}
-              shouldPlay={true}
-              isLooping
+              style={styles.media}
+              shouldPlay={!!detailed}
+              isLooping={!!detailed}
               resizeMode="contain"
               onError={err => {
                 console.error('video', err);
@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
     paddingBottom: 8,
     paddingHorizontal: 8,
   },
-  image: {
+  media: {
     width: '100%',
     height: 300,
     resizeMode: 'contain',
