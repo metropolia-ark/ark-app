@@ -11,8 +11,6 @@ import {
 } from 'phosphor-react-native';
 import SignInScreen from './SignInScreen';
 import SignUpScreen from './SignUpScreen';
-import PostScreen from './PostScreen';
-import PetScreen from './PetScreen';
 import UserScreen from './UserScreen';
 import HomeScreen from './HomeScreen';
 import MarketScreen from './MarketScreen';
@@ -22,6 +20,7 @@ import SettingsScreen from './SettingsScreen';
 import { ParamList } from '../types';
 import { useAuth } from '../hooks';
 import { MediaProvider } from '../context';
+import MediaScreen from './MediaScreen';
 
 const UnauthenticatedStack = createNativeStackNavigator<ParamList.Unauthenticated>();
 const AuthenticatedStack = createNativeStackNavigator<ParamList.Authenticated>();
@@ -46,9 +45,8 @@ const Navigator = () => {
         <MediaProvider>
           <AuthenticatedStack.Navigator>
             <AuthenticatedStack.Screen name="Tabs" component={TabScreens} options={{ headerShown: false }} />
-            <AuthenticatedStack.Screen name="User" component={UserScreen} />
-            <AuthenticatedStack.Screen name="Post" component={PostScreen} />
-            <AuthenticatedStack.Screen name="Pet" component={PetScreen} />
+            <AuthenticatedStack.Screen name="Media" component={MediaScreen} options={{ headerTitle: '' }} />
+            <AuthenticatedStack.Screen name="User" component={UserScreen} options={{ headerTitle: '' }} />
           </AuthenticatedStack.Navigator>
         </MediaProvider>
       ) : (

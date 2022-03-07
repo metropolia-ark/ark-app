@@ -1,25 +1,23 @@
 import React from 'react';
 import { Image, Pressable, StyleSheet, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { Text } from '@ui-kitten/components';
 import { Chat, DotsThreeOutlineVertical, Heart, User } from 'phosphor-react-native';
 import { formatDistanceToNowStrict } from 'date-fns';
 import { MediaWithMetadata, Navigation, Rating } from '../types';
-import { mediaUrl } from '../utils';
 import { useMedia, useUser } from '../hooks';
 import * as api from '../api';
-import { useNavigation } from '@react-navigation/native';
+import { mediaUrl } from '../utils';
 
 interface MediaProps {
   media: MediaWithMetadata;
-  post?: boolean;
-  pet?: boolean;
   detailed?: boolean;
 }
 
-const Media = ({ media, post, pet, detailed }: MediaProps) => {
+const Media = ({ media, detailed }: MediaProps) => {
   const currentUser = useUser();
   const { navigate } = useNavigation<Navigation.Media>();
-  const { updateData } = useMedia(media.tag);
+  const { updateData } = useMedia();
 
   // Check if the media has been rated by the current user
   const hasRatedAlready = () => !!media.ratings.find(r => r.user_id === currentUser?.user_id);
@@ -42,9 +40,7 @@ const Media = ({ media, post, pet, detailed }: MediaProps) => {
 
   // Handle pressing the media
   const onPressMedia = () => {
-    if (detailed) return;
-    if (pet) navigate('Pet', { petId: media.file_id });
-    if (post) navigate('Post', { postId: media.file_id });
+    if (!detailed) navigate('Media', { mediaId: media.file_id });
   };
 
   // Handle pressing the user
@@ -57,8 +53,8 @@ const Media = ({ media, post, pet, detailed }: MediaProps) => {
       <View style={styles.header}>
         <Pressable onPress={onPressUser}>
           <View style={styles.avatar}>
-            {media.avatar
-              ? <Image style={styles.avatarImage} source={{ uri: mediaUrl + media.avatar.filename }} />
+            {media.user.avatar
+              ? <Image style={styles.avatarImage} source={{ uri: mediaUrl + media.user.avatar.filename }} />
               : <User size={20} color="#ffffff" weight="fill" />}
           </View>
         </Pressable>

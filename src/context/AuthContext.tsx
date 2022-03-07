@@ -2,6 +2,7 @@ import React, { createContext, ReactNode, useCallback, useEffect, useState } fro
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { User } from '../types';
 import * as api from '../api';
+import { avatarTag } from '../utils';
 
 interface IAuthContext {
   user: User | null;
@@ -27,6 +28,8 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
       if (!tokenFromStorage) return signout();
       const response = await api.getCurrentUser();
       if (!response.user) return signout();
+      const [avatar] = await api.getMediasByTag(avatarTag + response.user.user_id);
+      response.user.avatar = avatar;
       signin(tokenFromStorage, response.user);
     } catch (error) {
       signout();

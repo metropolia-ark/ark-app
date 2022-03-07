@@ -4,20 +4,22 @@ import { useRoute } from '@react-navigation/native';
 import { Media } from '../components';
 import { useMedia } from '../hooks';
 import { Route } from '../types';
-import { postTag } from '../utils';
 
-const PostScreen = () => {
-  const { params } = useRoute<Route.Post>();
-  const { isLoading, isRefreshing, refresh, data } = useMedia(postTag);
-  const post = data.find(p => p.file_id === params.postId);
-  if (isLoading || !post) return null;
+const MediaScreen = () => {
+  const { params } = useRoute<Route.Media>();
+  const { isLoading, isRefreshing, refresh, data } = useMedia();
+
+  // Get one media with id
+  const media = data[params.mediaId];
+
+  if (isLoading || !media) return null;
   return (
     <ScrollView
       style={styles.container}
-      refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={() => refresh(post.file_id)} />}
+      refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={() => refresh(media)} />}
     >
       <View style={styles.content}>
-        <Media media={post} post detailed />
+        <Media media={media} detailed />
       </View>
     </ScrollView>
   );
@@ -28,4 +30,4 @@ const styles = StyleSheet.create({
   content: { flex: 1 },
 });
 
-export default PostScreen;
+export default MediaScreen;

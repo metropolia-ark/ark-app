@@ -34,7 +34,7 @@ const SettingsScreen = () => {
       if (!available) {
         actions.setFieldError('username', 'The username is in use already.');
       } else {
-        await api.updateUser(values.username, values.password, values.email,);
+        await api.updateUser(values.username, values.password, values.email);
         Alert.alert('User data updated');
         const { token, user } = await api.signIn(values.username, values.password);
         auth.signin(token, user);
