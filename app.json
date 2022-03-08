@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "insert-name-here",
-    "slug": "insert-name-here",
+    "name": "ark",
+    "slug": "ark",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
