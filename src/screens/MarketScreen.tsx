@@ -1,6 +1,6 @@
 import React from 'react';
 import { FlatList, StyleSheet } from 'react-native';
-import { Divider, Media } from '../components';
+import { Divider, Media, Spinner } from '../components';
 import { useMedia } from '../hooks';
 import { filter, petTag } from '../utils';
 
@@ -10,7 +10,7 @@ const MarketScreen = () => {
   // Get all media with pet tag
   const mediaList = filter(data, { tag: petTag });
 
-  if (isLoading) return null;
+  if (isLoading) return <Spinner />;
   return (
     <FlatList
       data={mediaList}

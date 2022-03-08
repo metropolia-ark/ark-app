@@ -3,7 +3,7 @@ import { FlatList, Pressable, StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Text } from '@ui-kitten/components';
 import { useRoute } from '@react-navigation/native';
-import { Avatar, Divider, Media } from '../components';
+import { Avatar, Divider, Media, Spinner } from '../components';
 import * as api from '../api';
 import { useMedia, useUser } from '../hooks';
 import { Route, User } from '../types';
@@ -50,7 +50,7 @@ const UserScreen = () => {
   // Get all media by tag and user id
   const mediaList = filter(media.data, { tag: tab === Tab.Posts ? postTag : petTag, user_id: user?.user_id });
 
-  if (isLoading || media.isLoading || !user) return null;
+  if (isLoading || media.isLoading || !user) return <Spinner />;
   return (
     <FlatList
       style={styles.container}
