@@ -10,7 +10,7 @@ const Spinner = () => {
         source={require('../../assets/animation/animal-care-loading.json')}
         autoPlay={true}
         loop={true}
-        speed={1}
+        speed={6}
       />
     </View>
   );
