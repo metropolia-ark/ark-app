@@ -47,8 +47,8 @@
     "avatar": "Hahmo",
     "language": "Kieli",
     "account": "Käyttäjä",
-    "security": "turva",
-    "updateAvatar": "Hahmo päivitetty",
+    "security": "Turvallisuus",
+    "updateAvatar": "Vaihda hahmo",
     "updateProfile": "Profiili päivitetty",
     "updatePassword": "Salasana vaihdettu",
     "signOut": "Kirjaudu ulos"
