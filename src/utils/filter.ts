@@ -1,7 +1,7 @@
 import { MediaWithMetadata } from '../types';
 
 // Filter media list and sort by upload time
-export const filter = (data: Record<number, MediaWithMetadata | null>, filters: Partial<MediaWithMetadata>) => {
+export const filter = (data: Record<number, MediaWithMetadata | undefined>, filters: Partial<MediaWithMetadata>) => {
   return Object.values(data)
     .filter((item): item is MediaWithMetadata => {
       if (!item) return false;

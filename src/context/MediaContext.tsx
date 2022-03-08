@@ -7,9 +7,9 @@ import { avatarTag, petTag, postTag, toast } from '../utils';
 interface IMediaContext {
   isLoading: boolean;
   isRefreshing: boolean;
-  data: Record<number, MediaWithMetadata | null>;
+  data: Record<number, MediaWithMetadata | undefined>;
   refresh: (mediaOrTag: MediaWithMetadata | string) => unknown;
-  updateData: (id: number, media: MediaWithMetadata | null) => unknown;
+  updateData: (id: number, media: MediaWithMetadata | undefined) => unknown;
 }
 
 const MediaContext = createContext<IMediaContext | undefined>(undefined);
@@ -18,7 +18,7 @@ const MediaProvider = ({ children }: { children: ReactNode }) => {
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
-  const [data, setData] = useState<Record<number, MediaWithMetadata | null>>({});
+  const [data, setData] = useState<Record<number, MediaWithMetadata | undefined>>({});
 
   // Fetch all posts under a tag
   const fetchAll = useCallback(async (tag: string) => {
@@ -71,7 +71,7 @@ const MediaProvider = ({ children }: { children: ReactNode }) => {
   };
 
   // Update one media by its id
-  const updateData = (id: number, media: MediaWithMetadata | null) => {
+  const updateData = (id: number, media: MediaWithMetadata | undefined) => {
     setData(prevState => ({ ...prevState, [id]: media }));
   };
 

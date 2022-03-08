@@ -60,7 +60,7 @@ const Media = ({ media, detailed }: MediaProps) => {
   const deletePost = async () => {
     try {
       await api.deleteMedia(media.file_id);
-      updateData(media.file_id, null);
+      updateData(media.file_id, undefined);
       if (detailed) goBack();
     } catch (error) {
       console.error(error);
