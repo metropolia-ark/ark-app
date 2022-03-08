@@ -108,7 +108,10 @@ const Media = ({ media, detailed }: MediaProps) => {
         </OverflowMenu>
       </View>
       <Pressable onPress={onPressMedia} style={styles.content}>
-        <Text style={styles.title}>{media.title}</Text>
+        <Text style={(media.description && detailed) ? styles.title : styles.description}>{media.title}</Text>
+        {(media.description && detailed)
+          ? <Text style={styles.description}>{media.description}</Text>
+          : null}
         {media.media_type === 'image'
           ? <Image source={{ uri: mediaUrl + media.filename }} style={styles.media} />
           : media.media_type
@@ -186,6 +189,11 @@ const styles = StyleSheet.create({
   },
   content: {},
   title: {
+    fontWeight: '700',
+    paddingBottom: 8,
+    paddingHorizontal: 8,
+  },
+  description: {
     paddingBottom: 8,
     paddingHorizontal: 8,
   },
