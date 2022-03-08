@@ -126,7 +126,8 @@ const NewScreen = () => {
                 ) : null}
             <Button onPress={pickImage}>{t('new.pickImage')}</Button>
             <FormInput name="title" label={t('field.title')}/>
-            <FormInput name="description" label={t('field.description')} multiline={true} textStyle={styles.multiline}/>
+            {checked ? <FormInput name="description" label={t('field.description')}
+              multiline={true} textStyle={styles.multiline}/>  : null }
             <View style={styles.layout}>
               <Toggle checked={checked} onChange={onCheckedChange}>
                 {checked ? t('new.market') : t('new.post')}
