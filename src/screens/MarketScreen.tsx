@@ -16,7 +16,7 @@ const MarketScreen = () => {
       data={mediaList}
       keyExtractor={item => item.file_id.toString()}
       refreshing={isRefreshing}
-      onRefresh={() => refresh(petTag)}
+      onRefresh={() => refresh()}
       style={styles.container}
       ItemSeparatorComponent={() => <Divider />}
       renderItem={({ item }) => <Media media={item} />}

@@ -43,7 +43,7 @@ const UserScreen = () => {
   const refresh = async () => {
     setIsRefreshing(true);
     await fetchUser();
-    await media.refresh(tab === Tab.Posts ? postTag : petTag);
+    await media.refresh();
     setIsRefreshing(false);
   };
 

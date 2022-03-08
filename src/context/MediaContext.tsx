@@ -1,14 +1,14 @@
 import React, { createContext, ReactNode, useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import * as api from '../api';
-import { MediaWithMetadata } from '../types';
+import { Media, MediaWithMetadata } from '../types';
 import { avatarTag, petTag, postTag, toast } from '../utils';
 
 interface IMediaContext {
   isLoading: boolean;
   isRefreshing: boolean;
   data: Record<number, MediaWithMetadata | undefined>;
-  refresh: (mediaOrTag: MediaWithMetadata | string) => unknown;
+  refresh: (media?: MediaWithMetadata) => unknown;
   updateData: (id: number, media: MediaWithMetadata | undefined) => unknown;
 }
 
@@ -20,52 +20,59 @@ const MediaProvider = ({ children }: { children: ReactNode }) => {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [data, setData] = useState<Record<number, MediaWithMetadata | undefined>>({});
 
-  // Fetch all posts under a tag
-  const fetchAll = useCallback(async (tag: string) => {
+  // Fetch metadata for a media
+  const fetchMetadata = useCallback(async (media: Media, tag: string) => {
+    const user = await api.getUser(media.user_id);
+    const ratings = await api.getRatings(media.file_id);
+    const comments = await api.getComments(media.file_id);
+    const [avatar] = await api.getMediasByTag(avatarTag + user.user_id);
+    return { ...media, tag, user: { ...user, avatar }, ratings, comments };
+  }, []);
+
+  // Fetch all media
+  const fetchAll = useCallback(async () => {
     try {
-      const medias = await api.getMediasByTag(tag);
-      for (const media of medias) {
-        const user = await api.getUser(media.user_id);
-        const ratings = await api.getRatings(media.file_id);
-        const comments = await api.getComments(media.file_id);
-        const [avatar] = await api.getMediasByTag(avatarTag + user.user_id);
-        const item = { ...media, tag, user: { ...user, avatar }, ratings, comments };
-        setData(prevState => ({ ...prevState, [item.file_id]: item }));
+      const posts = await api.getMediasByTag(postTag);
+      const pets = await api.getMediasByTag(petTag);
+      const postsWithMetadata: Record<number, MediaWithMetadata> = {};
+      const petsWithMetadata: Record<number, MediaWithMetadata> = {};
+      for (const post of posts) {
+        postsWithMetadata[post.file_id] = await fetchMetadata(post, postTag);
       }
+      for (const pet of pets) {
+        petsWithMetadata[pet.file_id] = await fetchMetadata(pet, petTag);
+      }
+      setData({ ...postsWithMetadata, ...petsWithMetadata });
     } catch (error) {
       console.error(error);
       toast.error(t('error.unexpectedPrimary', t('error.unexpectedSecondary')));
     }
-  }, [t]);
+  }, [fetchMetadata, t]);
 
-  // Fetch one post under a tag by its id
-  const fetchOne = useCallback(async (tag: string, mediaId: number) => {
+  // Fetch one media by its id
+  const fetchOne = useCallback(async (mediaId: number, tag: string) => {
     try {
       const media = await api.getMedia(mediaId);
-      const user = await api.getUser(media.user_id);
-      const ratings = await api.getRatings(media.file_id);
-      const comments = await api.getComments(media.file_id);
-      const [avatar] = await api.getMediasByTag(avatarTag + user.user_id);
-      const item = { ...media, tag, user: { ...user, avatar }, ratings, comments };
-      setData(prevState => ({ ...prevState, [item.file_id]: item }));
+      const mediaWithMetadata = await fetchMetadata(media, tag);
+      setData(prevState => ({ ...prevState, [mediaWithMetadata.file_id]: mediaWithMetadata }));
     } catch (error) {
       console.error(error);
       toast.error(t('error.unexpectedPrimary', t('error.unexpectedSecondary')));
     }
-  }, [t]);
+  }, [fetchMetadata, t]);
 
-  // Fetch all post and pet media once on app launch
+  // Fetch all media once on app launch
   useEffect(() => {
-    fetchAll(postTag).then(() => fetchAll(petTag)).then(() => setIsLoading(false));
+    fetchAll().then(() => setIsLoading(false));
   }, [fetchAll]);
 
-  // Refresh one media or all under a tag
-  const refresh = async (mediaOrTag: MediaWithMetadata | string) => {
+  // Refresh one or all media
+  const refresh = async (media?: MediaWithMetadata) => {
     setIsRefreshing(true);
-    if (typeof mediaOrTag === 'string') {
-      await fetchAll(mediaOrTag);
+    if (media) {
+      await fetchOne(media.file_id, media.tag);
     } else {
-      await fetchOne(mediaOrTag.tag, mediaOrTag.file_id);
+      await fetchAll();
     }
     setIsRefreshing(false);
   };
