@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Image, Pressable, StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
@@ -9,7 +9,7 @@ import { formatDistanceToNowStrict } from 'date-fns';
 import * as api from '../api';
 import { MediaWithMetadata, Navigation, Rating } from '../types';
 import { useMedia, useUser } from '../hooks';
-import { mediaUrl } from '../utils';
+import { availableLanguages, mediaUrl } from '../utils';
 
 interface MediaProps {
   media: MediaWithMetadata;
@@ -18,7 +18,7 @@ interface MediaProps {
 
 const Media = ({ media, detailed }: MediaProps) => {
   const { navigate, goBack } = useNavigation<Navigation.Media>();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const currentUser = useUser();
   const { updateData } = useMedia();
   const [visible, setVisible] = useState(false);
@@ -58,6 +58,12 @@ const Media = ({ media, detailed }: MediaProps) => {
     if (detailed) goBack();
   };
 
+  // Format and localize the timestamp
+  const formatTimestamp = useCallback(() => {
+    const locale = availableLanguages[i18n.language].datefns;
+    return formatDistanceToNowStrict(new Date(media.time_added), { addSuffix: true, locale });
+  }, [i18n.language, media.time_added]);
+
   // Handle to show dropdown menu
   const renderToggleButton = () => (
     <Pressable
@@ -82,9 +88,7 @@ const Media = ({ media, detailed }: MediaProps) => {
           <Text style={styles.username}>{media.user.username}</Text>
         </Pressable>
         <Text style={styles.timestampPrefix}>•</Text>
-        <Text style={styles.timestamp}>
-          {formatDistanceToNowStrict(new Date(media.time_added), { addSuffix: true })}
-        </Text>
+        <Text style={styles.timestamp}>{formatTimestamp()}</Text>
         <OverflowMenu
           anchor={renderToggleButton}
           visible={visible}
