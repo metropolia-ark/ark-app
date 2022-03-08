@@ -61,7 +61,7 @@ const UserScreen = () => {
       ListHeaderComponent={() => (
         <View style={styles.content}>
           <View style={styles.user}>
-            <Avatar user={user} />
+            <Avatar large user={user} />
             <Text style={styles.username}>{user.username}</Text>
           </View>
           <View style={styles.tabContainer}>

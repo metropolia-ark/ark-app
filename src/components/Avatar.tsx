@@ -5,24 +5,25 @@ import { mediaUrl } from '../utils';
 import { User } from '../types';
 
 interface AvatarProps {
-  user: User;
+  user?: User;
+  small?: boolean;
+  large?: boolean;
 }
 
-const Avatar = ({ user }: AvatarProps) => {
+const Avatar = ({ user, small }: AvatarProps) => {
+  const iconSize = small ? 16 : 64;
+  const style = small ? styles.avatarSmall : styles.avatarLarge;
   return (
-    <View style={styles.avatarContainer}>
-      {user.avatar
-        ? <Image style={styles.avatarImage} source={{ uri: mediaUrl + user.avatar.filename }} />
-        : <UserIcon size={64} color="#ffffff" weight="fill" />}
+    <View style={[styles.avatarContainer, style]}>
+      {user?.avatar
+        ? <Image source={{ uri: mediaUrl + user.avatar.filename }} style={style} />
+        : <UserIcon size={iconSize} color="#ffffff" weight="fill" />}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   avatarContainer: {
-    width: 128,
-    height: 128,
-    marginVertical: 16,
     backgroundColor: '#eeeeee',
     borderColor: '#eeeeee',
     borderWidth: 1,
@@ -31,9 +32,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  avatarImage: {
+  avatarSmall: {
+    width: 32,
+    height: 32,
+  },
+  avatarLarge: {
     width: 128,
     height: 128,
+    marginVertical: 16,
   },
 });
 

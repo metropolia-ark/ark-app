@@ -30,7 +30,8 @@
   },
   "media": {
     "report": "Raportoi",
-    "delete": "Poista"
+    "delete": "Poista",
+    "sendComment": "Lähetä kommentti"
   },
   "new": {
     "pickImage": "Valitse kuva kameran rullasta",

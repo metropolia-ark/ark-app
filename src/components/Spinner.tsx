@@ -1,5 +1,5 @@
 import React from 'react';
-import {  StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import LottieView from 'lottie-react-native';
 
 const Spinner = () => {
@@ -7,10 +7,11 @@ const Spinner = () => {
     <View style={styles.spinnerContainer}>
       <LottieView
         style={styles.lottieSpinner}
-        source={require('../animation/animal-care-loading.json')}
+        source={require('../../assets/animation/animal-care-loading.json')}
         autoPlay={true}
         loop={true}
-        speed={6}/>
+        speed={1}
+      />
     </View>
   );
 };
@@ -21,7 +22,8 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     padding: 32,
-  }, lottieSpinner: {
+  },
+  lottieSpinner: {
     height: 100,
     alignItems: 'center',
     justifyContent: 'center',
