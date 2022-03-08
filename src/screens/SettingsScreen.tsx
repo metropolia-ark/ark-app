@@ -8,6 +8,7 @@ import { Avatar, Flag, Form, FormActions, FormButton, FormInput } from '../compo
 import { useAuth, useUser } from '../hooks';
 import * as api from '../api';
 import { availableLanguages, avatarTag, toast } from '../utils';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 interface ProfileFormValues {
   username: string;
@@ -103,7 +104,7 @@ const SettingsScreen = () => {
   };
 
   return (
-    <ScrollView style={styles.container}>
+    <KeyboardAwareScrollView viewIsInsideTabBar enableAutomaticScroll extraScrollHeight={50} style={styles.container} >
       <View style={styles.content}>
         <View style={styles.section}>
           <Text style={styles.title}>{t('settings.avatar')}</Text>
@@ -142,7 +143,7 @@ const SettingsScreen = () => {
         </View>
         <Button appearance="ghost" onPress={() => auth.signout()}>{t('settings.signOut')}</Button>
       </View>
-    </ScrollView>
+    </KeyboardAwareScrollView>
   );
 };
 

@@ -9,6 +9,7 @@ import * as api from '../api';
 import { Navigation } from '../types';
 import { useAuth } from '../hooks';
 import { toast } from '../utils';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 interface SignUpFormValues {
   username: string;
@@ -51,7 +52,7 @@ const SignUpScreen = () => {
   };
 
   return (
-    <ScrollView style={styles.container}>
+    <KeyboardAwareScrollView viewIsInsideTabBar enableAutomaticScroll extraScrollHeight={50} style={styles.container}>
       <View style={styles.content}>
         <Text category="h1" style={styles.text}>{t('signup.signUp')}</Text>
         <Form initialValues={signUpInitialValues} schema={signUpSchema} onSubmit={signUpOnSubmit}>
@@ -65,7 +66,7 @@ const SignUpScreen = () => {
         <Text style={styles.text}>{t('signup.alreadyHaveAccount')}</Text>
         <Button appearance='ghost' onPress={() => navigate('SignIn')}>{t('signup.signInInstead')}</Button>
       </View>
-    </ScrollView>
+    </KeyboardAwareScrollView>
   );
 };
 
