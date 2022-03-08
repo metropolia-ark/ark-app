@@ -72,6 +72,7 @@
     "emailInvalid": "Sähköpostiosoite on väärin.",
     "passwordMatch": "Salasanat eivät täsmää.",
     "unexpectedPrimary": "Odottamaton virhe on tapahtunut.",
-    "unexpectedSecondary": "Yritä uudelleen myöhemmin."
+    "unexpectedSecondary": "Yritä uudelleen myöhemmin.",
+    "fileSize": "Tiedosto on lian iso"
   }
 }

@@ -92,8 +92,12 @@ const NewScreen = () => {
       setChecked(false);
       setImageSelected(false);
     } catch (e) {
-      console.error(e);
-      toast.error(t('error.unexpectedPrimary'), t('error.unexpectedSecondary'));
+      if (e?.response?.status === 400) {
+        toast.error(t('error.fileSize'));
+      } else {
+        console.error(e);
+        toast.error(t('error.unexpectedPrimary'), t('error.unexpectedSecondary'));
+      }
     }
   };
 
