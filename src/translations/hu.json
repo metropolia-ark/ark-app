@@ -72,6 +72,7 @@
     "emailInvalid": "Az email cím nem megfelelő.",
     "passwordMatch": "A jelszavaknak egyezniük kell.",
     "unexpectedPrimary": "Egy váratlan hiba állt elő.",
-    "unexpectedSecondary": "Próbálja meg újra később."
+    "unexpectedSecondary": "Próbálja meg újra később.",
+    "fileSize": "A feltöltött fájl túl nagy."
   }
 }
