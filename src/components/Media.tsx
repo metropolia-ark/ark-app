@@ -17,7 +17,7 @@ interface MediaProps {
 }
 
 const Media = ({ media, detailed }: MediaProps) => {
-  const { navigate } = useNavigation<Navigation.Media>();
+  const { navigate, goBack } = useNavigation<Navigation.Media>();
   const { t } = useTranslation();
   const currentUser = useUser();
   const { updateData } = useMedia();
@@ -54,6 +54,8 @@ const Media = ({ media, detailed }: MediaProps) => {
   // Handle to delete posts
   const deletePost = async () => {
     await api.deleteMedia(media.file_id);
+    updateData(media.file_id, null);
+    if (detailed) goBack();
   };
 
   // Handle to show dropdown menu
