@@ -1,6 +1,7 @@
 import React from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Button, Text } from '@ui-kitten/components';
 import { useNavigation } from '@react-navigation/native';
 import * as yup from 'yup';
@@ -51,7 +52,7 @@ const SignUpScreen = () => {
   };
 
   return (
-    <ScrollView style={styles.container}>
+    <KeyboardAwareScrollView viewIsInsideTabBar enableAutomaticScroll extraScrollHeight={50} style={styles.container}>
       <View style={styles.content}>
         <Text category="h1" style={styles.text}>{t('signup.signUp')}</Text>
         <Form initialValues={signUpInitialValues} schema={signUpSchema} onSubmit={signUpOnSubmit}>
@@ -65,7 +66,7 @@ const SignUpScreen = () => {
         <Text style={styles.text}>{t('signup.alreadyHaveAccount')}</Text>
         <Button appearance='ghost' onPress={() => navigate('SignIn')}>{t('signup.signInInstead')}</Button>
       </View>
-    </ScrollView>
+    </KeyboardAwareScrollView>
   );
 };
 
