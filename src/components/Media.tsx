@@ -9,7 +9,7 @@ import { formatDistanceToNowStrict } from 'date-fns';
 import * as api from '../api';
 import { MediaWithMetadata, Navigation, Rating } from '../types';
 import { useMedia, useUser } from '../hooks';
-import { availableLanguages, mediaUrl } from '../utils';
+import { availableLanguages, mediaUrl, toast } from '../utils';
 
 interface MediaProps {
   media: MediaWithMetadata;
@@ -28,16 +28,21 @@ const Media = ({ media, detailed }: MediaProps) => {
 
   // Rate the media
   const rate = async () => {
-    if (hasRatedAlready()) {
-      await api.deleteRating(media.file_id);
-      const newRatings: Rating[] = media.ratings.filter(r => r.user_id !== currentUser.user_id);
-      const updatedMedia: MediaWithMetadata = { ...media, ratings: newRatings };
-      updateData(media.file_id, updatedMedia);
-    } else {
-      const { rating_id } = await api.createRating(media.file_id, 1);
-      const newRating: Rating = { rating_id, file_id: media.file_id, user_id: currentUser.user_id, rating: 1 };
-      const updatedMedia: MediaWithMetadata = { ...media, ratings: [ ...media.ratings, newRating ] };
-      updateData(media.file_id, updatedMedia);
+    try {
+      if (hasRatedAlready()) {
+        await api.deleteRating(media.file_id);
+        const newRatings: Rating[] = media.ratings.filter(r => r.user_id !== currentUser.user_id);
+        const updatedMedia: MediaWithMetadata = { ...media, ratings: newRatings };
+        updateData(media.file_id, updatedMedia);
+      } else {
+        const { rating_id } = await api.createRating(media.file_id, 1);
+        const newRating: Rating = { rating_id, file_id: media.file_id, user_id: currentUser.user_id, rating: 1 };
+        const updatedMedia: MediaWithMetadata = { ...media, ratings: [ ...media.ratings, newRating ] };
+        updateData(media.file_id, updatedMedia);
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error(t('error.unexpectedPrimary'), t('error.unexpectedSecondary'));
     }
   };
 
@@ -53,9 +58,14 @@ const Media = ({ media, detailed }: MediaProps) => {
 
   // Handle to delete posts
   const deletePost = async () => {
-    await api.deleteMedia(media.file_id);
-    updateData(media.file_id, null);
-    if (detailed) goBack();
+    try {
+      await api.deleteMedia(media.file_id);
+      updateData(media.file_id, null);
+      if (detailed) goBack();
+    } catch (error) {
+      console.error(error);
+      toast.error(t('error.unexpectedPrimary'), t('error.unexpectedSecondary'));
+    }
   };
 
   // Format and localize the timestamp
