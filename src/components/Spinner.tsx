@@ -1,11 +1,16 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { Spinner as UIKittenSpinner, SpinnerProps } from '@ui-kitten/components';
+import {  StyleSheet, View } from 'react-native';
+import LottieView from 'lottie-react-native';
 
-const Spinner = ({ ...props }: SpinnerProps) => {
+const Spinner = () => {
   return (
     <View style={styles.spinnerContainer}>
-      <UIKittenSpinner {...props} />
+      <LottieView
+        style={styles.lottieSpinner}
+        source={require('../animation/animal-care-loading.json')}
+        autoPlay={true}
+        loop={true}
+        speed={6}/>
     </View>
   );
 };
@@ -16,6 +21,10 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     padding: 32,
+  }, lottieSpinner: {
+    height: 100,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 
