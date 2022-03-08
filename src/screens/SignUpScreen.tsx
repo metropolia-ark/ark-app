@@ -1,6 +1,7 @@
 import React from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Button, Text } from '@ui-kitten/components';
 import { useNavigation } from '@react-navigation/native';
 import * as yup from 'yup';
@@ -9,7 +10,6 @@ import * as api from '../api';
 import { Navigation } from '../types';
 import { useAuth } from '../hooks';
 import { toast } from '../utils';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 interface SignUpFormValues {
   username: string;

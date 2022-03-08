@@ -1,6 +1,7 @@
 import React from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { launchImageLibraryAsync } from 'expo-image-picker';
 import { Button, IndexPath, Select, SelectItem, Text } from '@ui-kitten/components';
 import * as yup from 'yup';
@@ -8,7 +9,6 @@ import { Avatar, Flag, Form, FormActions, FormButton, FormInput } from '../compo
 import { useAuth, useUser } from '../hooks';
 import * as api from '../api';
 import { availableLanguages, avatarTag, toast } from '../utils';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 interface ProfileFormValues {
   username: string;
@@ -104,7 +104,7 @@ const SettingsScreen = () => {
   };
 
   return (
-    <KeyboardAwareScrollView viewIsInsideTabBar enableAutomaticScroll extraScrollHeight={50} style={styles.container} >
+    <KeyboardAwareScrollView viewIsInsideTabBar enableAutomaticScroll extraScrollHeight={50} style={styles.container}>
       <View style={styles.content}>
         <View style={styles.section}>
           <Text style={styles.title}>{t('settings.avatar')}</Text>
