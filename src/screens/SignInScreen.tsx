@@ -38,7 +38,7 @@ const SignInScreen = () => {
       if (error?.response?.status === 401) {
         toast.error(t('error.invalidCredentials'));
       } else {
-        console.error(error);
+        console.error(error?.response?.data || error);
         toast.error(t('error.unexpectedPrimary'), t('error.unexpectedSecondary'));
       }
     }

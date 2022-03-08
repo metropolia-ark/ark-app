@@ -45,7 +45,7 @@ const SignUpScreen = () => {
       const { token } = await api.signIn(values.username, values.password);
       await auth.signin(token);
     } catch (error) {
-      console.error(error);
+      console.error(error?.response?.data || error);
       toast.error(t('error.unexpectedPrimary'), t('error.unexpectedSecondary'));
     }
   };

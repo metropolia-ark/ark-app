@@ -33,7 +33,7 @@ const MediaProvider = ({ children }: { children: ReactNode }) => {
         setData(prevState => ({ ...prevState, [item.file_id]: item }));
       }
     } catch (error) {
-      console.error(error);
+      console.error(error?.response?.data || error);
       toast.error(t('error.unexpectedPrimary', t('error.unexpectedSecondary')));
     }
   }, [t]);
@@ -49,7 +49,7 @@ const MediaProvider = ({ children }: { children: ReactNode }) => {
       const item = { ...media, tag, user: { ...user, avatar }, ratings, comments };
       setData(prevState => ({ ...prevState, [item.file_id]: item }));
     } catch (error) {
-      console.error(error);
+      console.error(error?.response?.data || error);
       toast.error(t('error.unexpectedPrimary', t('error.unexpectedSecondary')));
     }
   }, [t]);

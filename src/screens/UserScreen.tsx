@@ -29,7 +29,7 @@ const UserScreen = () => {
       const [avatar] = await api.getMediasByTag(avatarTag + params.userId);
       setUser({ ...response, avatar });
     } catch (error) {
-      console.error(error);
+      console.error(error?.response?.data || error);
       toast.error(t('error.unexpectedPrimary'), t('error.unexpectedSecondary'));
     }
   }, [currentUser, params?.userId, t]);
