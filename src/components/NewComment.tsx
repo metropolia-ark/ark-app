@@ -32,7 +32,7 @@ const NewComment = ({ media }: NewCommentProps) => {
       const updatedMedia: MediaWithMetadata = { ...media, comments: [ ...media.comments, newComment ] };
       updateData(media.file_id, updatedMedia);
     } catch (error) {
-      console.error(error);
+      console.error(error?.response?.data || error);
       toast.error(t('error.unexpectedPrimary'), t('error.unexpectedSecondary'));
     } finally {
       setComment('');

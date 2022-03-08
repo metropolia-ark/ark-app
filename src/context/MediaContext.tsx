@@ -44,7 +44,7 @@ const MediaProvider = ({ children }: { children: ReactNode }) => {
       }
       setData({ ...postsWithMetadata, ...petsWithMetadata });
     } catch (error) {
-      console.error(error);
+      console.error(error?.response?.data || error);
       toast.error(t('error.unexpectedPrimary', t('error.unexpectedSecondary')));
     }
   }, [fetchMetadata, t]);
@@ -56,7 +56,7 @@ const MediaProvider = ({ children }: { children: ReactNode }) => {
       const mediaWithMetadata = await fetchMetadata(media, tag);
       setData(prevState => ({ ...prevState, [mediaWithMetadata.file_id]: mediaWithMetadata }));
     } catch (error) {
-      console.error(error);
+      console.error(error?.response?.data || error);
       toast.error(t('error.unexpectedPrimary', t('error.unexpectedSecondary')));
     }
   }, [fetchMetadata, t]);

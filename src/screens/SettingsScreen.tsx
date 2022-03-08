@@ -60,7 +60,7 @@ const SettingsScreen = () => {
         auth.updateData({ avatar });
       }
     } catch (error) {
-      console.error(error);
+      console.error(error?.response?.data || error);
       toast.error(t('error.unexpectedPrimary'), t('error.unexpectedSecondary'));
     }
   };
@@ -75,7 +75,7 @@ const SettingsScreen = () => {
       auth.updateData({ username: values.username, email: values.email });
       toast.success(t('success.profileUpdated'));
     } catch (error) {
-      console.error(error);
+      console.error(error?.response?.data || error);
       toast.error(t('error.unexpectedPrimary'), t('error.unexpectedSecondary'));
     }
   };
@@ -87,7 +87,7 @@ const SettingsScreen = () => {
       actions.resetForm();
       toast.success(t('success.passwordUpdated'));
     } catch (error) {
-      console.error(error);
+      console.error(error?.response?.data || error);
       toast.error(t('error.unexpectedPrimary'), t('error.unexpectedSecondary'));
     }
   };
@@ -97,7 +97,7 @@ const SettingsScreen = () => {
     try {
       await i18n.changeLanguage(Object.keys(availableLanguages)[index.row]);
     } catch (error) {
-      console.error(error);
+      console.error(error?.response?.data || error);
       toast.error(t('error.unexpectedPrimary'), t('error.unexpectedSecondary'));
     }
   };

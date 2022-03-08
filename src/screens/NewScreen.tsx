@@ -95,7 +95,7 @@ const NewScreen = () => {
       if (e?.response?.status === 400) {
         toast.error(t('error.fileSize'));
       } else {
-        console.error(e);
+        console.error(e?.response?.data || e);
         toast.error(t('error.unexpectedPrimary'), t('error.unexpectedSecondary'));
       }
     }

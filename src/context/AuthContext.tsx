@@ -27,7 +27,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
       await AsyncStorage.removeItem('token');
       setUser(null);
     } catch (error) {
-      console.error(error);
+      console.error(error?.response?.data || error);
       toast.error(t('error.unexpectedPrimary', t('error.unexpectedSecondary')));
     }
   }, [t]);
@@ -41,7 +41,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
       const [avatar] = await api.getMediasByTag(avatarTag + response.user.user_id);
       setUser({ ...response.user, avatar });
     } catch (error) {
-      console.error(error);
+      console.error(error?.response?.data || error);
       toast.error(t('error.unexpectedPrimary', t('error.unexpectedSecondary')));
     }
   }, [signout, t]);
