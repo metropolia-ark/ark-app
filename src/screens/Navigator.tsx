@@ -21,6 +21,7 @@ import SettingsScreen from './SettingsScreen';
 import { ParamList } from '../types';
 import { useAuth } from '../hooks';
 import { MediaProvider } from '../context';
+import { SafeAreaView, StyleSheet } from 'react-native';
 
 const UnauthenticatedStack = createNativeStackNavigator<ParamList.Unauthenticated>();
 const AuthenticatedStack = createNativeStackNavigator<ParamList.Authenticated>();
@@ -63,23 +64,28 @@ const Navigator = () => {
   const auth = useAuth();
   if (auth.isLoading) return null;
   return (
-    <NavigationContainer>
-      {auth.isAuthenticated ? (
-        <MediaProvider>
-          <AuthenticatedStack.Navigator>
-            <AuthenticatedStack.Screen name="Tabs" component={TabScreens} options={{ headerShown: false }} />
-            <AuthenticatedStack.Screen name="Media" component={MediaScreen} options={{ headerTitle: '' }} />
-            <AuthenticatedStack.Screen name="User" component={UserScreen} options={{ headerTitle: '' }} />
-          </AuthenticatedStack.Navigator>
-        </MediaProvider>
-      ) : (
-        <UnauthenticatedStack.Navigator>
-          <UnauthenticatedStack.Screen name="SignIn" component={SignInScreen} options={{ headerShown: false }} />
-          <UnauthenticatedStack.Screen name="SignUp" component={SignUpScreen} options={{ headerShown: false }} />
-        </UnauthenticatedStack.Navigator>
-      )}
-    </NavigationContainer>
+    <SafeAreaView style={styles.container}>
+      <NavigationContainer>
+        {auth.isAuthenticated ? (
+          <MediaProvider>
+            <AuthenticatedStack.Navigator>
+              <AuthenticatedStack.Screen name="Tabs" component={TabScreens} options={{ headerShown: false }} />
+              <AuthenticatedStack.Screen name="Media" component={MediaScreen} options={{ headerTitle: '' }} />
+              <AuthenticatedStack.Screen name="User" component={UserScreen} options={{ headerTitle: '' }} />
+            </AuthenticatedStack.Navigator>
+          </MediaProvider>
+        ) : (
+          <UnauthenticatedStack.Navigator>
+            <UnauthenticatedStack.Screen name="SignIn" component={SignInScreen} options={{ headerShown: false }} />
+            <UnauthenticatedStack.Screen name="SignUp" component={SignUpScreen} options={{ headerShown: false }} />
+          </UnauthenticatedStack.Navigator>
+        )}
+      </NavigationContainer>
+    </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({ container: { flex: 1 } });
+
 
 export default Navigator;
