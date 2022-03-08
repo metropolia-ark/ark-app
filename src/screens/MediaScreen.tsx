@@ -1,7 +1,7 @@
 import React from 'react';
-import { RefreshControl, ScrollView, StyleSheet, View } from 'react-native';
+import { FlatList, StyleSheet, View } from 'react-native';
 import { useRoute } from '@react-navigation/native';
-import { Media, Spinner } from '../components';
+import { Comment, Media, NewComment, Spinner } from '../components';
 import { useMedia } from '../hooks';
 import { Route } from '../types';
 
@@ -14,20 +14,27 @@ const MediaScreen = () => {
 
   if (isLoading || !media) return <Spinner />;
   return (
-    <ScrollView
-      style={styles.container}
-      refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={() => refresh(media)} />}
-    >
-      <View style={styles.content}>
-        <Media media={media} detailed />
-      </View>
-    </ScrollView>
+    <View style={styles.container}>
+      <FlatList
+        style={styles.list}
+        data={media.comments}
+        keyExtractor={item => item.comment_id.toString()}
+        refreshing={isRefreshing}
+        onRefresh={() => refresh(media)}
+        ListHeaderComponent={() => <Media media={media} detailed />}
+        renderItem={({ item }) => <Comment comment={item} />}
+      />
+      <NewComment media={media} />
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
-  content: { flex: 1 },
+  list: {
+    flex: 1,
+    marginBottom: 48,
+  },
 });
 
 export default MediaScreen;

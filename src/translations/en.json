@@ -30,7 +30,8 @@
   },
   "media": {
     "report": "Report",
-    "delete": "Delete"
+    "delete": "Delete",
+    "sendComment": "Send a comment"
   },
   "new": {
     "pickImage": "Pick an image from camera roll",

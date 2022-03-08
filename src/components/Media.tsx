@@ -4,12 +4,13 @@ import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { MenuItem, OverflowMenu, Text } from '@ui-kitten/components';
 import { Video } from 'expo-av';
-import { Chat, DotsThreeOutlineVertical, Heart, User } from 'phosphor-react-native';
+import { Chat, DotsThreeOutlineVertical, Heart } from 'phosphor-react-native';
 import { formatDistanceToNowStrict } from 'date-fns';
 import * as api from '../api';
 import { MediaWithMetadata, Navigation, Rating } from '../types';
 import { useMedia, useUser } from '../hooks';
 import { availableLanguages, mediaUrl, toast } from '../utils';
+import { Avatar } from './Avatar';
 
 interface MediaProps {
   media: MediaWithMetadata;
@@ -88,11 +89,7 @@ const Media = ({ media, detailed }: MediaProps) => {
     <View style={styles.container}>
       <View style={styles.header}>
         <Pressable onPress={onPressUser}>
-          <View style={styles.avatar}>
-            {media.user.avatar
-              ? <Image style={styles.avatarImage} source={{ uri: mediaUrl + media.user.avatar.filename }} />
-              : <User size={20} color="#ffffff" weight="fill" />}
-          </View>
+          <Avatar small user={media.user} />
         </Pressable>
         <Pressable onPress={onPressUser}>
           <Text style={styles.username}>{media.user.username}</Text>

@@ -30,7 +30,8 @@
   },
   "media": {
     "report": "Jelentés",
-    "delete": "Törlés"
+    "delete": "Törlés",
+    "sendComment": "Komment küldése"
   },
   "new": {
     "pickImage": "Kép kiválasztása",

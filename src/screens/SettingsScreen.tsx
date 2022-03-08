@@ -108,7 +108,7 @@ const SettingsScreen = () => {
         <View style={styles.section}>
           <Text style={styles.title}>{t('settings.avatar')}</Text>
           <View style={styles.avatarContainer}>
-            <Avatar user={currentUser} />
+            <Avatar large user={currentUser} />
           </View>
           <Button appearance="ghost" onPress={updateAvatar}>{t('settings.updateAvatar')}</Button>
         </View>
