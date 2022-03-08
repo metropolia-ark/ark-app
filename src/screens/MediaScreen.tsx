@@ -1,7 +1,7 @@
 import React from 'react';
 import { RefreshControl, ScrollView, StyleSheet, View } from 'react-native';
 import { useRoute } from '@react-navigation/native';
-import { Media } from '../components';
+import { Media, Spinner } from '../components';
 import { useMedia } from '../hooks';
 import { Route } from '../types';
 
@@ -12,7 +12,7 @@ const MediaScreen = () => {
   // Get one media with id
   const media = data[params.mediaId];
 
-  if (isLoading || !media) return null;
+  if (isLoading || !media) return <Spinner />;
   return (
     <ScrollView
       style={styles.container}

@@ -1,8 +1,9 @@
 import React, { createContext, ReactNode, useCallback, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as api from '../api';
 import { User } from '../types';
-import { avatarTag } from '../utils';
+import { avatarTag, toast } from '../utils';
 
 interface IAuthContext {
   user: User | null;
@@ -16,23 +17,34 @@ interface IAuthContext {
 const AuthContext = createContext<IAuthContext | undefined>(undefined);
 
 const AuthProvider = ({ children }: { children: ReactNode }) => {
+  const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState<User | null>(null);
 
   // Sign the user out and clear their token from AsyncStorage
   const signout = useCallback(async () => {
-    await AsyncStorage.removeItem('token');
-    setUser(null);
-  }, []);
+    try {
+      await AsyncStorage.removeItem('token');
+      setUser(null);
+    } catch (error) {
+      console.error(error);
+      toast.error(t('error.unexpectedPrimary', t('error.unexpectedSecondary')));
+    }
+  }, [t]);
 
   // Sign the user in and save their token to AsyncStorage
   const signin = useCallback(async (token: string) => {
-    await AsyncStorage.setItem('token', token);
-    const response = await api.getCurrentUser();
-    if (!response.user) return signout();
-    const [avatar] = await api.getMediasByTag(avatarTag + response.user.user_id);
-    setUser({ ...response.user, avatar });
-  }, [signout]);
+    try {
+      await AsyncStorage.setItem('token', token);
+      const response = await api.getCurrentUser();
+      if (!response.user) return signout();
+      const [avatar] = await api.getMediasByTag(avatarTag + response.user.user_id);
+      setUser({ ...response.user, avatar });
+    } catch (error) {
+      console.error(error);
+      toast.error(t('error.unexpectedPrimary', t('error.unexpectedSecondary')));
+    }
+  }, [signout, t]);
 
   // Validate the token persisted in AsyncStorage
   const initialize = useCallback(async () => {

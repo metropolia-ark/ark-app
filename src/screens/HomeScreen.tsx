@@ -1,6 +1,6 @@
 import React from 'react';
 import { FlatList, StyleSheet } from 'react-native';
-import { Divider, Media } from '../components';
+import { Divider, Media, Spinner } from '../components';
 import { useMedia } from '../hooks';
 import { filter, postTag } from '../utils';
 
@@ -10,7 +10,7 @@ const HomeScreen = () => {
   // Get all media with post tag
   const mediaList = filter(data, { tag: postTag });
 
-  if (isLoading) return null;
+  if (isLoading) return <Spinner />;
   return (
     <FlatList
       data={mediaList}

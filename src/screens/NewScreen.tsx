@@ -7,9 +7,10 @@ import { useNavigation } from '@react-navigation/native';
 import { Button, Toggle } from '@ui-kitten/components';
 import * as yup from 'yup';
 import { Form, FormActions, FormButton, FormInput } from '../components';
-import { Navigation } from '../types';
-import * as api from  '../api';
+import { MediaWithMetadata, Navigation } from '../types';
+import * as api from '../api';
 import { petTag, postTag, toast } from '../utils';
+import { useMedia, useUser } from '../hooks';
 
 interface UploadFormValues {
   title: string;
@@ -19,6 +20,8 @@ interface UploadFormValues {
 const NewScreen = () => {
   const { navigate } = useNavigation<Navigation.New>();
   const { t } = useTranslation();
+  const currentUser = useUser();
+  const { updateData } = useMedia();
 
   // Setting state for image, type, checked marked and if the image is selected
   const [image, setImage] = useState('');
@@ -63,7 +66,7 @@ const NewScreen = () => {
     formData.append('description', values.description);
 
     const imageUri = image.replace('file:/data', 'file:///data');
-    const filename  = image.split('/').pop();
+    const filename = image.split('/').pop();
     let fileExtension = filename?.split('.').pop();
     fileExtension = fileExtension === 'jpg' ? 'jpeg' : fileExtension;
 
@@ -74,18 +77,14 @@ const NewScreen = () => {
     } as any);
 
     try {
-      // gets the token
+      // upload media
       const response = await api.uploadMedia(formData);
-
-      // if the checked is false it will but the media tag
-      if (!checked){
-        await api.addTagToMedia(response.file_id, postTag);
-        navigate('Home');
-      } else {
-        // sets the market tag
-        await api.addTagToMedia(response.file_id, petTag);
-        navigate('Market');
-      }
+      const tag = checked ? petTag : postTag;
+      await api.addTagToMedia(response.file_id, tag);
+      const media = await api.getMedia(response.file_id);
+      const newMedia: MediaWithMetadata = { ...media, tag, user: currentUser, ratings: [], comments: [] };
+      updateData(media.file_id, newMedia);
+      navigate(checked ? 'Market' : 'Home');
       // to reset everything
       actions.resetForm();
       setType('');
@@ -152,7 +151,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     justifyContent: 'space-evenly',
   },
-  multiline: { minHeight: 60, maxHeight: 60  },
+  multiline: { minHeight: 60, maxHeight: 60 },
   image: {
     width: '100%',
     height: undefined,

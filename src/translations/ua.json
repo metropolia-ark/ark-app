@@ -21,16 +21,16 @@
   "signin": {
     "signIn": "Вхід",
     "noAccountYet": "Ще не зареєстровані?",
-    "signUpInstead": "TODO"
+    "signUpInstead": "Зареєструйтесь"
   },
   "signup": {
     "signUp": "Реєстрація",
     "alreadyHaveAccount": "Вже є аккаунт?",
-    "signInInstead": "TODO"
+    "signInInstead": "Авторизуйтесь"
   },
   "media": {
-    "report": "TODO",
-    "delete": "TODO"
+    "report": "Поскаржитись",
+    "delete": "Видалити"
   },
   "new": {
     "pickImage": "Виберіть фото з галереї",
@@ -41,21 +41,21 @@
   "user": {
     "postsTab": "Публікації",
     "marketTab": "Маркет",
-    "empty": "TODO"
+    "empty": "Тут пусто поки що.."
   },
   "settings": {
-    "avatar": "TODO",
-    "language": "TODO",
-    "account": "TODO",
-    "security": "TODO",
-    "updateAvatar": "TODO",
-    "updateProfile": "TODO",
-    "updatePassword": "TODO",
+    "avatar": "Аватар",
+    "language": "Мова",
+    "account": "Аккаунт",
+    "security": "Безпека",
+    "updateAvatar": "Оновити аватар",
+    "updateProfile": "Оновити профіль",
+    "updatePassword": "Оновити пароль",
     "signOut": "Вихід"
   },
   "success": {
-    "profileUpdated": "TODO",
-    "passwordUpdated": "TODO"
+    "profileUpdated": "Профіль оновлено!",
+    "passwordUpdated": "Пароль оновлено!"
   },
   "required": {
     "username": "Введіть логін.",
@@ -63,14 +63,14 @@
     "password": "Введіть пароль.",
     "confirm": "Будь ласка, підтвердіть пароль.",
     "title": "Введіть заголовок.",
-    "file": "TODO"
+    "file": "Файл"
   },
   "error": {
     "invalidCredentials": "Логін або пароль невірні.",
     "usernameInUse": "Такий логін вже використовується.",
     "emailInvalid": "Формат електронної пошти невірний.",
     "passwordMatch": "Пароль не співпадає.",
-    "unexpectedPrimary": "TODO",
-    "unexpectedSecondary": "TODO"
+    "unexpectedPrimary": "Виникла непередбачуванна помилка",
+    "unexpectedSecondary": "Будь ласка, спробуйте пізніше"
   }
 }

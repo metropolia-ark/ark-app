@@ -35,7 +35,7 @@ const SignInScreen = () => {
       const { token } = await api.signIn(values.username, values.password);
       await auth.signin(token);
     } catch (error) {
-      if (error?.response?.status === 400) {
+      if (error?.response?.status === 401) {
         toast.error(t('error.invalidCredentials'));
       } else {
         console.error(error);

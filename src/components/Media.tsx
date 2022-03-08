@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Image, Pressable, StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
@@ -9,7 +9,7 @@ import { formatDistanceToNowStrict } from 'date-fns';
 import * as api from '../api';
 import { MediaWithMetadata, Navigation, Rating } from '../types';
 import { useMedia, useUser } from '../hooks';
-import { mediaUrl } from '../utils';
+import { availableLanguages, mediaUrl, toast } from '../utils';
 
 interface MediaProps {
   media: MediaWithMetadata;
@@ -17,8 +17,8 @@ interface MediaProps {
 }
 
 const Media = ({ media, detailed }: MediaProps) => {
-  const { navigate } = useNavigation<Navigation.Media>();
-  const { t } = useTranslation();
+  const { navigate, goBack } = useNavigation<Navigation.Media>();
+  const { t, i18n } = useTranslation();
   const currentUser = useUser();
   const { updateData } = useMedia();
   const [visible, setVisible] = useState(false);
@@ -28,16 +28,21 @@ const Media = ({ media, detailed }: MediaProps) => {
 
   // Rate the media
   const rate = async () => {
-    if (hasRatedAlready()) {
-      await api.deleteRating(media.file_id);
-      const newRatings: Rating[] = media.ratings.filter(r => r.user_id !== currentUser.user_id);
-      const updatedMedia: MediaWithMetadata = { ...media, ratings: newRatings };
-      updateData(media.file_id, updatedMedia);
-    } else {
-      const { rating_id } = await api.createRating(media.file_id, 1);
-      const newRating: Rating = { rating_id, file_id: media.file_id, user_id: currentUser.user_id, rating: 1 };
-      const updatedMedia: MediaWithMetadata = { ...media, ratings: [ ...media.ratings, newRating ] };
-      updateData(media.file_id, updatedMedia);
+    try {
+      if (hasRatedAlready()) {
+        await api.deleteRating(media.file_id);
+        const newRatings: Rating[] = media.ratings.filter(r => r.user_id !== currentUser.user_id);
+        const updatedMedia: MediaWithMetadata = { ...media, ratings: newRatings };
+        updateData(media.file_id, updatedMedia);
+      } else {
+        const { rating_id } = await api.createRating(media.file_id, 1);
+        const newRating: Rating = { rating_id, file_id: media.file_id, user_id: currentUser.user_id, rating: 1 };
+        const updatedMedia: MediaWithMetadata = { ...media, ratings: [ ...media.ratings, newRating ] };
+        updateData(media.file_id, updatedMedia);
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error(t('error.unexpectedPrimary'), t('error.unexpectedSecondary'));
     }
   };
 
@@ -53,8 +58,21 @@ const Media = ({ media, detailed }: MediaProps) => {
 
   // Handle to delete posts
   const deletePost = async () => {
-    await api.deleteMedia(media.file_id);
+    try {
+      await api.deleteMedia(media.file_id);
+      updateData(media.file_id, null);
+      if (detailed) goBack();
+    } catch (error) {
+      console.error(error);
+      toast.error(t('error.unexpectedPrimary'), t('error.unexpectedSecondary'));
+    }
   };
+
+  // Format and localize the timestamp
+  const formatTimestamp = useCallback(() => {
+    const locale = availableLanguages[i18n.language].datefns;
+    return formatDistanceToNowStrict(new Date(media.time_added), { addSuffix: true, locale });
+  }, [i18n.language, media.time_added]);
 
   // Handle to show dropdown menu
   const renderToggleButton = () => (
@@ -80,9 +98,7 @@ const Media = ({ media, detailed }: MediaProps) => {
           <Text style={styles.username}>{media.user.username}</Text>
         </Pressable>
         <Text style={styles.timestampPrefix}>•</Text>
-        <Text style={styles.timestamp}>
-          {formatDistanceToNowStrict(new Date(media.time_added), { addSuffix: true })}
-        </Text>
+        <Text style={styles.timestamp}>{formatTimestamp()}</Text>
         <OverflowMenu
           anchor={renderToggleButton}
           visible={visible}
