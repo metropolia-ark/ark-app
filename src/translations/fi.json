@@ -35,7 +35,7 @@
   },
   "new": {
     "pickImage": "Valitse kuva kameran rullasta",
-    "post": "Julkaisu",
+    "post": "Kotisivu",
     "market": "Tori",
     "upload": "Julkaise"
   },
@@ -45,12 +45,12 @@
     "empty": "Tyhjä"
   },
   "settings": {
-    "avatar": "Hahmo",
+    "avatar": "Profiili kuva",
     "language": "Kieli",
     "account": "Käyttäjä",
     "security": "Turvallisuus",
-    "updateAvatar": "Vaihda hahmo",
-    "updateProfile": "Profiili päivitetty",
+    "updateAvatar": "Vaihda profilii",
+    "updateProfile": "P",
     "updatePassword": "Salasana vaihdettu",
     "signOut": "Kirjaudu ulos"
   },
