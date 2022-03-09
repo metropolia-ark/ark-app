@@ -136,7 +136,7 @@ const Media = ({ media, detailed }: MediaProps) => {
           />
           <Text style={styles.actionCounter}>{media.ratings.length}</Text>
         </Pressable>
-        <Pressable style={styles.actionContainer}>
+        <Pressable onPress={onPressMedia} style={styles.actionContainer}>
           <Chat size={20} color="#bbbbbb" weight="regular" />
           <Text style={styles.actionCounter}>{media.comments.length}</Text>
         </Pressable>

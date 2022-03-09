@@ -1,9 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { useNavigation } from '@react-navigation/native';
 import { Text } from '@ui-kitten/components';
 import { formatDistanceToNowStrict } from 'date-fns';
-import { Comment as IComment, User } from '../types';
+import { Comment as IComment, Navigation, User } from '../types';
 import { Avatar } from './Avatar';
 import { availableLanguages, avatarTag } from '../utils';
 import * as api from '../api';
@@ -14,6 +15,7 @@ interface CommentProps {
 
 const Comment = ({ comment }: CommentProps) => {
   const { i18n } = useTranslation();
+  const { navigate } = useNavigation<Navigation.Media>();
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState<User>();
 
@@ -38,10 +40,14 @@ const Comment = ({ comment }: CommentProps) => {
   if (isLoading || !user) return null;
   return (
     <View key={comment.comment_id} style={styles.comment}>
-      <Avatar small user={user} />
+      <Pressable onPress={() => navigate('User', { userId: user.user_id })}>
+        <Avatar small user={user} />
+      </Pressable>
       <View style={styles.commentContent}>
         <View style={styles.header}>
-          <Text style={styles.username}>{user.username}</Text>
+          <Pressable onPress={() => navigate('User', { userId: user.user_id })}>
+            <Text style={styles.username}>{user.username}</Text>
+          </Pressable>
           <Text style={styles.timestampPrefix}>•</Text>
           <Text style={styles.timestamp}>{formatTimestamp(comment.time_added)}</Text>
         </View>
@@ -54,11 +60,10 @@ const Comment = ({ comment }: CommentProps) => {
 const styles = StyleSheet.create({
   comment: {
     flex: 1,
+    padding: 8,
     borderTopWidth: 1,
     borderTopColor: '#eeeeee',
     backgroundColor: '#ffffff',
-    paddingVertical: 8,
-    paddingHorizontal: 16,
     flexDirection: 'row',
   },
   commentContent: {
