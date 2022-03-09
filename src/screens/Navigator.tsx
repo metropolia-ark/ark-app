@@ -10,7 +10,7 @@ import MediaScreen from './MediaScreen';
 import UserScreen from './UserScreen';
 import PostsScreen from './PostsScreen';
 import MarketScreen from './MarketScreen';
-import NewScreen from './NewScreen';
+import UploadScreen from './UploadScreen';
 import SettingsScreen from './SettingsScreen';
 import { ParamList } from '../types';
 import { useAuth } from '../hooks';
@@ -36,9 +36,9 @@ const TabScreens = () => {
         options={{ tabBarIcon: Storefront, headerTitle: t('tab.market') }}
       />
       <BottomTab.Screen
-        name="New"
-        component={NewScreen}
-        options={{ tabBarIcon: PlusCircle, headerTitle: t('tab.new') }}
+        name="Upload"
+        component={UploadScreen}
+        options={{ tabBarIcon: PlusCircle, headerTitle: t('tab.upload') }}
       />
       <BottomTab.Screen
         name="Profile"

@@ -2,7 +2,7 @@
   "tab": {
     "posts": "Posts",
     "market": "Market",
-    "new": "New",
+    "upload": "Upload",
     "profile": "Profile",
     "setting": "Settings"
   },
@@ -33,11 +33,10 @@
     "delete": "Delete",
     "sendComment": "Send a comment"
   },
-  "new": {
+  "upload": {
     "pickImage": "Pick an image from camera roll",
-    "post": "Post",
-    "market": "Market",
-    "upload": "Upload"
+    "toMarket": "Upload to marketplace",
+    "submit": "Upload"
   },
   "user": {
     "postsTab": "Posts",

@@ -16,7 +16,7 @@ export namespace ParamList {
   export type Tabs = {
     Posts: undefined;
     Market: undefined;
-    New: undefined;
+    Upload: undefined;
     Profile: undefined;
     Settings: undefined;
   };
@@ -30,7 +30,7 @@ export namespace Navigation {
   export type User = Stack<ParamList.Authenticated, 'User'>;
   export type Posts = Composite<BottomTab<ParamList.Tabs, 'Posts'>, Stack<ParamList.Authenticated, 'Tabs'>>;
   export type Market = Composite<BottomTab<ParamList.Tabs, 'Market'>, Stack<ParamList.Authenticated, 'Tabs'>>;
-  export type New = Composite<BottomTab<ParamList.Tabs, 'New'>, Stack<ParamList.Authenticated, 'Tabs'>>;
+  export type Upload = Composite<BottomTab<ParamList.Tabs, 'Upload'>, Stack<ParamList.Authenticated, 'Tabs'>>;
   export type Profile = Composite<BottomTab<ParamList.Tabs, 'Profile'>, Stack<ParamList.Authenticated, 'Tabs'>>;
   export type Settings = Composite<BottomTab<ParamList.Tabs, 'Settings'>, Stack<ParamList.Authenticated, 'Tabs'>>;
 }
@@ -43,7 +43,7 @@ export namespace Route {
   export type User = RouteProp<ParamList.Authenticated, 'User'>;
   export type Posts = RouteProp<ParamList.Tabs, 'Posts'>;
   export type Market = RouteProp<ParamList.Tabs, 'Market'>;
-  export type New = RouteProp<ParamList.Tabs, 'New'>;
+  export type Upload = RouteProp<ParamList.Tabs, 'Upload'>;
   export type Profile = RouteProp<ParamList.Tabs, 'Profile'>;
   export type Settings = RouteProp<ParamList.Tabs, 'Settings'>;
 }

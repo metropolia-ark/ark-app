@@ -2,7 +2,7 @@
   "tab": {
     "posts": "Julkaisut",
     "market": "Tori",
-    "new": "Uusi",
+    "upload": "Julkaise",
     "profile": "Profiili",
     "setting": "Asetukset"
   },
@@ -33,11 +33,10 @@
     "delete": "Poista",
     "sendComment": "Lähetä kommentti"
   },
-  "new": {
+  "upload": {
     "pickImage": "Valitse kuva kameran rullasta",
-    "post": "Kotisivu",
-    "market": "Tori",
-    "upload": "Julkaise"
+    "toMarket": "Julkaise torille",
+    "submit": "Julkaise"
   },
   "user": {
     "postsTab": "Julkaisut",

@@ -2,7 +2,7 @@
   "tab": {
     "posts": "Posztok",
     "market": "Piac",
-    "new": "Új",
+    "upload": "Feltöltés",
     "profile": "Profil",
     "setting": "Beállítások"
   },
@@ -33,11 +33,10 @@
     "delete": "Törlés",
     "sendComment": "Komment küldése"
   },
-  "new": {
+  "upload": {
     "pickImage": "Kép kiválasztása",
-    "post": "Poszt",
-    "market": "Piac",
-    "upload": "Feltöltés"
+    "toMarket": "Feltöltés a piactérre",
+    "submit": "Feltöltés"
   },
   "user": {
     "postsTab": "Posztok",
