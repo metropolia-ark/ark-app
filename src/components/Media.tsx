@@ -104,7 +104,7 @@ const Media = ({ media, detailed }: MediaProps) => {
           <MenuItem title={t('media.report')} disabled />
           {media.user_id === currentUser.user_id
             ? <MenuItem title={t('media.delete')} onPress={deletePost} />
-            : <MenuItem title={t('media.delete')} disabled />}
+            : <></>}
         </OverflowMenu>
       </View>
       <Pressable onPress={onPressMedia} style={styles.content}>
