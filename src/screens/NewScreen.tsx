@@ -84,7 +84,7 @@ const NewScreen = () => {
       const media = await api.getMedia(response.file_id);
       const newMedia: MediaWithMetadata = { ...media, tag, user: currentUser, ratings: [], comments: [] };
       updateData(media.file_id, newMedia);
-      navigate(checked ? 'Market' : 'Home');
+      navigate(checked ? 'Market' : 'Posts');
       // to reset everything
       actions.resetForm();
       setType('');

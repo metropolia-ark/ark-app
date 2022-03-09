@@ -3,18 +3,12 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useTranslation } from 'react-i18next';
-import {
-  House as HomeIcon,
-  Storefront as MarketIcon,
-  PlusCircle as NewIcon,
-  User as ProfileIcon,
-  Gear as SettingsIcon,
-} from 'phosphor-react-native';
+import { House, Storefront, PlusCircle, User, Gear } from 'phosphor-react-native';
 import SignInScreen from './SignInScreen';
 import SignUpScreen from './SignUpScreen';
 import MediaScreen from './MediaScreen';
 import UserScreen from './UserScreen';
-import HomeScreen from './HomeScreen';
+import PostsScreen from './PostsScreen';
 import MarketScreen from './MarketScreen';
 import NewScreen from './NewScreen';
 import SettingsScreen from './SettingsScreen';
@@ -32,29 +26,29 @@ const TabScreens = () => {
   return (
     <BottomTab.Navigator screenOptions={{ tabBarShowLabel: false, tabBarActiveTintColor: '#3366ff' }}>
       <BottomTab.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{ tabBarIcon: HomeIcon, headerTitle: t('tab.home') }}
+        name="Posts"
+        component={PostsScreen}
+        options={{ tabBarIcon: House, headerTitle: t('tab.posts') }}
       />
       <BottomTab.Screen
         name="Market"
         component={MarketScreen}
-        options={{ tabBarIcon: MarketIcon, headerTitle: t('tab.market') }}
+        options={{ tabBarIcon: Storefront, headerTitle: t('tab.market') }}
       />
       <BottomTab.Screen
         name="New"
         component={NewScreen}
-        options={{ tabBarIcon: NewIcon, headerTitle: t('tab.new') }}
+        options={{ tabBarIcon: PlusCircle, headerTitle: t('tab.new') }}
       />
       <BottomTab.Screen
         name="Profile"
         component={UserScreen}
-        options={{ tabBarIcon: ProfileIcon, headerTitle: t('tab.profile') }}
+        options={{ tabBarIcon: User, headerTitle: t('tab.profile') }}
       />
       <BottomTab.Screen
         name="Settings"
         component={SettingsScreen}
-        options={{ tabBarIcon: SettingsIcon, headerTitle: t('tab.setting') }}
+        options={{ tabBarIcon: Gear, headerTitle: t('tab.setting') }}
       />
     </BottomTab.Navigator>
   );

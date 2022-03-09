@@ -4,7 +4,7 @@ import { Divider, Media, Spinner } from '../components';
 import { useMedia } from '../hooks';
 import { filter, postTag } from '../utils';
 
-const HomeScreen = () => {
+const PostsScreen = () => {
   const { isLoading, isRefreshing, refresh, data } = useMedia();
 
   // Get all media with post tag
@@ -26,4 +26,4 @@ const HomeScreen = () => {
 
 const styles = StyleSheet.create({ container: { flex: 1 } });
 
-export default HomeScreen;
+export default PostsScreen;
