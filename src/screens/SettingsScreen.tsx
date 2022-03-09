@@ -31,7 +31,7 @@ const SettingsScreen = () => {
 
   // Profile form validation schema
   const profileSchema = yup.object().shape({
-    username: yup.string().required(t('required.username')),
+    username: yup.string().min(5, t('error.usernameTooShort')).required(t('required.username')),
     email: yup.string().email(t('error.emailInvalid')).required(t('required.email')),
   });
 

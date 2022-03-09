@@ -29,7 +29,7 @@ const SignUpScreen = () => {
 
   // Sign up form validation schema
   const signUpSchema = yup.object().shape({
-    username: yup.string().required(t('required.username')),
+    username: yup.string().min(5, t('error.usernameTooShort')).required(t('required.username')),
     email: yup.string().email(t('error.emailInvalid')).required(t('required.email')),
     password: yup.string().required(t('required.password')),
     confirm: yup.string()

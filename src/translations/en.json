@@ -69,10 +69,11 @@
   "error": {
     "invalidCredentials": "The username or password is incorrect.",
     "usernameInUse": "The username is in use already.",
+    "usernameTooShort": "The username is too short (min. 5).",
     "emailInvalid": "The email address is invalid.",
     "passwordMatch": "The passwords must match.",
     "unexpectedPrimary": "An unexpected error has occured.",
     "unexpectedSecondary": "Please try again later.",
-    "fileSize": "Your file size is too big"
+    "fileSize": "The file is too large."
   }
 }
