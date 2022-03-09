@@ -69,6 +69,7 @@
   "error": {
     "invalidCredentials": "A felhasználónév vagy a jelszó nem megfelelő.",
     "usernameInUse": "A felhasználónév már foglalt.",
+    "usernameTooShort": "A felhasználónév túl rövid (min. 5).",
     "emailInvalid": "Az email cím nem megfelelő.",
     "passwordMatch": "A jelszavaknak egyezniük kell.",
     "unexpectedPrimary": "Egy váratlan hiba állt elő.",

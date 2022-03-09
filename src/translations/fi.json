@@ -69,10 +69,11 @@
   "error": {
     "invalidCredentials": "Käyttäjänimi tai salasana on väärin.",
     "usernameInUse": "Tämä käyttäjänimi on jo käytössä.",
+    "usernameTooShort": "Käyttäjänimi on liian lyhyt (min. 5).",
     "emailInvalid": "Sähköpostiosoite on väärin.",
     "passwordMatch": "Salasanat eivät täsmää.",
     "unexpectedPrimary": "Odottamaton virhe on tapahtunut.",
     "unexpectedSecondary": "Yritä uudelleen myöhemmin.",
-    "fileSize": "Tiedosto on lian iso"
+    "fileSize": "Tiedosto on lian iso."
   }
 }
