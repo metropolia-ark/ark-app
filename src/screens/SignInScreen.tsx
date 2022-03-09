@@ -55,7 +55,7 @@ const SignInScreen = () => {
           <FormButton>{t('signin.signIn')}</FormButton>
         </Form>
         <Text style={styles.text}>{t('signin.noAccountYet')}</Text>
-        <Button appearance='ghost' onPress={() => navigate('SignUp')}>{t('signin.signUpInstead')}</Button>
+        <Button appearance="ghost" onPress={() => navigate('SignUp')}>{t('signin.signUpInstead')}</Button>
       </View>
     </KeyboardAwareScrollView>
   );
