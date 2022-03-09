@@ -77,11 +77,8 @@ const Media = ({ media, detailed }: MediaProps) => {
 
   // Handle to show dropdown menu
   const renderToggleButton = () => (
-    <Pressable
-      hitSlop={{ top: 50, bottom: 50, left: 50, right: 50 }}
-      onPress={() => setVisible(true)}
-    >
-      <DotsThreeOutlineVertical size={20} color="#bbbbbb" weight="fill" />
+    <Pressable onPress={() => setVisible(true)}>
+      <DotsThreeOutlineVertical size={24} color="#cccccc" weight="fill" />
     </Pressable>
   );
 
@@ -130,14 +127,14 @@ const Media = ({ media, detailed }: MediaProps) => {
       <View style={styles.footer}>
         <Pressable onPress={rate} style={styles.actionContainer}>
           <Heart
-            size={20}
+            size={24}
             color={hasRatedAlready() ? '#ff3d71' : '#bbbbbb'}
             weight={hasRatedAlready() ? 'fill' : 'regular'}
           />
           <Text style={styles.actionCounter}>{media.ratings.length}</Text>
         </Pressable>
         <Pressable onPress={onPressMedia} style={styles.actionContainer}>
-          <Chat size={20} color="#bbbbbb" weight="regular" />
+          <Chat size={24} color="#bbbbbb" weight="regular" />
           <Text style={styles.actionCounter}>{media.comments.length}</Text>
         </Pressable>
       </View>
@@ -153,7 +150,8 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 8,
+    paddingVertical: 8,
+    paddingHorizontal: 16,
   },
   avatar: {
     width: 32,
@@ -191,11 +189,11 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: '700',
     paddingBottom: 8,
-    paddingHorizontal: 8,
+    paddingHorizontal: 16,
   },
   description: {
     paddingBottom: 8,
-    paddingHorizontal: 8,
+    paddingHorizontal: 16,
   },
   media: {
     width: '100%',
@@ -203,22 +201,19 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   footer: {
-    padding: 8,
+    paddingVertical: 8,
+    paddingHorizontal: 16,
     flexDirection: 'row',
     alignItems: 'center',
   },
   actionContainer: {
     flexDirection: 'row',
-    marginEnd: 12,
+    marginEnd: 20,
   },
   actionCounter: {
     fontSize: 16,
     color: '#bbbbbb',
     paddingStart: 4,
-  },
-  kebab: {
-    width: 20,
-    height: 20,
   },
 });
 
