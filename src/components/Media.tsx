@@ -1,9 +1,8 @@
 import React, { useCallback, useState } from 'react';
-import { Image, Pressable, StyleSheet, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { MenuItem, OverflowMenu, Text } from '@ui-kitten/components';
-import { Video } from 'expo-av';
 import { Chat, DotsThreeOutlineVertical, Heart } from 'phosphor-react-native';
 import { formatDistanceToNowStrict } from 'date-fns';
 import * as api from '../api';
@@ -11,6 +10,7 @@ import { MediaWithMetadata, Navigation, Rating } from '../types';
 import { useMedia, useUser } from '../hooks';
 import { availableLanguages, mediaUrl, toast } from '../utils';
 import { Avatar } from './Avatar';
+import { File } from './File';
 
 interface MediaProps {
   media: MediaWithMetadata;
@@ -109,20 +109,7 @@ const Media = ({ media, detailed }: MediaProps) => {
         {(media.description && detailed)
           ? <Text style={styles.description}>{media.description}</Text>
           : null}
-        {media.media_type === 'image'
-          ? <Image source={{ uri: mediaUrl + media.filename }} style={styles.media} />
-          : media.media_type
-            ? <Video
-              source={{ uri: mediaUrl + media.filename }}
-              style={styles.media}
-              shouldPlay={!!detailed}
-              isLooping={!!detailed}
-              resizeMode="contain"
-              onError={err => {
-                console.error('video', err);
-              }}
-            />
-            : null}
+        <File uri={mediaUrl + media.filename} type={media.media_type} autoPlay={!!detailed} />
       </Pressable>
       <View style={styles.footer}>
         <Pressable onPress={rate} style={styles.actionContainer}>
@@ -194,11 +181,6 @@ const styles = StyleSheet.create({
   description: {
     paddingBottom: 8,
     paddingHorizontal: 16,
-  },
-  media: {
-    width: '100%',
-    height: 300,
-    resizeMode: 'contain',
   },
   footer: {
     paddingVertical: 8,

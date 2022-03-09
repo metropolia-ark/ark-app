@@ -1,6 +1,7 @@
 export * from './Avatar';
 export * from './Comment';
 export * from './Divider';
+export * from './File';
 export * from './Flag';
 export * from './Form';
 export * from './FormButton';

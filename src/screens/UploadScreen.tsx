@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Image } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { ImageInfo, launchImageLibraryAsync, MediaTypeOptions } from 'expo-image-picker';
-import { Video } from 'expo-av';
 import { useNavigation } from '@react-navigation/native';
 import { Button, CheckBox, Text } from '@ui-kitten/components';
 import * as yup from 'yup';
-import { Form, FormActions, FormButton, FormInput } from '../components';
+import { File, Form, FormActions, FormButton, FormInput } from '../components';
 import { MediaWithMetadata, Navigation } from '../types';
 import * as api from '../api';
 import { petTag, postTag, toast } from '../utils';
@@ -80,19 +79,7 @@ const UploadScreen = () => {
     <KeyboardAwareScrollView viewIsInsideTabBar enableAutomaticScroll extraScrollHeight={50} style={styles.container}>
       <View style={styles.content}>
         <Form initialValues={uploadInitialValues} schema={uploadSchema} onSubmit={uploadOnSubmit}>
-          {image?.type === 'image'
-            ? <Image source={{ uri: image.uri }} style={styles.image} />
-            : image?.type === 'video'
-              ? <Video
-                source={{ uri: image.uri }}
-                style={styles.image}
-                useNativeControls={true}
-                resizeMode="cover"
-                onError={err => {
-                  console.error('video', err);
-                }}
-              />
-              : null}
+          {image && <File uri={image.uri} type={image.type} showControls />}
           <Button appearance="outline" onPress={pickImage}>{t('upload.pickImage')}</Button>
           <FormInput name="title" label={t('field.title')} />
           <CheckBox checked={isMarket} onChange={setIsMarket} style={styles.checkbox}>
@@ -115,13 +102,6 @@ const styles = StyleSheet.create({
     padding: 32,
   },
   multiline: { minHeight: 60, maxHeight: 60 },
-  image: {
-    width: '100%',
-    height: undefined,
-    aspectRatio: 1,
-    marginBottom: 10,
-    resizeMode: 'contain',
-  },
   checkbox: { marginVertical: 12 },
   checkboxText: {
     fontSize: 14,
