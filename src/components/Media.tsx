@@ -22,14 +22,17 @@ const Media = ({ media, detailed }: MediaProps) => {
   const { t, i18n } = useTranslation();
   const currentUser = useUser();
   const { updateData } = useMedia();
-  const [visible, setVisible] = useState(false);
+  const [isRatePending, setIsRatePending] = useState(false);
+  const [isMenuVisible, setIsMenuVisible] = useState(false);
 
   // Check if the media has been rated by the current user
   const hasRatedAlready = () => !!media.ratings.find(r => r.user_id === currentUser?.user_id);
 
   // Rate the media
   const rate = async () => {
+    if (isRatePending) return;
     try {
+      setIsRatePending(true);
       if (hasRatedAlready()) {
         await api.deleteRating(media.file_id);
         const newRatings: Rating[] = media.ratings.filter(r => r.user_id !== currentUser.user_id);
@@ -44,6 +47,8 @@ const Media = ({ media, detailed }: MediaProps) => {
     } catch (error) {
       console.error(error?.response?.data || error);
       toast.error(t('error.unexpectedPrimary'), t('error.unexpectedSecondary'));
+    } finally {
+      setIsRatePending(false);
     }
   };
 
@@ -77,7 +82,7 @@ const Media = ({ media, detailed }: MediaProps) => {
 
   // Handle to show dropdown menu
   const renderToggleButton = () => (
-    <Pressable onPress={() => setVisible(true)}>
+    <Pressable onPress={() => setIsMenuVisible(true)}>
       <DotsThreeOutlineVertical size={24} color="#cccccc" weight="fill" />
     </Pressable>
   );
@@ -89,7 +94,7 @@ const Media = ({ media, detailed }: MediaProps) => {
           <Avatar small user={media.user} />
         </Pressable>
         <Pressable onPress={onPressUser}>
-          <Text  style={styles.username}>
+          <Text style={styles.username}>
             {media.user.username.length > 20 ? media.user.username.slice(0, 20) + '...' : media.user.username}
           </Text>
         </Pressable>
@@ -97,8 +102,8 @@ const Media = ({ media, detailed }: MediaProps) => {
         <Text style={styles.timestamp}>{formatTimestamp()}</Text>
         <OverflowMenu
           anchor={renderToggleButton}
-          visible={visible}
-          onBackdropPress={() => setVisible(false)}
+          visible={isMenuVisible}
+          onBackdropPress={() => setIsMenuVisible(false)}
         >
           <MenuItem title={t('media.report')} disabled />
           {media.user_id === currentUser.user_id
@@ -117,8 +122,8 @@ const Media = ({ media, detailed }: MediaProps) => {
         <Pressable onPress={rate} style={styles.actionContainer}>
           <Heart
             size={24}
-            color={hasRatedAlready() ? '#ff3d71' : '#bbbbbb'}
-            weight={hasRatedAlready() ? 'fill' : 'regular'}
+            color={hasRatedAlready() !== isRatePending ? '#ff3d71' : '#bbbbbb'}
+            weight={hasRatedAlready() !== isRatePending ? 'fill' : 'regular'}
           />
           <Text style={styles.actionCounter}>{media.ratings.length}</Text>
         </Pressable>

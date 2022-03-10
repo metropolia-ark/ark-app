@@ -60,7 +60,8 @@ const Comment = ({ comment }: CommentProps) => {
 const styles = StyleSheet.create({
   comment: {
     flex: 1,
-    padding: 8,
+    paddingVertical: 8,
+    paddingHorizontal: 16,
     borderTopWidth: 1,
     borderTopColor: '#eeeeee',
     backgroundColor: '#ffffff',

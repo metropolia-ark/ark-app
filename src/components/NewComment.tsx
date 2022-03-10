@@ -6,6 +6,7 @@ import * as api from '../api';
 import { useMedia, useUser } from '../hooks';
 import { Comment, MediaWithMetadata } from '../types';
 import { toast } from '../utils';
+import { Spinner } from '@ui-kitten/components';
 
 interface NewCommentProps {
   media: MediaWithMetadata;
@@ -15,12 +16,15 @@ const NewComment = ({ media }: NewCommentProps) => {
   const { t } = useTranslation();
   const currentUser = useUser();
   const { updateData } = useMedia();
+  const [isPending, setIsPending] = useState(false);
   const [comment, setComment] = useState('');
 
   // Create a comment on a media
   const createComment = async () => {
+    if (isPending || !comment) return;
     try {
-      if (!comment) return;
+      Keyboard.dismiss();
+      setIsPending(true);
       const { comment_id } = await api.createComment(media.file_id, comment);
       const newComment: Comment = {
         comment_id,
@@ -36,7 +40,7 @@ const NewComment = ({ media }: NewCommentProps) => {
       toast.error(t('error.unexpectedPrimary'), t('error.unexpectedSecondary'));
     } finally {
       setComment('');
-      Keyboard.dismiss();
+      setIsPending(false);
     }
   };
 
@@ -49,7 +53,9 @@ const NewComment = ({ media }: NewCommentProps) => {
         style={styles.input}
       />
       <TouchableOpacity activeOpacity={0.5} onPress={createComment}>
-        <PaperPlaneRight size={20} weight="bold" color="#3366ff" />
+        {isPending
+          ? <Spinner size="medium" />
+          : <PaperPlaneRight size={20} weight="bold" color="#3366ff" />}
       </TouchableOpacity>
     </View>
   );
