@@ -31,7 +31,10 @@ const SignUpScreen = () => {
   const signUpSchema = yup.object().shape({
     username: yup.string().min(5, t('error.usernameTooShort')).required(t('required.username')),
     email: yup.string().email(t('error.emailInvalid')).required(t('required.email')),
-    password: yup.string().required(t('required.password')),
+    password: yup.string()
+      .required(t('required.password'))
+      .min(5, t('error.usernameTooShort'))
+      .matches(/[0-9]/, t('required.numberPassword')),
     confirm: yup.string()
       .oneOf([yup.ref('password'), null], t('error.passwordMatch'))
       .required(t('required.confirm')),

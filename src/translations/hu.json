@@ -61,6 +61,7 @@
     "username": "A felhasználónév megadása kötelező.",
     "email": "Az email cím megadása kötelező.",
     "password": "A jelszó megadása kötelező.",
+    "numberPassword": "A jelszónak tartalmaznia kell 1 számot.",
     "confirm": "A jelszó megerősítése kötelező.",
     "title": "A cím megadása kötelező.",
     "file": "A fájl megadása kötelező."
@@ -71,6 +72,7 @@
     "usernameTooShort": "A felhasználónév túl rövid (min. 5).",
     "emailInvalid": "Az email cím nem megfelelő.",
     "passwordMatch": "A jelszavaknak egyezniük kell.",
+    "passwordTooShort": "A jelszó túl rövid (min. 5).",
     "unexpectedPrimary": "Egy váratlan hiba állt elő.",
     "unexpectedSecondary": "Próbálja meg újra később.",
     "fileSize": "A feltöltött fájl túl nagy."

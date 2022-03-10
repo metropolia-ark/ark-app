@@ -61,6 +61,7 @@
     "username": "Käyttäjänimi on pakollinen.",
     "email": "Sähköpostiosoite on pakollinen.",
     "password": "Salasana on pakollinen.",
+    "numberPassword": "Salasana vaatii ainakin yhden numeron",
     "confirm": "Salasanan vahvistus on pakollinen.",
     "title": "Otsikko on pakollinen.",
     "file": "Tiedosto on pakollinen."
@@ -71,6 +72,7 @@
     "usernameTooShort": "Käyttäjänimi on liian lyhyt (min. 5).",
     "emailInvalid": "Sähköpostiosoite on väärin.",
     "passwordMatch": "Salasanat eivät täsmää.",
+    "passwordTooShort": "Salasana on liian lyhyt (min. 5).",
     "unexpectedPrimary": "Odottamaton virhe on tapahtunut.",
     "unexpectedSecondary": "Yritä uudelleen myöhemmin.",
     "fileSize": "Tiedosto on lian iso."
