@@ -24,7 +24,7 @@ const File = ({ uri, type, autoPlay, showControls }: FileProps) => {
           useNativeControls={showControls}
           shouldPlay={autoPlay}
           isLooping
-          resizeMode="cover"
+          resizeMode="contain"
           onError={error => console.error('video', error)}
         />
       );

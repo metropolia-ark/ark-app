@@ -89,7 +89,9 @@ const Media = ({ media, detailed }: MediaProps) => {
           <Avatar small user={media.user} />
         </Pressable>
         <Pressable onPress={onPressUser}>
-          <Text style={styles.username}>{media.user.username}</Text>
+          <Text  style={styles.username}>
+            {media.user.username.length > 20 ? media.user.username.slice(0, 20) + '...' : media.user.username}
+          </Text>
         </Pressable>
         <Text style={styles.timestampPrefix}>•</Text>
         <Text style={styles.timestamp}>{formatTimestamp()}</Text>
