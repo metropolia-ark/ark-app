@@ -6,3 +6,4 @@ export const mediaUrl = 'https://media.mw.metropolia.fi/wbma/uploads/';
 export const postTag = 'ark-post-tag';
 export const petTag = 'ark-pet-tag';
 export const avatarTag = 'ark-avatar-tag-';
+export const reportTag = 'ark-report-tag';

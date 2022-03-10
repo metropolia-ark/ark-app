@@ -8,7 +8,7 @@ import { formatDistanceToNowStrict } from 'date-fns';
 import * as api from '../api';
 import { MediaWithMetadata, Navigation, Rating } from '../types';
 import { useMedia, useUser } from '../hooks';
-import { availableLanguages, mediaUrl, toast } from '../utils';
+import { availableLanguages, mediaUrl, reportTag, toast } from '../utils';
 import { Avatar } from './Avatar';
 import { File } from './File';
 
@@ -73,6 +73,12 @@ const Media = ({ media, detailed }: MediaProps) => {
       toast.error(t('error.unexpectedPrimary'), t('error.unexpectedSecondary'));
     }
   };
+  // Handle the report
+  const reportPost = async () => {
+    await api.addTagToMedia(media.file_id, reportTag);
+    toast.info(t('success.report'));
+    setIsMenuVisible(false);
+  };
 
   // Format and localize the timestamp
   const formatTimestamp = useCallback(() => {
@@ -105,7 +111,7 @@ const Media = ({ media, detailed }: MediaProps) => {
           visible={isMenuVisible}
           onBackdropPress={() => setIsMenuVisible(false)}
         >
-          <MenuItem title={t('media.report')} disabled />
+          <MenuItem title={t('media.report')} onPress={reportPost} />
           {media.user_id === currentUser.user_id
             ? <MenuItem title={t('media.delete')} onPress={deletePost} />
             : <></>}

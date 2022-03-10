@@ -55,7 +55,8 @@
   },
   "success": {
     "profileUpdated": "Профіль оновлено!",
-    "passwordUpdated": "Пароль оновлено!"
+    "passwordUpdated": "Пароль оновлено!",
+    "report": "TODO"
   },
   "required": {
     "username": "Введіть логін.",

@@ -55,7 +55,8 @@
   },
   "success": {
     "profileUpdated": "Profil sikeresen frissítve!",
-    "passwordUpdated": "Jelszó sikeresen frissítve!"
+    "passwordUpdated": "Jelszó sikeresen frissítve!",
+    "report": "Poszt jelentve"
   },
   "required": {
     "username": "A felhasználónév megadása kötelező.",

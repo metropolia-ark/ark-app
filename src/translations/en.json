@@ -55,7 +55,8 @@
   },
   "success": {
     "profileUpdated": "Profile updated successfully!",
-    "passwordUpdated": "Password changed successfully!"
+    "passwordUpdated": "Password changed successfully!",
+    "report": "Post has been reported"
   },
   "required": {
     "username": "The username is required.",

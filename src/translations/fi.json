@@ -55,7 +55,8 @@
   },
   "success": {
     "profileUpdated": "Profiilin päivitys onnistui",
-    "passwordUpdated": "Salasana päivitys onnistui"
+    "passwordUpdated": "Salasana päivitys onnistui",
+    "report": "Tiedosto raportoitu"
   },
   "required": {
     "username": "Käyttäjänimi on pakollinen.",
