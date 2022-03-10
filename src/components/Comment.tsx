@@ -46,7 +46,9 @@ const Comment = ({ comment }: CommentProps) => {
       <View style={styles.commentContent}>
         <View style={styles.header}>
           <Pressable onPress={() => navigate('User', { userId: user.user_id })}>
-            <Text style={styles.username}>{user.username.length > 27 ? user.username.slice(0, 27) + '...' : user.username}</Text>
+            <Text style={styles.username}>
+              {user.username.length > 27 ? user.username.slice(0, 27) + '...' : user.username}
+            </Text>
           </Pressable>
           <Text style={styles.timestampPrefix}>•</Text>
           <Text style={styles.timestamp}>{formatTimestamp(comment.time_added)}</Text>
