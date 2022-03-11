@@ -1,6 +1,6 @@
 # ARK
 
-Animal centric social media and pet adoption platform.
+Concept application for an animal-centered social media platform.
 
 ## Prerequisites
 
