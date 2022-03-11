@@ -2,7 +2,11 @@ import React, { useEffect, useRef } from 'react';
 import { StyleSheet, View } from 'react-native';
 import LottieView from 'lottie-react-native';
 
-const Spinner = () => {
+interface SpinnerProps {
+  fullScreen?: boolean;
+}
+
+const Spinner = ({ fullScreen }: SpinnerProps) => {
   const animation = useRef<LottieView | null>();
 
   // Handle playing and hiding animation
@@ -12,7 +16,7 @@ const Spinner = () => {
   }, []);
 
   return (
-    <View style={styles.spinnerContainer}>
+    <View style={[styles.spinnerContainer, fullScreen && styles.spinnerContainerFullScreen]}>
       <LottieView
         ref={reference => animation.current = reference}
         style={styles.lottieSpinner}
@@ -30,6 +34,10 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     padding: 32,
+  },
+  spinnerContainerFullScreen: {
+    height: '100%',
+    justifyContent: 'center',
   },
   lottieSpinner: {
     height: 100,
