@@ -4,9 +4,9 @@
     "slug": "ark",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/ark.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/ark.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
