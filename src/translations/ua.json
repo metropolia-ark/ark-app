@@ -41,6 +41,7 @@
   "user": {
     "postsTab": "Публікації",
     "marketTab": "Маркет",
+    "likedTab": "TODO",
     "empty": "Тут пусто поки що.."
   },
   "settings": {
@@ -56,13 +57,12 @@
   "success": {
     "profileUpdated": "Профіль оновлено!",
     "passwordUpdated": "Пароль оновлено!",
-    "report": "TODO"
+    "reported": "TODO"
   },
   "required": {
     "username": "Введіть логін.",
     "email": "Введіть електронну адресу.",
     "password": "Введіть пароль.",
-    "numberPassword": "TODO",
     "confirm": "Будь ласка, підтвердіть пароль.",
     "title": "Введіть заголовок.",
     "file": "Файл."
@@ -74,6 +74,7 @@
     "emailInvalid": "Формат електронної пошти невірний.",
     "passwordMatch": "Пароль не співпадає.",
     "passwordTooShort": "TODO",
+    "passwordNoNumber": "TODO",
     "unexpectedPrimary": "Виникла непередбачуванна помилка.",
     "unexpectedSecondary": "Будь ласка, спробуйте пізніше.",
     "fileSize": "Розмір файлу занадто великий."

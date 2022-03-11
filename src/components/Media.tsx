@@ -22,7 +22,6 @@ const Media = ({ media, detailed }: MediaProps) => {
   const { t, i18n } = useTranslation();
   const currentUser = useUser();
   const { updateData } = useMedia();
-  const [isRatePending, setIsRatePending] = useState(false);
   const [isMenuVisible, setIsMenuVisible] = useState(false);
 
   // Check if the media has been rated by the current user
@@ -30,25 +29,21 @@ const Media = ({ media, detailed }: MediaProps) => {
 
   // Rate the media
   const rate = async () => {
-    if (isRatePending) return;
     try {
-      setIsRatePending(true);
       if (hasRatedAlready()) {
-        await api.deleteRating(media.file_id);
         const newRatings: Rating[] = media.ratings.filter(r => r.user_id !== currentUser.user_id);
         const updatedMedia: MediaWithMetadata = { ...media, ratings: newRatings };
         updateData(media.file_id, updatedMedia);
+        await api.deleteRating(media.file_id);
       } else {
-        const { rating_id } = await api.createRating(media.file_id, 1);
-        const newRating: Rating = { rating_id, file_id: media.file_id, user_id: currentUser.user_id, rating: 1 };
+        const newRating: Rating = { rating_id: 0, file_id: media.file_id, user_id: currentUser.user_id, rating: 1 };
         const updatedMedia: MediaWithMetadata = { ...media, ratings: [ ...media.ratings, newRating ] };
         updateData(media.file_id, updatedMedia);
+        await api.createRating(media.file_id, 1);
       }
     } catch (error) {
       console.error(error?.response?.data || error);
       toast.error(t('error.unexpectedPrimary'), t('error.unexpectedSecondary'));
-    } finally {
-      setIsRatePending(false);
     }
   };
 
@@ -62,8 +57,8 @@ const Media = ({ media, detailed }: MediaProps) => {
     navigate('User', { userId: media.user_id });
   };
 
-  // Handle to delete posts
-  const deletePost = async () => {
+  // Handle removing the media
+  const remove = async () => {
     try {
       await api.deleteMedia(media.file_id);
       updateData(media.file_id, undefined);
@@ -73,11 +68,17 @@ const Media = ({ media, detailed }: MediaProps) => {
       toast.error(t('error.unexpectedPrimary'), t('error.unexpectedSecondary'));
     }
   };
-  // Handle the report
+
+  // Handle reporting the media
   const reportPost = async () => {
-    await api.addTagToMedia(media.file_id, reportTag);
-    toast.info(t('success.report'));
-    setIsMenuVisible(false);
+    try {
+      await api.addTagToMedia(media.file_id, reportTag);
+      toast.info(t('success.reported'));
+      setIsMenuVisible(false);
+    } catch (error) {
+      console.error(error?.response?.data || error);
+      toast.error(t('error.unexpectedPrimary'), t('error.unexpectedSecondary'));
+    }
   };
 
   // Format and localize the timestamp
@@ -113,7 +114,7 @@ const Media = ({ media, detailed }: MediaProps) => {
         >
           <MenuItem title={t('media.report')} onPress={reportPost} />
           {media.user_id === currentUser.user_id
-            ? <MenuItem title={t('media.delete')} onPress={deletePost} />
+            ? <MenuItem title={t('media.delete')} onPress={remove} />
             : <></>}
         </OverflowMenu>
       </View>
@@ -128,8 +129,8 @@ const Media = ({ media, detailed }: MediaProps) => {
         <Pressable onPress={rate} style={styles.actionContainer}>
           <Heart
             size={24}
-            color={hasRatedAlready() !== isRatePending ? '#ff3d71' : '#bbbbbb'}
-            weight={hasRatedAlready() !== isRatePending ? 'fill' : 'regular'}
+            color={hasRatedAlready() ? '#ff3d71' : '#bbbbbb'}
+            weight={hasRatedAlready() ? 'fill' : 'regular'}
           />
           <Text style={styles.actionCounter}>{media.ratings.length}</Text>
         </Pressable>

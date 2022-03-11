@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import { Pressable, StyleSheet, TouchableOpacity, View } from 'react-native';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useNavigation } from '@react-navigation/native';
-import { Text, Button, Modal, Select, IndexPath, SelectItem, Card, MenuItem, Menu } from '@ui-kitten/components';
+import { Button, Text } from '@ui-kitten/components';
 import * as yup from 'yup';
-import { Flag, Form, FormButton, FormInput, LanguageSelector } from '../components';
+import { Form, FormButton, FormInput, LanguageSelector } from '../components';
 import * as api from '../api';
 import { Navigation } from '../types';
 import { useAuth } from '../hooks';
-import { availableLanguages, toast } from '../utils';
+import { toast } from '../utils';
 
 interface SignInFormValues {
   username: string;
@@ -56,7 +56,7 @@ const SignInScreen = () => {
         </Form>
         <Text style={styles.text}>{t('signin.noAccountYet')}</Text>
         <Button appearance="ghost" onPress={() => navigate('SignUp')}>{t('signin.signUpInstead')}</Button>
-        <LanguageSelector/>
+        <LanguageSelector />
       </View>
     </KeyboardAwareScrollView>
   );

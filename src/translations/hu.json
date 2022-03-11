@@ -41,6 +41,7 @@
   "user": {
     "postsTab": "Posztok",
     "marketTab": "Piac",
+    "likedTab": "Kedvelve",
     "empty": "Még semmi sem lett itt megosztva..."
   },
   "settings": {
@@ -56,13 +57,12 @@
   "success": {
     "profileUpdated": "Profil sikeresen frissítve!",
     "passwordUpdated": "Jelszó sikeresen frissítve!",
-    "report": "Poszt jelentve"
+    "reported": "Poszt jelentve!"
   },
   "required": {
     "username": "A felhasználónév megadása kötelező.",
     "email": "Az email cím megadása kötelező.",
     "password": "A jelszó megadása kötelező.",
-    "numberPassword": "A jelszónak tartalmaznia kell 1 számot.",
     "confirm": "A jelszó megerősítése kötelező.",
     "title": "A cím megadása kötelező.",
     "file": "A fájl megadása kötelező."
@@ -74,6 +74,7 @@
     "emailInvalid": "Az email cím nem megfelelő.",
     "passwordMatch": "A jelszavaknak egyezniük kell.",
     "passwordTooShort": "A jelszó túl rövid (min. 5).",
+    "passwordNoNumber": "A jelszónak tartalmaznia kell 1 számot.",
     "unexpectedPrimary": "Egy váratlan hiba állt elő.",
     "unexpectedSecondary": "Próbálja meg újra később.",
     "fileSize": "A feltöltött fájl túl nagy."

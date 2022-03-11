@@ -41,6 +41,7 @@
   "user": {
     "postsTab": "Julkaisut",
     "marketTab": "Tori",
+    "likedTab": "Tykätty",
     "empty": "Tyhjä"
   },
   "settings": {
@@ -56,13 +57,12 @@
   "success": {
     "profileUpdated": "Profiilin päivitys onnistui",
     "passwordUpdated": "Salasana päivitys onnistui",
-    "report": "Tiedosto raportoitu"
+    "reported": "Tiedosto raportoitu!"
   },
   "required": {
     "username": "Käyttäjänimi on pakollinen.",
     "email": "Sähköpostiosoite on pakollinen.",
     "password": "Salasana on pakollinen.",
-    "numberPassword": "Salasana vaatii ainakin yhden numeron",
     "confirm": "Salasanan vahvistus on pakollinen.",
     "title": "Otsikko on pakollinen.",
     "file": "Tiedosto on pakollinen."
@@ -74,6 +74,7 @@
     "emailInvalid": "Sähköpostiosoite on väärin.",
     "passwordMatch": "Salasanat eivät täsmää.",
     "passwordTooShort": "Salasana on liian lyhyt (min. 5).",
+    "passwordNoNumber": "Salasana vaatii ainakin yhden numeron.",
     "unexpectedPrimary": "Odottamaton virhe on tapahtunut.",
     "unexpectedSecondary": "Yritä uudelleen myöhemmin.",
     "fileSize": "Tiedosto on lian iso."

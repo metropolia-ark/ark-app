@@ -9,7 +9,7 @@ import { useMedia, useUser } from '../hooks';
 import { Route, User } from '../types';
 import { avatarTag, filter, petTag, postTag, toast } from '../utils';
 
-enum Tab { Posts, Pets }
+enum Tab { Posts, Pets, Liked }
 
 const UserScreen = () => {
   const { params } = useRoute<Route.User | Route.Profile>();
@@ -48,7 +48,9 @@ const UserScreen = () => {
   };
 
   // Get all media by tag and user id
-  const mediaList = filter(media.data, { tag: tab === Tab.Posts ? postTag : petTag, user_id: user?.user_id });
+  const mediaList = tab === Tab.Liked
+    ? filter(media.data, item => item.ratings.some(rating => rating.user_id === currentUser.user_id))
+    : filter(media.data, { tag: tab === Tab.Posts ? postTag : petTag, user_id: user?.user_id });
 
   if (isLoading || media.isLoading || !user) return <Spinner />;
   return (
@@ -73,6 +75,12 @@ const UserScreen = () => {
               <Text style={[styles.tabLabel, tab === Tab.Pets && styles.tabLabelActive]}>{t('user.marketTab')}</Text>
               <View style={[styles.tabIndicator, tab === Tab.Pets && styles.tabIndicatorActive]} />
             </Pressable>
+            {user.user_id === currentUser.user_id && (
+              <Pressable onPress={() => setTab(Tab.Liked)} style={styles.tabItem}>
+                <Text style={[styles.tabLabel, tab === Tab.Liked && styles.tabLabelActive]}>{t('user.likedTab')}</Text>
+                <View style={[styles.tabIndicator, tab === Tab.Liked && styles.tabIndicatorActive]} />
+              </Pressable>
+            )}
           </View>
         </View>
       )}

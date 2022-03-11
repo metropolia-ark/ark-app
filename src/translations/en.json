@@ -41,6 +41,7 @@
   "user": {
     "postsTab": "Posts",
     "marketTab": "Market",
+    "likedTab": "Liked",
     "empty": "Nothing has been shared here yet..."
   },
   "settings": {
@@ -56,13 +57,12 @@
   "success": {
     "profileUpdated": "Profile updated successfully!",
     "passwordUpdated": "Password changed successfully!",
-    "report": "Post has been reported"
+    "reported": "Post has been reported!"
   },
   "required": {
     "username": "The username is required.",
     "email": "The email address is required.",
     "password": "The password is required.",
-    "numberPassword": "The password must contain at least 1 number.",
     "confirm": "The confirmation is required.",
     "title": "The title is required.",
     "file": "The file is required."
@@ -74,6 +74,7 @@
     "emailInvalid": "The email address is invalid.",
     "passwordMatch": "The passwords must match.",
     "passwordTooShort": "The password is too short (min. 5).",
+    "passwordNoNumber": "The password must contain at least 1 number.",
     "unexpectedPrimary": "An unexpected error has occurred.",
     "unexpectedSecondary": "Please try again later.",
     "fileSize": "The file is too large."

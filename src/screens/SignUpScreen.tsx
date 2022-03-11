@@ -2,8 +2,8 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { Button, Text } from '@ui-kitten/components';
 import { useNavigation } from '@react-navigation/native';
+import { Button, Text } from '@ui-kitten/components';
 import * as yup from 'yup';
 import { Form, FormActions, FormButton, FormInput, LanguageSelector } from '../components';
 import * as api from '../api';
@@ -34,7 +34,7 @@ const SignUpScreen = () => {
     password: yup.string()
       .required(t('required.password'))
       .min(5, t('error.usernameTooShort'))
-      .matches(/[0-9]/, t('required.numberPassword')),
+      .matches(/[0-9]/, t('error.passwordNoNumber')),
     confirm: yup.string()
       .oneOf([yup.ref('password'), null], t('error.passwordMatch'))
       .required(t('required.confirm')),
@@ -68,7 +68,7 @@ const SignUpScreen = () => {
         </Form>
         <Text style={styles.text}>{t('signup.alreadyHaveAccount')}</Text>
         <Button appearance="ghost" onPress={() => navigate('SignIn')}>{t('signup.signInInstead')}</Button>
-        <LanguageSelector/>
+        <LanguageSelector />
       </View>
     </KeyboardAwareScrollView>
   );
