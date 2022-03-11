@@ -12,7 +12,7 @@ Concept application for an animal-centered social media platform.
 
 **1.** Clone this repository using any git client
 ```bash
-git clone https://github.com/metropolia-insert-name-here/ark-app.git
+git clone https://github.com/metropolia-ark/ark-app.git
 ```
 
 **2.** Install the dependencies using npm
