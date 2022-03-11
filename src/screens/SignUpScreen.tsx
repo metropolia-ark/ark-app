@@ -5,7 +5,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { Button, Text } from '@ui-kitten/components';
 import { useNavigation } from '@react-navigation/native';
 import * as yup from 'yup';
-import { Form, FormActions, FormButton, FormInput } from '../components';
+import { Form, FormActions, FormButton, FormInput, LanguageSelector } from '../components';
 import * as api from '../api';
 import { Navigation } from '../types';
 import { useAuth } from '../hooks';
@@ -68,6 +68,7 @@ const SignUpScreen = () => {
         </Form>
         <Text style={styles.text}>{t('signup.alreadyHaveAccount')}</Text>
         <Button appearance="ghost" onPress={() => navigate('SignIn')}>{t('signup.signInInstead')}</Button>
+        <LanguageSelector/>
       </View>
     </KeyboardAwareScrollView>
   );

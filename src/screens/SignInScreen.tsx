@@ -1,15 +1,15 @@
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, { useState } from 'react';
+import { Pressable, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useNavigation } from '@react-navigation/native';
-import { Text, Button } from '@ui-kitten/components';
+import { Text, Button, Modal, Select, IndexPath, SelectItem, Card, MenuItem, Menu } from '@ui-kitten/components';
 import * as yup from 'yup';
-import { Form, FormButton, FormInput } from '../components';
+import { Flag, Form, FormButton, FormInput, LanguageSelector } from '../components';
 import * as api from '../api';
 import { Navigation } from '../types';
 import { useAuth } from '../hooks';
-import { toast } from '../utils';
+import { availableLanguages, toast } from '../utils';
 
 interface SignInFormValues {
   username: string;
@@ -56,6 +56,7 @@ const SignInScreen = () => {
         </Form>
         <Text style={styles.text}>{t('signin.noAccountYet')}</Text>
         <Button appearance="ghost" onPress={() => navigate('SignUp')}>{t('signin.signUpInstead')}</Button>
+        <LanguageSelector/>
       </View>
     </KeyboardAwareScrollView>
   );
@@ -71,6 +72,11 @@ const styles = StyleSheet.create({
     margin: 20,
     textAlign: 'center',
   },
+  title: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+
 });
 
 export default SignInScreen;
