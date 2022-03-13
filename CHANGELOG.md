@@ -1,0 +1,18 @@
+## Feedback improvement / Bug fixes
+- Yup should require 5 characters and 1 number in signup and settings
+- Persist selected language in AsyncStorage
+- Prevent the spamming of the reaction button or comment sending
+- Report media
+- Splash screen color, app name and maybe icon
+- Language selection on unauthenticated screens
+- Show all liked posts as a third tab on profile page
+- Improve Finnish translations 
+- Improve UI on 'new' screen: rename to upload screen, toggle -> checkbox
+- Rename home screen to posts screen (so it's posts & market screen)
+- Make the minimum length of the username 5 characters with yup 
+- Hide delete button from media that is owned by another user
+- Comment component padding should match post padding (e.g. avatar)
+- Make all icons (like, comment, dots) slightly larger
+- Make comment icon pressable to navigate to media screen
+- Make username and avatar on comments pressable to navigate to user screen
+- Trim with '...' too long usernames on media and comment headers
