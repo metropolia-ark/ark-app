@@ -33,7 +33,7 @@ const SignUpScreen = () => {
     email: yup.string().email(t('error.emailInvalid')).required(t('required.email')),
     password: yup.string()
       .required(t('required.password'))
-      .min(5, t('error.usernameTooShort'))
+      .min(5, t('error.passwordTooShort'))
       .matches(/[0-9]/, t('error.passwordNoNumber')),
     confirm: yup.string()
       .oneOf([yup.ref('password'), null], t('error.passwordMatch'))
